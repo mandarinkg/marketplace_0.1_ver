@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход - Marketplace{% endblock %}
+
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    .auth-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #2c3e50;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        width: 100%; /* Форма толук ээлеп турушу үчүн */
+        box-sizing: border-box;
+    }
+    
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+    
+    .btn-login {
+        width: 100%;
+        padding: 10px;
+        background-color: #3498db;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .btn-login:hover {
+        background-color: #2980b9;
+    }
+    
+    .auth-link {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .auth-link a {
+        color: #3498db;
+        text-decoration: none;
+    }
+    
+    .auth-link a:hover {
+        text-decoration: underline;
+    }
+    
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    
+    .errorlist li {
+        color: #e74c3c;
+        padding: 8px;
+        background-color: #fadbd8;
+        border-radius: 4px;
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+    
+    .non-field-errors {
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block auth_content %} {# Блоктун аты 'auth_content' деп өзгөртүлдү #}
+<div class="auth-container">
+    <h1><i class="fas fa-sign-in-alt"></i> Вход</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% if form.non_field_errors %}
+            <div class="errorlist non-field-errors">
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                <div class="errorlist">
+                    {% for error in form.email.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+            {% if form.password.errors %}
+                <div class="errorlist">
+                    {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button type="submit" class="btn-login">Войти</button>
+    </form>
+    
+    <div class="auth-link">
+        Нет аккаунта? <a href="{% url 'accounts:register' %}">Зарегистрироваться</a>
+    </div>
+</div>
+{% endblock %}
