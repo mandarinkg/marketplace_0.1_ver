@@ -1,0 +1,320 @@
+{% extends 'base.html' %}
+
+{% block title %}Админ-панель - Управление пользователями{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 20px;
+    }
+    
+    .admin-header h1 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 2rem;
+    }
+    
+    .admin-header .btn {
+        background-color: #27ae60;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    
+    .admin-header .btn:hover {
+        background-color: #229954;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .stat-card {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        border-left: 4px solid #3498db;
+    }
+    
+    .stat-card.sellers {
+        border-left-color: #e74c3c;
+    }
+    
+    .stat-card.employees {
+        border-left-color: #f39c12;
+    }
+    
+    .stat-card.couriers {
+        border-left-color: #9b59b6;
+    }
+    
+    .stat-card.clients {
+        border-left-color: #27ae60;
+    }
+    
+    .stat-card .number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin: 10px 0;
+    }
+    
+    .stat-card .label {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+    }
+    
+    .users-section h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ecf0f1;
+        padding-bottom: 10px;
+    }
+    
+    .users-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .users-table thead {
+        background-color: #34495e;
+        color: white;
+    }
+    
+    .users-table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid #2c3e50;
+    }
+    
+    .users-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ecf0f1;
+    }
+    
+    .users-table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .role-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+    }
+    
+    .role-badge.seller {
+        background-color: #e74c3c;
+    }
+    
+    .role-badge.employee {
+        background-color: #f39c12;
+    }
+    
+    .role-badge.courier {
+        background-color: #9b59b6;
+    }
+    
+    .role-badge.client {
+        background-color: #27ae60;
+    }
+    
+    .staff-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background-color: #3498db;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    
+    .action-btn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        background-color: #3498db;
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: background-color 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .action-btn:hover {
+        background-color: #2980b9;
+    }
+    
+    .action-btn.delete {
+        background-color: #e74c3c;
+    }
+    
+    .action-btn.delete:hover {
+        background-color: #c0392b;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #7f8c8d;
+    }
+    
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 10px;
+        color: #bdc3c7;
+    }
+    
+    @media (max-width: 768px) {
+        .admin-header {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .users-table {
+            font-size: 0.85rem;
+        }
+        
+        .users-table th, .users-table td {
+            padding: 8px 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1><i class="fas fa-cog"></i> Админ-панель</h1>
+        <a href="{% url 'dashboard:home' %}" class="btn">← Вернуться</a>
+    </div>
+    
+    <!-- Статистика -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-users" style="font-size: 2rem; color: #3498db;"></i>
+            <div class="number">{{ stats.total_users }}</div>
+            <div class="label">Всего пользователей</div>
+        </div>
+        
+        <div class="stat-card sellers">
+            <i class="fas fa-store" style="font-size: 2rem; color: #e74c3c;"></i>
+            <div class="number">{{ stats.sellers }}</div>
+            <div class="label">Продавцов</div>
+        </div>
+        
+        <div class="stat-card employees">
+            <i class="fas fa-briefcase" style="font-size: 2rem; color: #f39c12;"></i>
+            <div class="number">{{ stats.employees }}</div>
+            <div class="label">Сотрудников</div>
+        </div>
+        
+        <div class="stat-card couriers">
+            <i class="fas fa-truck" style="font-size: 2rem; color: #9b59b6;"></i>
+            <div class="number">{{ stats.couriers }}</div>
+            <div class="label">Курьеров</div>
+        </div>
+        
+        <div class="stat-card clients">
+            <i class="fas fa-shopping-cart" style="font-size: 2rem; color: #27ae60;"></i>
+            <div class="number">{{ stats.clients }}</div>
+            <div class="label">Клиентов</div>
+        </div>
+        
+        <div class="stat-card">
+            <i class="fas fa-shield-alt" style="font-size: 2rem; color: #34495e;"></i>
+            <div class="number">{{ stats.staff_count }}</div>
+            <div class="label">Администраторов</div>
+        </div>
+    </div>
+    
+    <!-- Таблица пользователей -->
+    <div class="users-section">
+        <h2>Управление пользователями</h2>
+        
+        {% if users %}
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Роль</th>
+                    <th>Статус</th>
+                    <th>Дата регистрации</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>#{{ user.id }}</td>
+                    <td>{{ user.get_full_name|default:user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <span class="role-badge {{ user.role }}">
+                            {{ user.get_role_display }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if user.is_staff %}
+                            <span class="staff-badge">ADMIN</span>
+                        {% endif %}
+                        {% if user.is_active %}
+                            <span style="color: #27ae60; font-weight: 600;">✓ Активен</span>
+                        {% else %}
+                            <span style="color: #e74c3c; font-weight: 600;">✗ Неактивен</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ user.date_joined|date:"d.m.Y" }}</td>
+                    <td>
+                        <a href="{% url 'accounts:change_user_role' user.id %}" class="action-btn">
+                            <i class="fas fa-edit"></i> Изменить
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="empty-state">
+            <div><i class="fas fa-inbox"></i></div>
+            <p>Пользователей не найдено</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Автообновление каждые 30 секунд
+    // setTimeout(() => {
+    //     location.reload();
+    // }, 30000);
+</script>
+{% endblock %}

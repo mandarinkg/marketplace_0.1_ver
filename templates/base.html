@@ -156,6 +156,9 @@
                     {% if user.is_authenticated %}
                         <span>{{ user.get_full_name }}</span>
                         <span class="user-role">{{ user.get_role_display }}</span>
+                        {% if user.is_staff %}
+                            <span class="user-role" style="background-color: #e74c3c;">Admin</span>
+                        {% endif %}
                     {% endif %}
                 </div>
                 {% if user.is_authenticated %}
@@ -170,6 +173,17 @@
   {% if user.is_authenticated %}
         <div class="main-container">
             <aside class="sidebar">
+                <!-- Admin Menu -->
+                {% if user.is_staff %}
+                    <div class="menu-section">
+                        <div class="section-title">⚙️ Администрирование</div>
+                        <ul class="nav-menu">
+                            <li><a href="{% url 'accounts:admin_dashboard' %}"><i class="fas fa-users-cog"></i> Управление пользователями</a></li>
+                            <li><a href="/admin/"><i class="fas fa-cog"></i> Django Admin</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+                
                 {% if user.role == 'seller' %}
                     <div class="menu-section">
                         <div class="section-title">Продавец</div>

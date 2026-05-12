@@ -7,6 +7,11 @@ from .models import User
 class UserAdmin(BaseUserAdmin):
     """Custom User Admin"""
     
+    list_display = ('email', 'first_name', 'role', 'is_staff')
+    list_filter = ('role', 'is_staff', 'is_active')
+    search_fields = ('email', 'first_name')
+    ordering = ('email',)
+
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
@@ -27,3 +32,4 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('username', 'email', 'first_name', 'role', 'is_staff')
     list_filter = ('role', 'is_staff', 'is_active')
     search_fields = ('username', 'email', 'first_name')
+
