@@ -7,92 +7,82 @@
     .dashboard-header {
         margin-bottom: 30px;
     }
-    
+
     .dashboard-header h1 {
         color: #2c3e50;
         font-weight: bold;
         margin-bottom: 10px;
     }
-    
+
     .welcome-text {
         color: #7f8c8d;
     }
-    
+
     .stats-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 20px;
         margin-bottom: 30px;
     }
-    
+
     .stat-card {
-        background-color: white;
+        background: white;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        transition: transform 0.3s, box-shadow 0.3s;
     }
-    
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-    }
-    
+
     .stat-icon {
         font-size: 2rem;
         margin-bottom: 10px;
         color: #9b59b6;
     }
-    
+
     .stat-value {
         font-size: 1.8rem;
         font-weight: bold;
         color: #2c3e50;
-        margin-bottom: 5px;
     }
-    
+
     .stat-label {
         color: #7f8c8d;
-        font-size: 0.95rem;
     }
-    
+
     .action-buttons {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         gap: 15px;
         margin-top: 30px;
     }
-    
+
     .action-btn {
         padding: 15px;
-        border: none;
         border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s;
         text-decoration: none;
+        font-weight: 600;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
+        transition: 0.3s;
     }
-    
+
     .action-btn-primary {
-        background-color: #9b59b6;
+        background: #9b59b6;
         color: white;
     }
-    
+
     .action-btn-primary:hover {
-        background-color: #8e44ad;
+        background: #8e44ad;
     }
-    
+
     .action-btn-secondary {
-        background-color: #ecf0f1;
+        background: #ecf0f1;
         color: #2c3e50;
     }
-    
+
     .action-btn-secondary:hover {
-        background-color: #bdc3c7;
+        background: #d0d7de;
     }
 </style>
 {% endblock %}
@@ -100,38 +90,48 @@
 {% block content %}
 <div class="dashboard-header">
     <h1><i class="fas fa-shopping-cart"></i> Dashboard Клиента</h1>
-    <p class="welcome-text">Добро пожаловать, {{ user.get_full_name }}!</p>
+    <p class="welcome-text">
+        Добро пожаловать, {{ user.get_full_name }}!
+    </p>
 </div>
 
 <div class="stats-grid">
     <div class="stat-card">
-        <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+        <div class="stat-icon">
+            <i class="fas fa-shopping-bag"></i>
+        </div>
         <div class="stat-value">0</div>
         <div class="stat-label">Заказов</div>
     </div>
-    
+
     <div class="stat-card">
-        <div class="stat-icon"><i class="fas fa-heart"></i></div>
+        <div class="stat-icon">
+            <i class="fas fa-heart"></i>
+        </div>
         <div class="stat-value">0</div>
         <div class="stat-label">Избранное</div>
     </div>
-    
+
     <div class="stat-card">
-        <div class="stat-icon"><i class="fas fa-ruble-sign"></i></div>
-        <div class="stat-value">₽0</div>
+        <div class="stat-icon">
+            <i class="fas fa-ruble-sign"></i>
+        </div>
+        <div class="stat-value">0</div>
         <div class="stat-label">Потрачено</div>
     </div>
 </div>
 
 <div class="action-buttons">
-    <button class="action-btn action-btn-primary">
-        <i class="fas fa-search"></i> Каталог
-    </button>
-    <button class="action-btn action-btn-secondary">
-        <i class="fas fa-shopping-bag"></i> Заказы
-    </button>
-    <button class="action-btn action-btn-secondary">
-        <i class="fas fa-heart"></i> Избранное
-    </button>
+    <a href="{% url 'categories:list' %}" class="action-btn action-btn-primary">
+        <i class="fas fa-th-large"></i> Каталог
+    </a>
+
+    <a href="{% url 'orders:create' %}" class="action-btn action-btn-secondary">
+        <i class="fas fa-plus"></i> Создать заказ
+    </a>
+
+    <a href="#" class="action-btn action-btn-secondary">
+        <i class="fas fa-shopping-bag"></i> Мои заказы
+    </a>
 </div>
 {% endblock %}

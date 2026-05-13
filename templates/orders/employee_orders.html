@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Employee Заказы</h1>
+
+{% for order in orders %}
+    <p>
+        Order #{{ order.id }} - {{ order.status }}
+
+        <a href="{% url 'orders:update_status' order.id 'processing' %}">
+            Accept
+        </a>
+    </p>
+{% endfor %}
+
+{% endblock %}

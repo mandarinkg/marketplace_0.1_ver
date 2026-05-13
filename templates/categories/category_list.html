@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Категориялар үчүн атайын стилдер */
+    .category-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .category-header {
+        font-size: 28px;
+        color: #2d3436;
+        margin-bottom: 30px;
+        border-left: 5px solid #2ecc71; /* Жашыл сызык */
+        padding-left: 15px;
+    }
+
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .category-item {
+        background: #ffffff;
+        border: 1px solid #e1e8ed;
+        border-radius: 12px;
+        padding: 25px 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        display: block;
+        text-decoration: none;
+    }
+
+    .category-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        border-color: #2ecc71;
+    }
+
+    .category-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #34495e;
+        margin: 0;
+    }
+
+    .category-count {
+        font-size: 14px;
+        color: #95a5a6;
+        margin-top: 8px;
+        display: block;
+    }
+
+    /* Эгер категория жок болсо */
+    .empty-state {
+        text-align: center;
+        padding: 50px;
+        color: #95a5a6;
+        background: #f9f9f9;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="category-container">
+    <h2 class="category-header">Бардык категориялар</h2>
+
+    <div class="category-grid">
+        {% for category in categories %}
+            <a href="{% url 'products:list' %}?category={{ category.id }}" class="category-item">
+                <p class="category-name">{{ category.name }}</p>
+                <span class="category-count">Товарларды көрүү →</span>
+            </a>
+        {% empty %}
+            <div class="empty-state">
+                <p>Азырынча категориялар кошула элек.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

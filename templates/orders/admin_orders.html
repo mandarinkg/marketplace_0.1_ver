@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Заказы</h1>
+
+{% for order in orders %}
+    <div style="background:white;padding:15px;margin-bottom:10px;border-radius:8px;">
+        <p>Order #{{ order.id }}</p>
+        <p>Client: {{ order.client.email }}</p>
+        <p>Status: {{ order.get_status_display }}</p>
+        <p>Date: {{ order.created_at }}</p>
+    </div>
+{% empty %}
+    <p>No orders found</p>
+{% endfor %}
+
+{% endblock %}

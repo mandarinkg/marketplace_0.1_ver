@@ -107,31 +107,45 @@
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-inbox"></i></div>
         <div class="stat-value">0</div>
-        <div class="stat-label">Новые заказы</div>
+        <div class="stat-label">
+         <div class="stat-label">
+                <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-primary">
+                    <i class="fas fa-inbox"></i> Новые заказы
+                </a>
+            </div>
+        </div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
         <div class="stat-value">0</div>
-        <div class="stat-label">В обработке</div>
+        <div class="stat-label">
+             <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
+               <i class="fas fa-tasks"></i> В обработке
+            </a>
+        </div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-truck"></i></div>
         <div class="stat-value">0</div>
-        <div class="stat-label">На доставку</div>
+        <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
+        <i class="fas fa-truck"></i> На доставку
+        </a>
     </div>
 </div>
 
 <div class="action-buttons">
-    <button class="action-btn action-btn-primary">
+    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-primary">
         <i class="fas fa-inbox"></i> Новые заказы
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-tasks"></i> В обработке
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-truck"></i> На доставку
-    </button>
+    </a>
 </div>
 {% endblock %}

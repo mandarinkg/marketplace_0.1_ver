@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Негизги контейнер */
+    .catalog-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Башкы бөлүк жана баскыч */
+    .catalog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .catalog-title {
+        font-size: 30px;
+        font-weight: 800;
+        color: #2d3436;
+        margin: 0;
+    }
+
+    .btn-create {
+        background-color: #2ecc71;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+    }
+
+    .btn-create:hover {
+        background-color: #27ae60;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(46, 204, 113, 0.3);
+    }
+
+    /* Товарлардын торчосу (Grid) */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    /* Товардын карточкасы */
+    .product-card {
+        background: #ffffff;
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid #f1f3f5;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+    .product-card:hover {
+        border-color: #2ecc71;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        transform: translateY(-5px);
+    }
+
+    .product-link {
+        text-decoration: none;
+        color: #2d3436;
+    }
+
+    .product-name {
+        font-size: 20px;
+        font-weight: 700;
+        margin: 10px 0;
+        line-height: 1.4;
+        transition: color 0.2s;
+    }
+
+    .product-card:hover .product-name {
+        color: #2ecc71;
+    }
+
+    .product-price {
+        font-size: 22px;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-top: 15px;
+    }
+
+    .currency {
+        font-size: 16px;
+        color: #6c757d;
+        margin-left: 4px;
+    }
+
+    /* Эгер товар жок болсо */
+    .empty-catalog {
+        text-align: center;
+        padding: 60px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        color: #95a5a6;
+    }
+
+    /* Мобилдик версия үчүн ыңгайлаштыруу */
+    @media (max-width: 600px) {
+        .catalog-header {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="catalog-container">
+    <div class="catalog-header">
+        <h2 class="catalog-title">Бардык товарлар</h2>
+
+        {% if user.role == 'seller' %}
+            <a href="{% url 'products:create' %}" class="btn-create">
+                + Товар кошуу
+            </a>
+        {% endif %}
+
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                {% if product.slug %}
+                    <a href="{% url 'products:detail' product.slug %}" class="product-link">
+                    {% endif %}
+                        <h3 class="product-name">{{ product.title }}</h3>
+                    {% if product.slug %}
+                    </a>
+                    {% endif %}
+                <div class="product-price">
+                    {{ product.price }} <span class="currency">сом</span>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-catalog">
+                <p style="font-size: 18px;">Товарлар азырынча кошула элек.</p>
+                <a href="{% url 'products:create' %}" style="color: #2ecc71;">Биринчи товарды кошуңуз</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

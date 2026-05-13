@@ -113,7 +113,13 @@
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-road"></i></div>
         <div class="stat-value">0</div>
-        <div class="stat-label">В доставке</div>
+        <div class="stat-label">
+            <div class="stat-label">
+                <a href="{% url 'orders:courier_orders' %}" style="text-decoration:none; color:inherit;">
+                    Доставки
+                </a>
+            </div>
+        </div>
     </div>
     
     <div class="stat-card">
@@ -124,14 +130,16 @@
 </div>
 
 <div class="action-buttons">
-    <button class="action-btn action-btn-primary">
+    <a href="{% url 'orders:courier_orders' %}" class="action-btn action-btn-primary">
         <i class="fas fa-list"></i> Мои доставки
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="{% url 'orders:courier_orders' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-map"></i> На маршруте
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="{% url 'orders:courier_orders' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-check-circle"></i> Завершенные
-    </button>
+    </a>
 </div>
 {% endblock %}

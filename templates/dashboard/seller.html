@@ -106,32 +106,34 @@
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-box"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ products_count }}</div>
         <div class="stat-label">Товары</div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ orders_count }}</div>
         <div class="stat-label">Заказы</div>
     </div>
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-ruble-sign"></i></div>
-        <div class="stat-value">₽0</div>
+        <div class="stat-value">0</div>
         <div class="stat-label">Продажи</div>
     </div>
 </div>
 
 <div class="action-buttons">
-    <button class="action-btn action-btn-primary">
+    <a href="{% url 'products:create' %}" class="action-btn action-btn-primary">
         <i class="fas fa-plus"></i> Добавить товар
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="{% url 'products:list' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-list"></i> Мои товары
-    </button>
-    <button class="action-btn action-btn-secondary">
+    </a>
+
+    <a href="#" class="action-btn action-btn-secondary" onclick="return false;">
         <i class="fas fa-chart-bar"></i> Статистика
-    </button>
+    </a>
 </div>
 {% endblock %}

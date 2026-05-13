@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>My Заказы</h1>
+
+{% for order in orders %}
+    <p>
+        Order #{{ order.id }} - {{ order.get_status_display }}
+    </p>
+{% empty %}
+    <p>No orders yet</p>
+{% endfor %}
+{% endblock %}

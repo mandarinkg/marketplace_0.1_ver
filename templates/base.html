@@ -175,13 +175,24 @@
             <aside class="sidebar">
                 <!-- Admin Menu -->
                 {% if user.is_staff %}
-                    <div class="menu-section">
-                        <div class="section-title">⚙️ Администрирование</div>
-                        <ul class="nav-menu">
-                            <li><a href="{% url 'accounts:admin_dashboard' %}"><i class="fas fa-users-cog"></i> Управление пользователями</a></li>
-                            <li><a href="/admin/"><i class="fas fa-cog"></i> Django Admin</a></li>
-                        </ul>
-                    </div>
+                   
+
+
+                            <div class="menu-section">
+                                <div class="section-title">⚙️ Администрирование</div>
+                                <ul class="nav-menu">
+                                    <li><a href="{% url 'dashboard:admin_dashboard' %}">Users Dashboard</a></li>
+                                    <li><a href="{% url 'orders:admin_orders' %}">Orders</a></li>
+                                    <li><a href="{% url 'accounts:sellers' %}">Sellers</a></li>
+                                    <li><a href="{% url 'accounts:employees' %}">Employees</a></li>
+                                    <li><a href="{% url 'accounts:couriers' %}">Couriers</a></li>
+                                    <li><a href="/admin/">Django Admin</a></li>
+                                </ul>
+                            </div>
+                                                    
+                           
+                           
+                    
                 {% endif %}
                 
                 {% if user.role == 'seller' %}
@@ -189,7 +200,16 @@
                         <div class="section-title">Продавец</div>
                         <ul class="nav-menu">
                             <li><a href="{% url 'dashboard:seller' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-                            <li><a href="#"><i class="fas fa-box"></i> Мои товары</a></li>
+                            <li>
+                                <a href="{% url 'products:list' %}">
+                                    <i class="fas fa-box"></i> Мои товары
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'products:create' %}">
+                                    <i class="fas fa-plus"></i> Добавить товар
+                                </a>
+                            </li>
                             <li><a href="#"><i class="fas fa-shopping-cart"></i> Заказы</a></li>
                             <li><a href="#"><i class="fas fa-chart-bar"></i> Статистика</a></li>
                         </ul>
@@ -200,7 +220,14 @@
                         <div class="section-title">Сотрудник</div>
                         <ul class="nav-menu">
                             <li><a href="{% url 'dashboard:employee' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-                            <li><a href="#"><i class="fas fa-inbox"></i> Новые заказы</a></li>
+                            <!-- <li><a href="#"><i class="fas fa-inbox"></i> Новые заказы</a></li> -->
+
+                            <li>
+                                <a href="{% url 'orders:employee_orders' %}">
+                                    новые заказы
+                                </a>
+                            </li>
+
                             <li><a href="#"><i class="fas fa-tasks"></i> В обработке</a></li>
                             <li><a href="#"><i class="fas fa-truck"></i> На доставку</a></li>
                         </ul>
@@ -211,7 +238,14 @@
                         <div class="section-title">Курьер</div>
                         <ul class="nav-menu">
                             <li><a href="{% url 'dashboard:courier' %}"><i class="fas fa-home"></i> Dashboard</a></li>
-                            <li><a href="#"><i class="fas fa-truck"></i> Доставки</a></li>
+                            <!-- <li><a href="#"><i class="fas fa-truck"></i> Доставки</a></li> -->
+
+                            <li>
+                            <a href="{% url 'orders:courier_orders' %}">
+                                Доставки
+                            </a>
+                            </li>
+
                             <li><a href="#"><i class="fas fa-check-circle"></i> Завершенные</a></li>
                         </ul>
                     </div>
@@ -226,6 +260,18 @@
                             <li><a href="#"><i class="fas fa-heart"></i> Избранное</a></li>
                         </ul>
                     </div>
+
+                    <li>
+                <a href="{% url 'orders:create' %}">
+                    Test order
+                </a>
+                </li>
+
+                <li>
+                <a href="{% url 'orders:client_orders' %}">
+                    My orders
+                </a>
+                </li>
                 {% endif %}
             </aside>
             
