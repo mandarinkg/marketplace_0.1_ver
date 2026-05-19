@@ -63,6 +63,16 @@
                     <h3 class="product-link" style="color: #2c3e50; margin: 0 0 8px 0;">{{ product.title }}</h3>
                     {% endif %}
 
+                    <div style="font-size: 13px; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
+                        {% if product.stock == 0 %}
+                            <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
+                        {% elif product.stock <= 3 %}
+                            <span style="color: #e67e22; font-weight: 500;">Осталось мало: <strong>{{ product.stock }} шт</strong></span>
+                        {% else %}
+                            <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }} шт</strong></span>
+                        {% endif %}
+                    </div>
+
                     <div class="product-footer">
                         <div class="price-block">
                             {% if product.old_price %}
@@ -71,10 +81,17 @@
                             <div class="current-price">{{ product.price }} ₽</div>
                         </div>
                         
-                        <!-- Себетке кошуу баскычы -->
-                        <a href="#" class="btn-cart add-to-cart-btn" data-product-id="{{ product.id }}">
-                            <i class="fas fa-shopping-cart"></i>
-                        </a>
+                        {% if product.stock == 0 %}
+                            <span class="btn-cart" 
+                                  style="background-color: #b2bec3 !important; color: #ffffff !important; cursor: not-allowed !allowed; display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 8px; font-size: 18px;" 
+                                  title="Товар закончился">
+                                <i class="fas fa-shopping-cart"></i>
+                            </span>
+                        {% else %}
+                            <a href="#" class="btn-cart add-to-cart-btn" data-product-id="{{ product.id }}">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 

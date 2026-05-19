@@ -74,4 +74,11 @@ urlpatterns = [
         views.update_order_status,
         name='update_status'
     ),
+
+    # ---------------- CREATE FROM CART ----------------
+    path(
+        'create-from-cart/',
+        views.create_order_from_cart,
+        name='create_from_cart'
+    ),
 ]

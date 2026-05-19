@@ -69,8 +69,8 @@
                 </a>
 
 
-                <a href="#" class="action-item">
-                    <span class="badge" id="cart-badge" {% if cart_total_quantity == 0 %}style="background-color: #b2bec3;"{% endif %}>
+                <a href="{% url 'cart:detail' %}" class="action-item">
+                    <span class="badge" id="cart-badge" style="background-color: {% if cart_total_quantity > 0 %}#62cb78{% else %}#b2bec3{% endif %};">
                         {{ cart_total_quantity|default:0 }}
                     </span>
                     <i class="fas fa-shopping-cart"></i>

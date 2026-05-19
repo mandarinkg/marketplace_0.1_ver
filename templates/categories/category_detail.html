@@ -14,8 +14,15 @@
         color: #7f8c8d;
         margin-bottom: 15px;
     }
-    .breadcrumbs a { color: #78b933; text-decoration: none; }
-    .breadcrumbs a:hover { text-decoration: underline; }
+
+    .breadcrumbs a {
+        color: #78b933;
+        text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
 
     .category-title {
         font-size: 28px;
@@ -93,7 +100,7 @@
 
     .product-card:hover {
         border-color: #78b933;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
 
     /* Скидканын кызыл белгиси */
@@ -136,8 +143,8 @@
     .product-img-box {
         height: 200px;
         display: flex;
-        align-items: center;     
-        justify-content: center;    
+        align-items: center;
+        justify-content: center;
         margin-bottom: 20px;
         position: relative;
         width: 100%;
@@ -157,17 +164,25 @@
     }
 
     .product-link {
-        color: #78b933;
+        color: #2c3e50;
         font-size: 16px;
         font-weight: 600;
         text-decoration: none;
-        margin: 0 0 12px 0; 
+        margin: 0 0 4px 0;
         display: block;
         line-height: 1.4;
+        transition: color 0.2s;
     }
 
     .product-link:hover {
+        color: #78b933;
         text-decoration: underline;
+    }
+
+    /* Остаток үчүн кошумча стилдер */
+    .stock-indicator {
+        font-size: 13px;
+        margin-bottom: 15px;
     }
 
     /* Баа жана Себет жайгашкан астыңкы блок */
@@ -218,6 +233,13 @@
         background-color: #639b24;
     }
 
+    /* Остаток 0 болгондогу Себет баскычынын стили */
+    .btn-cart:disabled {
+        background-color: #b2bec3;
+        color: #ffffff;
+        cursor: not-allowed;
+    }
+
     .empty-category {
         text-align: center;
         padding: 60px;
@@ -228,26 +250,76 @@
     }
 
     @media (max-width: 600px) {
-        .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .product-card { padding: 12px; border-radius: 12px; }
-        .product-img-box { height: 140px; margin-bottom: 10px; }
-        .discount-badge { top: 10px; left: 10px; font-size: 11px; padding: 20px 6px; }
-        .card-actions-top { top: 10px; right: 10px; gap: 10px; }
-        .action-icon { font-size: 18px; }
-        .product-link { font-size: 14px; margin-bottom: 8px; }
-        .old-price { font-size: 12px; }
-        .current-price { font-size: 16px; }
-        .btn-cart { width: 38px; height: 38px; font-size: 14px; border-radius: 6px; }
-        .subcategory-btn { padding: 8px 14px; font-size: 13px; }
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            padding: 12px;
+            border-radius: 12px;
+        }
+
+        .product-img-box {
+            height: 140px;
+            margin-bottom: 10px;
+        }
+
+        .discount-badge {
+            top: 10px;
+            left: 10px;
+            font-size: 11px;
+            padding: 20px 6px;
+        }
+
+        .card-actions-top {
+            top: 10px;
+            right: 10px;
+            gap: 10px;
+        }
+
+        .action-icon {
+            font-size: 18px;
+        }
+
+        .product-link {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .stock-indicator {
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .old-price {
+            font-size: 12px;
+        }
+
+        .current-price {
+            font-size: 16px;
+        }
+
+        .btn-cart {
+            width: 38px;
+            height: 38px;
+            font-size: 14px;
+            border-radius: 6px;
+        }
+
+        .subcategory-btn {
+            padding: 8px 14px;
+            font-size: 13px;
+        }
     }
 </style>
 
 <div class="category-page-container">
-    
+
     <div class="breadcrumbs">
-        <a href="/">Башкы бет</a> — 
+        <a href="/">Башкы бет</a> —
         {% if category.parent %}
-            <a href="{% url 'categories:detail' category.parent.slug %}">{{ category.parent.name }}</a> — 
+        <a href="{% url 'categories:detail' category.parent.slug %}">{{ category.parent.name }}</a> —
         {% endif %}
         <span>{{ category.name }}</span>
     </div>
@@ -255,85 +327,119 @@
     <h1 class="category-title">{{ category.name }}</h1>
 
     {% if subcategories %}
-        <div class="subcategories-filter-wrapper">
-            <div class="filter-title">Категориялар</div>
-            <ul class="subcategories-list">
-                {% if category.parent is None %}
-                    <li>
-                        <a href="{% url 'categories:detail' category.slug %}" class="subcategory-btn active">Баардыгы</a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'categories:detail' category.parent.slug %}" class="subcategory-btn">Баардыгы</a>
-                    </li>
-                {% endif %}
+    <div class="subcategories-filter-wrapper">
+        <div class="filter-title">Категориялар</div>
+        <ul class="subcategories-list">
+            {% if category.parent is None %}
+            <li>
+                <a href="{% url 'categories:detail' category.slug %}" class="subcategory-btn active">Баардыгы</a>
+            </li>
+            {% else %}
+            <li>
+                <a href="{% url 'categories:detail' category.parent.slug %}" class="subcategory-btn">Баардыгы</a>
+            </li>
+            {% endif %}
 
-                {% for sub in subcategories %}
-                    <li>
-                        <a href="{% url 'categories:detail' sub.slug %}" class="subcategory-btn {% if category.id == sub.id %}active{% endif %}">
-                            {{ sub.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+            {% for sub in subcategories %}
+            <li>
+                <a href="{% url 'categories:detail' sub.slug %}"
+                    class="subcategory-btn {% if category.id == sub.id %}active{% endif %}">
+                    {{ sub.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     {% endif %}
 
     <div class="product-grid">
         {% for product in products %}
-            <div class="product-card">
-                
-                {% if product.discount_percent > 0 %}
-                    <div class="discount-badge">-{{ product.discount_percent }}%</div>
+        <div class="product-card">
+
+            {% if product.discount_percent > 0 %}
+            <div class="discount-badge">-{{ product.discount_percent }}%</div>
+            {% endif %}
+
+            <div class="card-actions-top">
+                <i class="far fa-heart action-icon" title="В избранное"></i>
+                <i class="fas fa-bars-staggered action-icon" title="Сравнить"></i>
+            </div>
+
+            <div class="product-img-box">
+                {% if product.slug %}
+                <a href="{% url 'products:detail' product.slug %}">
+                    {% endif %}
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                    {% else %}
+                    <img src="https://via.placeholder.com/200x200.png?text=No+Image" alt="No Image">
+                    {% endif %}
+                    {% if product.slug %}
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="product-details-block">
+                {% if product.slug %}
+                <a href="{% url 'products:detail' product.slug %}" class="product-link">
+                    {{ product.title }}
+                </a>
+                {% else %}
+                <h3 class="product-link" style="color: #2c3e50; margin: 0 0 4px 0;">{{ product.title }}</h3>
                 {% endif %}
 
-                <div class="card-actions-top">
-                    <i class="far fa-heart action-icon" title="В избранное"></i>
-                    <i class="fas fa-bars-staggered action-icon" title="Сравнить"></i>
-                </div>
-
-                <div class="product-img-box">
-                    {% if product.slug %}
-                        <a href="{% url 'products:detail' product.slug %}">
-                    {% endif %}
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+                <div class="stock-indicator">
+                    {% if product.stock == 0 %}
+                    <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
+                    {% elif product.stock <= 3 %} <span style="color: #e67e22; font-weight: 500;">Осталось мало:
+                        <strong>{{ product.stock }} шт</strong></span>
                         {% else %}
-                            <img src="https://via.placeholder.com/200x200.png?text=No+Image" alt="No Image">
+                        <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }}
+                                шт</strong></span>
                         {% endif %}
-                    {% if product.slug %}
-                        </a>
-                    {% endif %}
                 </div>
 
-                <div class="product-details-block">
-                    {% if product.slug %}
-                        <a href="{% url 'products:detail' product.slug %}" class="product-link">
-                            {{ product.title }}
-                        </a>
-                    {% else %}
-                        <h3 class="product-link" style="color: #2c3e50; margin: 0 0 12px 0;">{{ product.title }}</h3>
-                    {% endif %}
+                <div class="product-footer">
+                    <div class="price-block">
+                        {% if product.old_price %}
+                        <span class="old-price">{{ product.old_price }} ₽</span>
+                        {% endif %}
+                        <div class="current-price">{{ product.price }} ₽</div>
+                    </div>
 
-                    <div class="product-footer">
-                        <div class="price-block">
-                            {% if product.old_price %}
-                                <span class="old-price">{{ product.old_price }} ₽</span>
+                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+
+                        <div style="font-size: 12px; font-family: 'Inter', sans-serif;">
+                            {% if product.stock == 0 %}
+                            <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
+                            {% else %}
+                            <span style="color: #7f8c8d;">Остаток: <strong style="color: #2c3e50;">{{ product.stock
+                                    }}</strong></span>
                             {% endif %}
-                            <div class="current-price">{{ product.price }} ₽</div>
                         </div>
-                        
-                        <button class="btn-cart">
+
+                        {% if product.stock == 0 %}
+                        <button class="btn-cart" disabled
+                            style="background-color: #b2bec3 !important; color: #ffffff !important; border: none; width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: not-allowed !important;"
+                            title="Товар закончился">
                             <i class="fas fa-shopping-cart"></i>
                         </button>
+                        {% else %}
+                        <button class="btn-cart"
+                            style="background-color: #78b933; color: white; border: none; width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: background-color 0.2s;">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>
+        </div>
         {% empty %}
-            <div class="empty-category" style="width: 100%; grid-column: 1 / -1;">
-                <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #b2bec3;"></i>
-                <p style="font-size: 16px; margin: 0;">Бул бөлүмдө азырынча товарлар жок.</p>
-            </div>
+        <div class="empty-category" style="width: 100%; grid-column: 1 / -1;">
+            <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #b2bec3;"></i>
+            <p style="font-size: 16px; margin: 0;">Бул бөлүмдө азырынча товарлар жок.</p>
+        </div>
         {% endfor %}
     </div>
 

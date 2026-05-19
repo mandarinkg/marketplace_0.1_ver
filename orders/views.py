@@ -280,3 +280,69 @@ def update_order_status(request, order_id, new_status):
             return redirect('orders:courier_orders')
 
     return redirect('dashboard:home')
+
+
+
+
+
+# =========================
+@login_required
+def create_order_from_cart(request):
+    print('1 START')
+
+    if request.method != 'POST':
+        print('2 NOT POST')
+        return redirect('cart:detail')
+
+    from cart.views import get_or_create_cart
+    cart = get_or_create_cart(request)
+    print('3 CART OK', cart)
+
+    if hasattr(cart, 'items'):
+        cart_items = cart.items.all()
+        print('4 USING items')
+    elif hasattr(cart, 'cart_items'):
+        cart_items = cart.cart_items.all()
+        print('5 USING cart_items')
+    else:
+        print('6 NO RELATION')
+        return redirect('cart:detail')
+
+    print('7 COUNT =', cart_items.count())
+
+    if not cart_items.exists():
+        print('8 EMPTY')
+        return redirect('cart:detail')
+
+    for item in cart_items:
+        print('PRODUCT', item.product.title, item.quantity, item.product.stock)
+
+        if item.quantity > item.product.stock:
+            print('9 STOCK ERROR')
+            return redirect('cart:detail')
+
+    print('10 BEFORE CREATE ORDER')
+
+    order = Order.objects.create(
+        client=request.user,
+        status='new'
+    )
+
+    print('11 ORDER CREATED', order.id)
+
+    for item in cart_items:
+        OrderItem.objects.create(
+            order=order,
+            product=item.product,
+            product_name=item.product.title,
+            quantity=item.quantity
+        )
+        print('12 ITEM CREATED')
+
+        item.product.stock -= item.quantity
+        item.product.save()
+
+    cart_items.delete()
+    print('13 CART CLEARED')
+
+    return redirect('orders:client_orders')

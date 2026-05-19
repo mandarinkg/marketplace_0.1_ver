@@ -1,9 +1,8 @@
 from django.db import models
 from django.conf import settings
-from products.models import Product  # Товар моделин импорттоо
+from products.models import Product
 
 class Cart(models.Model):
-    # Катталган колдонуучу үчүн байланыш (бош да боло алат)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE, 
@@ -11,7 +10,6 @@ class Cart(models.Model):
         blank=True, 
         related_name='cart'
     )
-    # Катталбаган конокторду браузердин сессиясы (session) аркылуу таануу үчүн
     session_key = models.CharField(max_length=40, null=True, blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -25,9 +23,8 @@ class Cart(models.Model):
             return f"Корзина пользователя: {self.user.username}"
         return f"Корзина гостя: {self.session_key}"
 
-    # Себеттеги жалпы маанилүү функциялар (Бизнес-логика)
     def get_total_quantity(self):
-        """Себеттеги товарлардын жалпы санын эсептейт (Шапкадагы счетчик үчүн)"""
+        """Себеттеги товарлардын жалпы санын эсептейт"""
         return sum(item.quantity for item in self.items.all())
 
     def get_total_price(self):
@@ -44,11 +41,11 @@ class CartItem(models.Model):
     class Meta:
         verbose_name = 'Элемент корзины'
         verbose_name_plural = 'Элементы корзины'
-        # Бир себеттин ичинде бир эле товар эки жолу кайталанбашы керек, санын гана көбөйтөбүз
         unique_together = ('cart', 'product')
 
     def __str__(self):
-        return f"{self.product.name} x {self.quantity}"
+        # Бул жер оңдолду: name ордуна title колдонулду
+        return f"{self.product.title} x {self.quantity}"
 
     def get_cost(self):
         """Бул товардын жалпы суммасын эсептейт (Баасы x Саны)"""

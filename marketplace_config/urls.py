@@ -23,12 +23,15 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # 1. СЕБЕТТИ УШУЛ ЖЕРГЕ ЖОГОРУ ЖАКА КОЮҢУЗ
+    path('cart/', include('cart.urls', namespace='cart')),
+
     path('', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('orders/', include('orders.urls')),
     path('categories/', include('categories.urls')),
-    path('cart/', include('cart.urls')),
 ]
 
 # DEBUG режиминде медиа файлдарын тейлөө

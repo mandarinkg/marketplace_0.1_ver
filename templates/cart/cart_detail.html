@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-page-container" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <h2 style="color: #2c3e50; margin-bottom: 30px; font-weight: 600;">Ваша корзина</h2>
+
+    {% if cart.items.exists %}
+    <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+
+        <div style="flex: 2; min-width: 300px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+
+            {% for item in cart.items.all %}
+            <div id="cart-item-{{ item.id }}" style="padding: 20px 0; border-bottom: 1px solid #f1f2f6;">
+
+                <div style="display: flex; justify-content: space-between; gap: 20px; align-items: center; flex-wrap: wrap;">
+
+                    <div style="display: flex; gap: 20px; align-items: center; flex: 2; min-width: 250px;">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" style="width: 90px; height: 90px; object-fit: cover; border-radius: 8px;">
+                        {% else %}
+                            <div style="width: 90px; height: 90px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #95a5a6; font-size: 12px;">Суроту жок</div>
+                        {% endif %}
+
+                        <div>
+                            <h4 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 16px; font-weight: 600;">{{ item.product.title }}</h4>
+                            <p style="margin: 0 0 5px 0; color: #7f8c8d; font-size: 14px;">
+                                {{ item.product.price }} ₽ / шт
+                            </p>
+
+                            <p style="margin: 0; font-size: 13px; color: #95a5a6;">
+                                Остаток: <strong class="product-stock-count">{{ item.product.stock }}</strong>
+                            </p>
+
+                            <div id="stock-warning-{{ item.id }}" style="margin-top: 5px; font-size: 13px;">
+                                {% if item.product.stock == 0 %}
+                                    <span style="color: #e74c3c; font-weight: bold;">Нет в наличии</span>
+                                {% block item_stock_check %}
+                                {% if item.quantity >= item.product.stock %}
+                                    <span style="color: #e74c3c; font-weight: bold;">Максимум доступно: {{ item.product.stock }} шт</span>
+                                {% elif item.product.stock <= 3 %}
+                                    <span style="color: #e67e22; font-weight: bold;">Осталось мало товара</span>
+                                {% endif %}
+                                {% endblock %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px; flex: 1; justify-content: center; min-width: 120px;">
+                        <button class="cart-qty-btn"
+                                data-id="{{ item.id }}"
+                                data-action="decrement"
+                                style="width: 35px; height: 35px; border: 1px solid #dcdde1; background: #fff; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; transition: all 0.2s;">
+                            -
+                        </button>
+
+                        <span id="item-qty-{{ item.id }}" style="font-size: 16px; font-weight: 600; min-width: 25px; text-align: center; color: #2c3e50;">
+                            {{ item.quantity }}
+                        </span>
+
+                        <button class="cart-qty-btn btn-increment-{{ item.id }}"
+                                data-id="{{ item.id }}"
+                                data-action="increment"
+                                data-stock="{{ item.product.stock }}"
+                                {% if item.quantity >= item.product.stock or item.product.stock == 0 %}
+                                    disabled
+                                {% endif %}
+                                style="width: 35px; height: 35px; border: 1px solid #dcdde1; background: #fff; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; transition: all 0.2s;">
+                            +
+                        </button>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 25px; flex: 1; justify-content: flex-end; min-width: 150px;">
+                        <strong id="item-cost-{{ item.id }}" style="font-size: 18px; font-weight: 700; color: #2c3e50;">
+                            {{ item.get_cost }} ₽
+                        </strong>
+
+                        <button class="cart-qty-btn"
+                                data-id="{{ item.id }}"
+                                data-action="delete"
+                                style="color: #e74c3c; border: none; background: none; cursor: pointer; font-size: 14px; font-weight: 500; transition: color 0.2s;">
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="flex: 1; min-width: 280px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); height: fit-content; position: sticky; top: 20px;">
+
+            <h3 style="margin-top: 0; color: #2c3e50; border-bottom: 2px solid #f1f2f6; padding-bottom: 15px; font-weight: 600;">Итого</h3>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 16px; color: #7f8c8d;">
+                <span>Количество:</span>
+                <strong id="cart-total-qty" style="color: #2c3e50;">{{ cart.get_total_quantity }}</strong>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 20px; color: #2c3e50; font-weight: 700;">
+                <span>Сумма заказа:</span>
+                <strong id="cart-total-price" style="color: #62cb78;">{{ cart.get_total_price }} ₽</strong>
+            </div>
+
+            <form action="{% url 'orders:create_from_cart' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit"
+                        style="display: block; width: 100%; background: #62cb78; color: #fff; text-align: center; padding: 15px 0; border-radius: 8px; border: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 10px rgba(98, 203, 120, 0.3); cursor: pointer; transition: background 0.2s;">
+                    Оформить заказ
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    {% else %}
+        <div style="text-align: center; padding: 80px 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <p style="font-size: 20px; color: #7f8c8d; margin-bottom: 25px;">Ваша корзина пуста.</p>
+            <a href="/" style="display: inline-block; background: #62cb78; color: #fff; padding: 12px 35px; border-radius: 8px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 10px rgba(98, 203, 120, 0.3);">Перейти к покупкам</a>
+        </div>
+    {% endif %}
+</div>
+
+
+<script>
+document.querySelectorAll('.cart-qty-btn').forEach(button => {
+    button.addEventListener('click', function() {
+
+        const action = this.dataset.action;
+        const itemId = this.dataset.id;
+        
+        const qtyElement = document.getElementById(`item-qty-${itemId}`);
+        const warningContainer = document.getElementById(`stock-warning-${itemId}`);
+        const incrementButton = document.querySelector(`.btn-increment-${itemId}`);
+        
+        let currentQty = qtyElement ? parseInt(qtyElement.innerText) : 0;
+
+        if (action === 'increment') {
+            const stock = parseInt(this.dataset.stock);
+            if (currentQty >= stock) {
+                if (warningContainer && stock > 0) {
+                    warningContainer.innerHTML = `<span style="color: #e74c3c; font-weight: bold;">Максимум доступно: ${stock} шт</span>`;
+                }
+                if (incrementButton) incrementButton.disabled = true;
+                return;
+            }
+        }
+
+        fetch(`/cart/update/${itemId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                action: action
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.status === 'success') {
+
+                if (action === 'delete' || data.item_quantity === 0) {
+                    const itemRow = document.getElementById(`cart-item-${itemId}`);
+                    if (itemRow) itemRow.remove();
+                } else {
+                    // Саны жана баасын жаңылоо
+                    if (qtyElement) qtyElement.innerText = data.item_quantity;
+                    
+                    const costElement = document.getElementById(`item-cost-${itemId}`);
+                    if (costElement) costElement.innerText = data.item_cost + ' ₽';
+                    
+                    // Саны өзгөргөндөн кийинки жаңы маанини алуу
+                    const updatedQty = data.item_quantity;
+                    const stockMax = incrementButton ? parseInt(incrementButton.dataset.stock) : 0;
+                    
+                    // Билдирүү текстин жана баскычтардын абалын динамикалык жаңылоо
+                    if (warningContainer) {
+                        if (updatedQty >= stockMax) {
+                            warningContainer.innerHTML = `<span style="color: #e74c3c; font-weight: bold;">Максимум доступно: ${stockMax} шт</span>`;
+                            if (incrementButton) incrementButton.disabled = true;
+                        } else if (stockMax <= 3) {
+                            warningContainer.innerHTML = `<span style="color: #e67e22; font-weight: bold;">Осталось мало товара</span>`;
+                            if (incrementButton) incrementButton.disabled = false;
+                        } else {
+                            warningContainer.innerHTML = ''; // Эгер баары нормалдуу болсо текстти тазалоо
+                            if (incrementButton) incrementButton.disabled = false;
+                        }
+                    }
+                }
+
+                const totalQtyElement = document.getElementById('cart-total-qty');
+                if (totalQtyElement) totalQtyElement.innerText = data.cart_total_quantity;
+
+                const totalPriceElement = document.getElementById('cart-total-price');
+                if (totalPriceElement) totalPriceElement.innerText = data.cart_total_price + ' ₽';
+
+                if (data.cart_total_quantity === 0) {
+                    location.reload();
+                }
+            } else if (data.status === 'error') {
+                // Серверден ката келген учурда текстти баракка чыгаруу
+                if (warningContainer) {
+                    warningContainer.innerHTML = `<span style="color: #e74c3c; font-weight: bold;">${data.message || 'Ошибка изменения количества'}</span>`;
+                }
+                if (incrementButton) incrementButton.disabled = true;
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+    });
+});
+</script>
+{% endblock %}
