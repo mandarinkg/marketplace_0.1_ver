@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Order #{{ order.id }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <h4>{{ item.product_name }}</h4>
+
+    <div style="display:flex;gap:15px;align-items:center;">
+        <button type="button" onclick="changeQty(-1)">-</button>
+
+        <span id="qty-text">{{ item.quantity }}</span>
+
+        <button type="button" onclick="changeQty(1)">+</button>
+    </div>
+
+    <input type="hidden"
+           name="quantity"
+           id="qty-input"
+           value="{{ item.quantity }}">
+
+    <br>
+
+    <button type="submit" class="btn btn-success">
+        Save
+    </button>
+</form>
+
+<script>
+let qty = {{ item.quantity }};
+
+function changeQty(value) {
+    qty += value;
+
+    if (qty < 1) {
+        qty = 1;
+    }
+
+    document.getElementById('qty-text').innerText = qty;
+    document.getElementById('qty-input').value = qty;
+}
+</script>
+{% endblock %}

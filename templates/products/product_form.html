@@ -1,20 +1,132 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4" style="max-width:700px;">
-    <h2>{{ title }}</h2>
+<style>
+    .form-page-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 16px;
+        border: 1px solid #e1e8ed;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        font-family: 'Inter', sans-serif;
+    }
 
-    <form method="post" class="mt-4">
+    .form-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #f1f3f5;
+        padding-bottom: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #555555;
+        margin-bottom: 8px;
+    }
+
+    /* Django берген бардык киргизүү талааларын кооздоо */
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #cccccc;
+        border-radius: 8px;
+        font-size: 15px;
+        color: #333333;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+        border-color: #78b933;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(120, 185, 51, 0.15);
+    }
+
+    .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn-save {
+        background-color: #78b933;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-save:hover {
+        background-color: #639b24;
+    }
+
+    .btn-back {
+        color: #7f8c8d;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .btn-back:hover {
+        color: #2c3e50;
+        text-decoration: underline;
+    }
+
+    /* Сүрөт жүктөөчү талаанын стили */
+    .form-group input[type="file"] {
+        padding: 8px;
+        border: 1px dashed #cccccc;
+        background: #fafafa;
+        cursor: pointer;
+    }
+</style>
+
+<div class="form-page-container">
+    <h1 class="form-title">{{ title }}</h1>
+
+    <form method="post" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
-        {{ form.as_p }}
 
-        <button type="submit" class="btn btn-primary">
-            Сохранить
-        </button>
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="color: #7f8c8d; display: block; margin-top: 4px;">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div style="color: #d9534f; font-size: 13px; margin-top: 5px; font-weight: 500;">
+                        {{ field.errors|striptags }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
 
-        <a href="{% url 'products:list' %}" class="btn btn-secondary">
-            Назад
-        </a>
+        <div class="form-actions">
+            <button type="submit" class="btn-save">Сохранить</button>
+            <a href="javascript:history.back()" class="btn-back">Назад</a>
+        </div>
     </form>
 </div>
 {% endblock %}

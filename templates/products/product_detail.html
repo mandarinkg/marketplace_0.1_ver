@@ -1,12 +1,130 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ product.title }}</h2>
+<div style="background:white;padding:20px;border-radius:10px;max-width:700px;">
 
-<p>{{ product.description }}</p>
-<p>{{ product.price }} сом</p>
-<p>Остаток: {{ product.stock }}</p>
+    <h2>{{ product.title }}</h2>
 
-<a href="{% url 'products:edit' product.slug %}">Редактировать</a>
-<a href="{% url 'products:delete' product.slug %}">Удалить</a>
+    <p>{{ product.description }}</p>
+    <p><strong>{{ product.price }} сом</strong></p>
+
+    <p>
+        Остаток: {{ product.stock }}
+
+        {% if product.stock > 0 and product.stock <= 3 %}
+            <span style="color:red;font-weight:bold;">
+                (Мало товара)
+            </span>
+        {% endif %}
+    </p>
+
+    <hr>
+
+    {% if user.role == 'seller' and product.seller == user %}
+        <a href="{% url 'products:edit' product.slug %}" class="btn btn-primary">
+            Редактировать
+        </a>
+
+        <a href="{% url 'products:delete' product.slug %}"
+           onclick="return confirm('Удалить товар?')"
+           class="btn btn-danger">
+            Удалить
+        </a>
+
+    {% elif user.role == 'client' %}
+
+        {% if product.stock > 0 %}
+            <div id="order-section">
+
+                <button onclick="showCounter()"
+                        id="order-btn"
+                        class="btn btn-success">
+                    Заказать
+                </button>
+
+                <form method="post"
+                      action="{% url 'orders:create_from_product' product.id %}"
+                      id="counter-box"
+                      style="display:none;margin-top:15px;">
+
+                    {% csrf_token %}
+
+                    <div style="display:flex;align-items:center;gap:15px;">
+
+                        <button type="button"
+                                onclick="changeQty(-1)"
+                                class="btn btn-danger">
+                            -
+                        </button>
+
+                        <span id="qty-text" style="font-size:22px;">1</span>
+
+                        <button type="button"
+                                onclick="changeQty(1)"
+                                class="btn btn-success">
+                            +
+                        </button>
+
+                        <input type="hidden"
+                               name="quantity"
+                               id="qty-input"
+                               value="1">
+
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Подтвердить
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        {% else %}
+            <button class="btn btn-secondary" disabled>
+                Нет в наличии
+            </button>
+        {% endif %}
+
+        <br><br>
+
+        <a href="{% url 'products:toggle_favorite' product.id %}"
+           class="btn btn-outline-secondary">
+            {% if is_favorite %}
+                Убрать из избранного
+            {% else %}
+                Добавить в избранное
+            {% endif %}
+        </a>
+
+    {% endif %}
+</div>
+
+<script>
+let qty = 1;
+const maxStock = {{ product.stock }};
+
+function showCounter() {
+    document.getElementById('order-btn').style.display = 'none';
+    document.getElementById('counter-box').style.display = 'block';
+}
+
+function changeQty(value) {
+    qty += value;
+
+    // qty 0 болсо кайра заказать кнопкага кайтуу
+    if (qty <= 0) {
+        qty = 1;
+        document.getElementById('counter-box').style.display = 'none';
+        document.getElementById('order-btn').style.display = 'inline-block';
+        return;
+    }
+
+    // stock ашпасын
+    if (qty > maxStock) {
+        qty = maxStock;
+    }
+
+    document.getElementById('qty-text').innerText = qty;
+    document.getElementById('qty-input').value = qty;
+}
+</script>
 {% endblock %}

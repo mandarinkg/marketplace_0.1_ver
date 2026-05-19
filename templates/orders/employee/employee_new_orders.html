@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Новые заказы</h2>
+
+{% for order in orders %}
+<div style="
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+">
+
+    <h4>Заказ #{{ order.id }}</h4>
+
+    <p>
+        <strong>Клиент:</strong>
+        {{ order.client.get_full_name|default:order.client.username }}
+    </p>
+
+    <p>
+        <strong>Аккаунт @:</strong>
+        {{ order.client.username }}
+    </p>
+
+    <hr>
+
+    <h5>Товары:</h5>
+
+    {% for item in order.items.all %}
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin-bottom:15px;
+            padding:10px;
+            border:1px solid #eee;
+            border-radius:8px;
+        ">
+
+            {% if item.product.image %}
+                <img src="{{ item.product.image.url }}"
+                     style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
+            {% endif %}
+
+            <div>
+                <p><strong>{{ item.product_name }}</strong></p>
+                <p>Количество: {{ item.quantity }} шт</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'orders:update_status' order.id 'processing' %}"
+       class="btn btn-success">
+        Принять заказ
+    </a>
+
+</div>
+{% empty %}
+    <p>Нет новых заказов</p>
+{% endfor %}
+{% endblock %}

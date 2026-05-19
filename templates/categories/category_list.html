@@ -2,84 +2,111 @@
 
 {% block content %}
 <style>
-    /* Категориялар үчүн атайын стилдер */
-    .category-container {
-        max-width: 1100px;
+    .categories-container {
+        max-width: 1200px;
         margin: 40px auto;
         padding: 0 20px;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Inter', sans-serif;
     }
 
-    .category-header {
+    .page-title {
         font-size: 28px;
+        font-weight: 700;
         color: #2d3436;
         margin-bottom: 30px;
-        border-left: 5px solid #2ecc71; /* Жашыл сызык */
-        padding-left: 15px;
     }
 
-    .category-grid {
+    /* Категориялардын чоң блокторунун торчосу */
+    .categories-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
     }
 
-    .category-item {
+    /* Ар бир башкы категориянын кутусу */
+    .category-block {
         background: #ffffff;
-        border: 1px solid #e1e8ed;
-        border-radius: 12px;
-        padding: 25px 15px;
-        text-align: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        display: block;
-        text-decoration: none;
+        border: 1px solid #f1f3f5;
+        border-radius: 8px;
+        padding: 24px;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .category-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        border-color: #2ecc71;
+    .category-block:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        border-color: #78b933;
     }
 
-    .category-name {
+    /* Башкы категориянын аталышы */
+    .main-category-title {
         font-size: 18px;
-        font-weight: 600;
-        color: #34495e;
-        margin: 0;
-    }
-
-    .category-count {
-        font-size: 14px;
-        color: #95a5a6;
-        margin-top: 8px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-top: 0;
+        margin-bottom: 15px;
         display: block;
+        transition: color 0.2s;
     }
 
-    /* Эгер категория жок болсо */
-    .empty-state {
-        text-align: center;
-        padding: 50px;
+    .main-category-title:hover {
+        color: #78b933;
+    }
+
+    /* Ички подкатегориялардын тизмеси */
+    .subcategory-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .subcategory-link {
+        font-size: 14px;
+        color: #555555;
+        text-decoration: none;
+        transition: color 0.2s;
+        display: inline-block;
+    }
+
+    .subcategory-link:hover {
+        color: #78b933;
+        text-decoration: underline;
+    }
+
+    .empty-message {
         color: #95a5a6;
-        background: #f9f9f9;
-        border-radius: 10px;
+        font-size: 14px;
+        font-style: italic;
     }
 </style>
 
-<div class="category-container">
-    <h2 class="category-header">Бардык категориялар</h2>
+<div class="categories-container">
+    <h1 class="page-title">Бардык категориялар</h1>
 
-    <div class="category-grid">
+    <div class="categories-grid">
         {% for category in categories %}
-            <a href="{% url 'products:list' %}?category={{ category.id }}" class="category-item">
-                <p class="category-name">{{ category.name }}</p>
-                <span class="category-count">Товарларды көрүү →</span>
-            </a>
-        {% empty %}
-            <div class="empty-state">
-                <p>Азырынча категориялар кошула элек.</p>
+            <div class="category-block">
+                <a href="{% url 'categories:detail' category.slug %}" class="main-category-title">
+                    {{ category.name }}
+                </a>
+
+                <ul class="subcategory-list">
+                    {% for subcategory in category.children.all %}
+                        <li>
+                            <a href="{% url 'categories:detail' subcategory.slug %}" class="subcategory-link">
+                                {{ subcategory.name }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="empty-message">Ички категориялар жок</li>
+                    {% endfor %}
+                </ul>
             </div>
+        {% empty %}
+            <p class="empty-message">Категориялар азырынча түзүлө элек.</p>
         {% endfor %}
     </div>
 </div>

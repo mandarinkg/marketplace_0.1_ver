@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Управление заказами</h2>
+
+<style>
+.order-box{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.order-header{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.product-card{
+    display:flex;
+    gap:15px;
+    align-items:center;
+    margin-top:15px;
+    padding:15px;
+    border:1px solid #eee;
+    border-radius:8px;
+}
+
+.product-card img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+.btn{
+    padding:10px 16px;
+    border:none;
+    border-radius:6px;
+    text-decoration:none;
+    color:white;
+    cursor:pointer;
+    display:inline-block;
+    margin-top:10px;
+}
+
+.btn-blue{ background:#3498db; }
+.btn-green{ background:#27ae60; }
+</style>
+
+
+<!-- NEW ORDERS -->
+<h3>Новые заказы</h3>
+
+{% for order in new_orders %}
+<div class="order-box">
+
+    <div class="order-header">
+        Заказ #{{ order.id }}
+    </div>
+
+    <p><strong>Клиент:</strong> {{ order.client.get_full_name }}</p>
+    <p><strong>Аккаунт:</strong> {{ order.client.username }}</p>
+
+    {% for item in order.items.all %}
+        <div class="product-card">
+            {% if item.product.image %}
+                <img src="{{ item.product.image.url }}">
+            {% endif %}
+
+            <div>
+                <h4>{{ item.product_name }}</h4>
+                <p>Количество: {{ item.quantity }} шт</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'orders:update_status' order.id 'processing' %}"
+       class="btn btn-blue">
+        Принять заказ
+    </a>
+</div>
+{% empty %}
+<p>Нет новых заказов</p>
+{% endfor %}
+
+
+
+{% endblock %}

@@ -6,7 +6,8 @@ class Order(models.Model):
     STATUS_CHOICES = [
         ('new', 'Новый'),
         ('processing', 'В обработке'),
-        ('delivering', 'В доставке'),
+        ('delivering', 'Передан курьеру'),
+        ('on_the_way', 'На маршруте'),
         ('delivered', 'Доставлен'),
     ]
 
@@ -32,6 +33,12 @@ class Order(models.Model):
         related_name='courier_orders'
     )
 
+    # Жаңы кошулуучу байланыш маалыматтары:
+    full_name = models.CharField(max_length=255, verbose_name="ФИО клиента")
+    phone = models.CharField(max_length=20, verbose_name="Телефон")
+    address = models.TextField(verbose_name="Адрес доставки")
+    comment = models.TextField(null=True, blank=True, verbose_name="Комментарий к заказу")
+
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
@@ -44,12 +51,21 @@ class Order(models.Model):
         return f'Order #{self.id} - {self.status}'
 
 
+
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
-        on_delete=models.CASCADE,
-        related_name='items'
+        related_name='items',
+        on_delete=models.CASCADE
     )
+
+    product = models.ForeignKey(
+        'products.Product',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
     product_name = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField(default=1)
 

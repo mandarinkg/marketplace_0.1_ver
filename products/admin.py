@@ -1,37 +1,9 @@
 from django.contrib import admin
-from .models import Product
-
+from .models import Product, Favorite
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = (
-        'id',
-        'title',
-        'slug',
-        'seller',
-        'category',
-        'price',
-        'stock',
-        'created_at'
-    )
-    list_filter = ('category', 'seller', 'created_at')
-    search_fields = ('title', 'slug', 'description')
-    readonly_fields = ('slug', 'created_at')
-    
-    fieldsets = (
-        ('Основная информация', {
-            'fields': ('title', 'slug', 'description', 'category')
-        }),
-        ('Продавец и цена', {
-            'fields': ('seller', 'price', 'stock')
-        }),
-        ('Даты', {
-            'fields': ('created_at',),
-            'classes': ('collapse',)
-        })
-    )
-    
-    def get_readonly_fields(self, request, obj=None):
-        if obj:  # При редактировании существующего объекта
-            return self.readonly_fields + ('seller',)
-        return self.readonly_fields
+    list_display = ('id', 'title', 'seller', 'category', 'price', 'old_price', 'discount_percent', 'stock')
+    list_filter = ('category', 'discount_percent', 'created_at')
+    search_fields = ('title', 'description')
+    prepopulated_fields = {'slug': ('title',)}

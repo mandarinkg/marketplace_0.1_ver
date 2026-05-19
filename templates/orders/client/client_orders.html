@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Active Orders</h2>
+
+{% for order in active_orders %}
+    <div style="background:white;padding:15px;margin-bottom:15px;border-radius:8px;">
+        <h4>Order #{{ order.id }}</h4>
+
+        {% for item in order.items.all %}
+            <p>{{ item.product_name }} — {{ item.quantity }} шт</p>
+        {% endfor %}
+
+        <p>Status: {{ order.get_status_display }}</p>
+
+        {% if order.status == 'new' %}
+            <a href="{% url 'orders:edit_order' order.id %}"
+               class="btn btn-primary">
+                Редактировать
+            </a>
+
+            <a href="{% url 'orders:cancel_order' order.id %}"
+               class="btn btn-danger"
+               onclick="return confirm('Отменить заказ?')">
+                Отменить
+            </a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No active orders</p>
+{% endfor %}
+{% endblock %}

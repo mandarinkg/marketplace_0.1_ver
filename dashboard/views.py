@@ -1,33 +1,28 @@
-
 from django.contrib.admin.views.decorators import staff_member_required
-
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.views.decorators.http import require_http_methods
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
-
-from products.models import Product
+from products.models import Product, Favorite
 from orders.models import Order
+
 
 User = get_user_model()
 
-# dashboard home - redirect based on user role
+
+# dashboard home
 @login_required(login_url='accounts:login')
 def home(request):
-    """Dashboard home - redirect based on user role"""
     user = request.user
-    
+
     if user.role == 'seller':
         return redirect('dashboard:seller')
     elif user.role == 'employee':
         return redirect('dashboard:employee')
     elif user.role == 'courier':
         return redirect('dashboard:courier')
-    else:  # client
+    else:
         return redirect('dashboard:client')
-
-
 
 
 # admin dashboard
@@ -43,17 +38,12 @@ def admin_dashboard(request):
         'clients': User.objects.filter(role='client').count(),
         'staff_count': User.objects.filter(is_staff=True).count(),
         'total_orders': Order.objects.count(),
-        'active_couriers': User.objects.filter(
-            role='courier',
-            is_active=True
-        ).count(),
     }
 
     return render(request, 'dashboard/admin_dashboard.html', {
         'users': users,
         'stats': stats,
     })
-  
 
 
 # seller dashboard
@@ -68,48 +58,85 @@ def seller_dashboard(request):
 
     orders_count = Order.objects.count()
 
-    context = {
+    return render(request, 'dashboard/seller.html', {
         'role': 'Продавец',
         'products_count': products_count,
         'orders_count': orders_count,
-    }
-
-    return render(request, 'dashboard/seller.html', context)
+    })
 
 
-# admin dashboard
+# employee dashboard
 @login_required(login_url='accounts:login')
 def employee_dashboard(request):
-    """Employee dashboard"""
     if request.user.role != 'employee':
         return redirect('dashboard:home')
-    
-    context = {
-        'role': 'Сотрудник'
-    }
-    return render(request, 'dashboard/employee.html', context)
+
+    new_orders = Order.objects.filter(status='new').count()
+    processing_orders = Order.objects.filter(status='processing').count()
+    delivering_orders = Order.objects.filter(status='delivering').count()
+
+    return render(request, 'dashboard/employee.html', {
+        'role': 'Сотрудник',
+        'new_orders': new_orders,
+        'processing_orders': processing_orders,
+        'delivering_orders': delivering_orders,
+    })
 
 
+# courier dashboard
 @login_required(login_url='accounts:login')
 def courier_dashboard(request):
-    """Courier dashboard"""
     if request.user.role != 'courier':
         return redirect('dashboard:home')
-    
-    context = {
-        'role': 'Курьер'
-    }
-    return render(request, 'dashboard/courier.html', context)
+
+    assigned_orders = Order.objects.filter(
+        courier=request.user,
+        status='delivering'
+    ).count()
+
+    route_orders = Order.objects.filter(
+        courier=request.user,
+        status='on_route'
+    ).count()
+
+    completed_orders = Order.objects.filter(
+        courier=request.user,
+        status='delivered'
+    ).count()
+
+    return render(request, 'dashboard/courier.html', {
+        'role': 'Курьер',
+        'assigned_orders': assigned_orders,
+        'route_orders': route_orders,
+        'completed_orders': completed_orders,
+    })
 
 
 # client dashboard
 @login_required(login_url='accounts:login')
 def client_dashboard(request):
-    """Client dashboard"""
     if request.user.role != 'client':
         return redirect('dashboard:home')
-    
+
+    # delivered болбогон заказдар гана
+    orders_count = Order.objects.filter(
+        client=request.user
+    ).exclude(
+        status='delivered'
+    ).count()
+
+    favorites_count = Favorite.objects.filter(
+        user=request.user
+    ).count()
+
     context = {
-        'role': 'Клиент'
+        'role': 'Клиент',
+        'orders_count': orders_count,
+        'favorites_count': favorites_count,
     }
-    return render(request, 'dashboard/client.html', context)
+
+    return render(
+        request,
+        'dashboard/client.html',
+        context
+    )

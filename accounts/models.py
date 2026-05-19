@@ -18,6 +18,10 @@ class User(AbstractUser):
         choices=ROLES, 
         default='client'
     )
+
+    # Жаңы кошулуучу талаалар (башында бош боло алгыдай кылып null=True, blank=True кылабыз)
+    phone_number = models.CharField(max_length=20, null=True, blank=True, verbose_name="Телефон номер")
+    address = models.TextField(null=True, blank=True, verbose_name="Адрес доставки")
     
     class Meta:
         verbose_name = 'Пользователь'

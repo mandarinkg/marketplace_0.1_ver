@@ -106,10 +106,10 @@
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-inbox"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ new_orders }}</div>
         <div class="stat-label">
          <div class="stat-label">
-                <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-primary">
+                <a href="{% url 'orders:employee_new_orders' %}" class="action-btn action-btn-primary">
                     <i class="fas fa-inbox"></i> Новые заказы
                 </a>
             </div>
@@ -118,34 +118,23 @@
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ processing_orders }}</div>
         <div class="stat-label">
-             <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
+             <a href="{% url 'orders:employee_processing_orders' %}" class="action-btn action-btn-secondary">
                <i class="fas fa-tasks"></i> В обработке
             </a>
         </div>
     </div>
     
+
+
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-truck"></i></div>
-        <div class="stat-value">0</div>
-        <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
+        <div class="stat-value">{{ delivering_orders }}</div>
+        <a href="{% url 'orders:employee_delivery_orders' %}" class="action-btn action-btn-secondary">
         <i class="fas fa-truck"></i> На доставку
         </a>
     </div>
 </div>
 
-<div class="action-buttons">
-    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-primary">
-        <i class="fas fa-inbox"></i> Новые заказы
-    </a>
-
-    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
-        <i class="fas fa-tasks"></i> В обработке
-    </a>
-
-    <a href="{% url 'orders:employee_orders' %}" class="action-btn action-btn-secondary">
-        <i class="fas fa-truck"></i> На доставку
-    </a>
-</div>
 {% endblock %}

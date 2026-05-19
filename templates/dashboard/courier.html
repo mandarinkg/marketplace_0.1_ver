@@ -106,13 +106,15 @@
 <div class="stats-grid">
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-truck"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ assigned_orders }}</div>
         <div class="stat-label">Назначено</div>
     </div>
     
+
+
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-road"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ route_orders }}</div>
         <div class="stat-label">
             <div class="stat-label">
                 <a href="{% url 'orders:courier_orders' %}" style="text-decoration:none; color:inherit;">
@@ -124,7 +126,7 @@
     
     <div class="stat-card">
         <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-        <div class="stat-value">0</div>
+        <div class="stat-value">{{ completed_orders }}</div>
         <div class="stat-label">Завершено</div>
     </div>
 </div>

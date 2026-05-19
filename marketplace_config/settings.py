@@ -51,11 +51,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     # Local apps
-    'accounts',
-    'dashboard',
-    'orders',
-    'products',
-    'categories',
+    'accounts.apps.AccountsConfig',
+    'dashboard.apps.DashboardConfig',  # Дашборд приложения
+    'orders.apps.OrdersConfig',  # Заказы приложения
+    'products.apps.ProductsConfig',  # Товары приложения
+    'categories.apps.CategoriesConfig',  # Категории приложения
+    'cart.apps.CartConfig',  # Корзина приложения
 
 ]
 
@@ -81,6 +82,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Биздин жаңы контекст процессор:
+                'categories.context_processors.menu_categories',
+                
+                # Бул контекст процессор ар бир шаблонго 'favorite_count' деген өзгөрмөнү кошот, ал колдонуучунун канча товарды сүйүктүү катары белгилегенин көрсөтөт
+                'products.context_processors.favorite_count',
+
+                # Биздин жаңы себет эсептегичибиз кошулду:
+                'cart.context_processors.cart_counter',
             ],
         },
     },
@@ -139,3 +149,12 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Django статикалык файлдарды кайсы жерден издеши керек экенин так көрсөтөбүз:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

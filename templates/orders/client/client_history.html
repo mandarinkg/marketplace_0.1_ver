@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>История заказов</h1>
+
+<a href="{% url 'orders:client_orders' %}">
+    ← Активные заказы
+</a>
+
+<hr>
+
+{% for order in orders %}
+    <div style="background:white;padding:15px;margin-bottom:10px;border-radius:8px;">
+        <h3>Order #{{ order.id }}</h3>
+        <p>Status: {{ order.get_status_display }}</p>
+        <p>Date: {{ order.created_at }}</p>
+
+        {% for item in order.items.all %}
+            <p>{{ item.product_name }} x {{ item.quantity }}</p>
+        {% endfor %}
+    </div>
+{% empty %}
+    <p>История пуста</p>
+{% endfor %}
+{% endblock %}
