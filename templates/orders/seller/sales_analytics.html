@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} - FINE{% endblock %}
+
+{% block extra_css %}
+<style>
+    .analytics-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 15px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #2d3748;
+        padding-bottom: 15px;
+    }
+
+    .page-header h1 {
+        color: #e2e8f0;
+        font-weight: 700;
+        font-size: 26px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .filter-group {
+        display: flex;
+        gap: 10px;
+        background: #1a202c;
+        padding: 4px;
+        border-radius: 8px;
+        border: 1px solid #2d3748;
+    }
+
+    .btn-filter {
+        padding: 8px 16px;
+        border: none;
+        background: transparent;
+        color: #a0aec0;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .btn-filter.is-active {
+        background: #2d3748;
+        color: #48bb78;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ЖАҢЫЛАНГАН КОНТЕЙНЕР: Скролл кошулду жана чек коюлду */
+    .table-container {
+        background: #1a202c;
+        border-radius: 12px;
+        border: 1px solid #2d3748;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-height: 380px; /* 5-6 товардан кийин ички скролл чыгат */
+        overflow-y: auto;
+        overflow-x: auto;
+        margin-bottom: 25px;
+    }
+
+    .analytics-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    /* ЖАҢЫЛАНГАН ТИЛКЕ: Тилке өйдө жылып кетпейт */
+    .analytics-table th {
+        position: sticky;
+        top: 0;
+        background: #2d3748;
+        padding: 16px;
+        color: #cbd5e0;
+        font-size: 13px;
+        font-weight: 600;
+        border-bottom: 1px solid #4a5568;
+        z-index: 10;
+    }
+
+    .analytics-table td {
+        padding: 16px;
+        border-bottom: 1px solid #2d3748;
+        color: #e2e8f0;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .product-cell {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .product-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 8px;
+        object-fit: cover;
+        background: #2d3748;
+        border: 1px solid #4a5568;
+    }
+
+    .product-info-text .title {
+        font-weight: 600;
+        color: #e2e8f0;
+        margin-bottom: 2px;
+    }
+
+    .product-info-text .order-num {
+        font-size: 12px;
+        color: #a0aec0;
+    }
+
+    .badge-qty {
+        background: #234e33;
+        color: #48bb78;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    /* Бир гана карточка үчүн торчо */
+    .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        max-width: 450px;
+        margin-top: 15px;
+    }
+
+    .summary-card {
+        background: #1a202c;
+        border-radius: 12px;
+        padding: 24px;
+        border: 1px solid #2d3748;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .summary-card.profit-card {
+        border-left: 5px solid #38a169;
+    }
+
+    .summary-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #a0aec0;
+        margin-bottom: 5px;
+    }
+
+    .summary-total-value {
+        font-size: 24px;
+        font-weight: 800;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="analytics-container">
+
+    <div class="page-header">
+        <h1><i class="fas fa-chart-bar" style="color: #48bb78;"></i> {{ title }}</h1>
+        
+        <div class="filter-group">
+            <a href="?period=today" class="btn-filter {% if current_period == 'today' %}is-active{% endif %}">Сегодня</a>
+            <a href="?period=yesterday" class="btn-filter {% if current_period == 'yesterday' %}is-active{% endif %}">Вчера</a>
+            <a href="?period=week" class="btn-filter {% if current_period == 'week' %}is-active{% endif %}">7 дней</a>
+            <a href="?period=month" class="btn-filter {% if current_period == 'month' %}is-active{% endif %}">30 дней</a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="analytics-table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Дата доставки</th>
+                    <th>Количество</th>
+                    <th>Цена продажи</th>
+                    <th>Общая сумма (Выручка)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in sold_items %}
+                    <tr>
+                        <td>
+                            <div class="product-cell">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" class="product-img" alt="">
+                                {% else %}
+                                    <div class="product-img" style="display: flex; align-items: center; justify-content: center; color: #a0aec0;"><i class="fas fa-box"></i></div>
+                                {% endif %}
+                                <div class="product-info-text">
+                                    <div class="title">{{ item.product_name }}</div>
+                                    <div class="order-num">Заказ №{{ item.order.id }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ item.order.created_at|date:"d.m.Y H:i" }}</td>
+                        <td><span class="badge-qty">{{ item.quantity }} шт.</span></td>
+                        <td>{{ item.sale_price }} сом</td>
+                        <td style="font-weight: 700; color: #48bb78;">
+                            {% widthratio item.quantity 1 item.sale_price %} сом
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: #a0aec0; font-style: italic;">
+                            За указанный период доставленных товаров не найдено.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="summary-grid">
+        <div class="summary-card profit-card">
+            <div>
+                <div class="summary-label">Сумма к получению от курьера:</div>
+                <div class="summary-total-value" style="color: #48bb78;">
+                    <span>{{ total_revenue }} сом</span>
+                </div>
+            </div>
+            <i class="fas fa-wallet" style="font-size: 24px; color: #a0aec0;"></i>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,108 +1,28 @@
 {% extends 'base.html' %}
-{% load static %} {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
 {% endblock %}
 
-
 {% block content %}
-
 <div class="page-container">
     <div class="main-products-area">
-
         <h2 class="section-title">Бардык товарлар</h2>
 
         <div class="product-grid">
             {% for product in products %}
-            <div class="product-card">
-
-                <div class="product-img-box">
-                    {% if product.discount_percent > 0 %}
-                    <span class="discount-badge">-{{ product.discount_percent }}%</span>
-                    {% endif %}
-
-                    <div class="card-actions-top">
-                        {% if request.user.is_authenticated and request.user.role == 'client' %}
-                        <span class="toggle-favorite-btn" data-id="{{ product.id }}" style="cursor: pointer;">
-                            {% if product.id in favorite_product_ids %}
-                            <i class="fas fa-heart action-icon" style="color: #d9534f;" title="Удалить из избранного"></i>
-                            {% else %}
-                            <i class="far fa-heart action-icon" style="color: #b2bec3;" title="В избранное"></i>
-                            {% endif %}
-                        </span>
-                        {% else %}
-                        <a href="{% url 'accounts:login' %}">
-                            <i class="far fa-heart action-icon" title="В избранное"></i>
-                        </a>
-                        {% endif %}
-                        <i class="fas fa-bars action-icon" title="Сравнить"></i>
-                    </div>
-
-                    {% if product.slug %}
-                    <a href="{% url 'products:detail' product.slug %}">
-                    {% endif %}
-
-                        {% if product.image %}
-                            <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                        {% else %}
-                            <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa; color: #95a5a6; font-size: 14px;">
-                                Сүрөтү жок
-                            </div>
-                        {% endif %}
-
-                    {% if product.slug %}
-                    </a>
-                    {% endif %}
-                </div>
-
-                <div class="product-details-block">
-                    {% if product.slug %}
-                    <a href="{% url 'products:detail' product.slug %}" class="product-link">
-                        {{ product.title }}
-                    </a>
-                    {% else %}
-                    <h3 class="product-link" style="color: #2c3e50; margin: 0 0 8px 0;">{{ product.title }}</h3>
-                    {% endif %}
-
-                    <div style="font-size: 13px; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                        {% if product.stock == 0 %}
-                            <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
-                        {% elif product.stock <= 3 %}
-                            <span style="color: #e67e22; font-weight: 500;">Осталось мало: <strong>{{ product.stock }} шт</strong></span>
-                        {% else %}
-                            <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }} шт</strong></span>
-                        {% endif %}
-                    </div>
-
-                    <div class="product-footer">
-                        <div class="price-block">
-                            {% if product.old_price %}
-                            <div class="old-price">{{ product.old_price }} ₽</div>
-                            {% endif %}
-                            <div class="current-price">{{ product.price }} ₽</div>
-                        </div>
-                        
-                        {% if product.stock == 0 %}
-                            <span class="btn-cart" 
-                                  style="background-color: #b2bec3 !important; color: #ffffff !important; cursor: not-allowed !allowed; display: flex; align-items: center; justify-content: center; width: 46px; height: 46px; border-radius: 8px; font-size: 18px;" 
-                                  title="Товар закончился">
-                                <i class="fas fa-shopping-cart"></i>
-                            </span>
-                        {% else %}
-                            <a href="#" class="btn-cart add-to-cart-btn" data-product-id="{{ product.id }}">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
-
-            </div>
+                {% include 'includes/products_app/products_card.html' with product=product %}
             {% empty %}
-            <div class="empty-catalog">
-                <p style="font-size: 18px; margin: 0;">Товарлар азырынча кошула элек.</p>
-            </div>
+                <div class="empty-catalog">
+                    <p>Товарлар азырынча кошула элек.</p>
+                </div>
             {% endfor %}
         </div>
-
     </div>
 </div>
+
+{% block extra_js %}
+    <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
+{% endblock %}
 {% endblock %}

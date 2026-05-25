@@ -1,63 +1,294 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<h2>Новые заказы</h2>
+<style>
+    .staff-orders-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+    }
 
-{% for order in orders %}
-<div style="
-    background:white;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
-">
+    .page-title {
+        color: #2d3436;
+        font-weight: 700;
+        font-size: 26px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #f1f3f5;
+        padding-bottom: 15px;
+    }
 
-    <h4>Заказ #{{ order.id }}</h4>
+    /* Буйрутмалардын тизмесинин башкы контейнери */
+    .orders-list-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 
-    <p>
-        <strong>Клиент:</strong>
-        {{ order.client.get_full_name|default:order.client.username }}
-    </p>
+    /* Ар бир буйрутманын башкы сабы (Строка) */
+    .order-row-item {
+        background: #ffffff;
+        border: 1px solid #e1e8ed;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        transition: all 0.2s ease;
+    }
 
-    <p>
-        <strong>Аккаунт @:</strong>
-        {{ order.client.username }}
-    </p>
+    /* Басыла турган негизги сап */
+    .order-row-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1.5fr auto;
+        align-items: center;
+        padding: 15px 20px;
+        cursor: pointer;
+        background: #ffffff;
+        user-select: none;
+        gap: 15px;
+    }
 
-    <hr>
+    .order-row-header:hover {
+        background: #f8f9fa;
+    }
 
-    <h5>Товары:</h5>
+    /* Тексттик маалыматтардын стили */
+    .info-cell {
+        font-size: 14px;
+        color: #2d3436;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-    {% for item in order.items.all %}
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:15px;
-            margin-bottom:15px;
-            padding:10px;
-            border:1px solid #eee;
-            border-radius:8px;
-        ">
+    .info-cell strong {
+        display: block;
+        font-size: 11px;
+        color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 2px;
+    }
 
-            {% if item.product.image %}
-                <img src="{{ item.product.image.url }}"
-                     style="width:80px;height:80px;object-fit:cover;border-radius:8px;">
-            {% endif %}
+    .account-tag {
+        color: #78b933;
+        font-weight: 600;
+    }
 
-            <div>
-                <p><strong>{{ item.product_name }}</strong></p>
-                <p>Количество: {{ item.quantity }} шт</p>
+    /* Төмөн караган жебе (Стрелка) */
+    .arrow-icon {
+        color: #a4b0be;
+        font-size: 16px;
+        transition: transform 0.3s ease;
+        padding: 5px;
+    }
+
+    /* Активдүү абалда жебени өйдө каратуу */
+    .order-row-item.active .arrow-icon {
+        transform: rotate(180deg);
+        color: #78b933;
+    }
+
+    /* Жашыруун товарлар блогу */
+    .order-row-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background: #fcfcfc;
+        border-top: 1px solid transparent;
+    }
+
+    .order-row-item.active .order-row-details {
+        max-height: 1000px; /* Ичиндеги маалыматка жараша автоматтык ачылат */
+        border-top: 1px solid #f1f3f5;
+    }
+
+    .details-content {
+        padding: 20px;
+    }
+
+    .details-title {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin: 0 0 15px 0;
+        font-weight: 600;
+    }
+
+    /* Товарлардын ички тизмеси */
+    .sub-items-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .sub-item-card {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px;
+        background: #ffffff;
+        border: 1px solid #e1e8ed;
+        border-radius: 8px;
+        max-width: 600px;
+    }
+
+    .sub-item-img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid #f1f3f5;
+        background: #fff;
+    }
+
+    .sub-item-no-img {
+        width: 50px;
+        height: 50px;
+        background: #f1f2f6;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 9px;
+        color: #95a5a6;
+        text-align: center;
+    }
+
+    .sub-item-name {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #2d3436;
+    }
+
+    .sub-item-qty {
+        margin: 3px 0 0 0;
+        font-size: 13px;
+        color: #7f8c8d;
+    }
+
+    /* Аракет баскычы */
+    .actions-panel {
+        display: flex;
+        justify-content: flex-end;
+        border-top: 1px solid #f1f3f5;
+        padding-top: 15px;
+    }
+
+    .btn-accept {
+        background-color: #78b933;
+        color: white;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.2s;
+        display: inline-block;
+    }
+
+    .btn-accept:hover {
+        background-color: #669e2b;
+    }
+
+    .empty-message {
+        text-align: center;
+        padding: 50px;
+        color: #7f8c8d;
+        background: white;
+        border-radius: 10px;
+        border: 1px solid #e1e8ed;
+    }
+</style>
+
+<div class="staff-orders-container">
+    <h2 class="page-title">Жаңы буйрутмалар (Сотрудник)</h2>
+
+    <div class="orders-list-wrapper">
+        {% for order in orders %}
+            <div class="order-row-item" id="order-item-{{ order.id }}">
+                
+                <div class="order-row-header" onclick="toggleOrderDetails('{{ order.id }}')">
+                    
+                    <div class="info-cell">
+                        <strong>Аты</strong>
+                        {{ order.client.get_full_name|default:order.client.username }}
+                    </div>
+                    
+                    <div class="info-cell">
+                        <strong>Аккаунт</strong>
+                        <span class="account-tag">@{{ order.client.username }}</span>
+                    </div>
+                    
+                    <div class="info-cell">
+                        <strong>Тел</strong>
+                        {{ order.client.profile.phone|default:"+996 (...)" }}
+                    </div>
+                    
+                    <div class="info-cell" title="{{ order.address }}">
+                        <strong>Адрес</strong>
+                        {{ order.address|default:"Дарек көрсөтүлгөн эмес" }}
+                    </div>
+                    
+                    <div class="arrow-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <div class="order-row-details" id="details-{{ order.id }}">
+                    <div class="details-content">
+                        <h5 class="details-title">Буйрутманын курамы (Заказ #{{ order.id }}):</h5>
+                        
+                        <div class="sub-items-list">
+                            {% for item in order.items.all %}
+                                <div class="sub-item-card">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" class="sub-item-img" alt="">
+                                    {% else %}
+                                        <div class="sub-item-no-img">Сүрөтү<br>жок</div>
+                                    {% endif %}
+                                    
+                                    <div>
+                                        <h4 class="sub-item-name">{{ item.product_name }}</h4>
+                                        <p class="sub-item-qty">Саны: <strong>{{ item.quantity }} шт</strong></p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="actions-panel">
+                            <a href="{% url 'orders:update_status' order.id 'processing' %}" class="btn-accept">
+                                Принять заказ
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    {% endfor %}
-
-    <a href="{% url 'orders:update_status' order.id 'processing' %}"
-       class="btn btn-success">
-        Принять заказ
-    </a>
-
+        {% empty %}
+            <div class="empty-message">
+                <p style="margin:0; font-size: 16px;">Учурда жаңы буйрутмалар жок.</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-{% empty %}
-    <p>Нет новых заказов</p>
-{% endfor %}
+
+<script>
+function toggleOrderDetails(orderId) {
+    const rowItem = document.getElementById(`order-item-${orderId}`);
+    
+    // Эгерде басылган элемент мурун эле ачык болсо, аны жабабыз
+    if (rowItem.classList.contains('active')) {
+        rowItem.classList.remove('active');
+    } else {
+        // Башка ачык турган элементтерди автоматтык түрдө жаап салуу (Аккордеон принциби)
+        document.querySelectorAll('.order-row-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        // Тандалганды ачуу
+        rowItem.classList.add('active');
+    }
+}
+</script>
 {% endblock %}

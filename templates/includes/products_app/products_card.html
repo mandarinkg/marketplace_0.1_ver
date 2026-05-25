@@ -1,0 +1,66 @@
+<div class="product-card" id="product-card-{{ product.id }}">
+    <div class="product-img-box">
+        {% if product.discount_percent > 0 %}
+        <span class="discount-badge">-{{ product.discount_percent }}%</span>
+        {% endif %}
+
+        <div class="card-actions-top">
+            {% if request.user.is_authenticated and request.user.role == 'client' %}
+            <span class="toggle-favorite-btn" data-id="{{ product.id }}"
+                data-url="{% url 'favorites:toggle' product.id %}">
+                {% if product.id in favorite_product_ids %}
+                <i class="fas fa-heart action-icon active"></i>
+                {% else %}
+                <i class="far fa-heart action-icon"></i>
+                {% endif %}
+            </span>
+            {% else %}
+            <a href="{% url 'accounts:login' %}"><i class="far fa-heart action-icon"></i></a>
+            {% endif %}
+            <i class="fas fa-bars action-icon"></i>
+        </div>
+
+        <a href="{% url 'products:detail' product.slug %}" class="img-link">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.title }}">
+            {% else %}
+            <div class="no-image">Сүрөтү жок</div>
+            {% endif %}
+        </a>
+    </div>
+
+    <div class="product-details-block">
+        <a href="{% url 'products:detail' product.slug %}" class="product-link">{{ product.title }}</a>
+
+        <div class="stock-status">
+            {% if product.stock == 0 %}
+            <span class="stock-out">Нет в наличии</span>
+            {% elif product.stock <= 3 %} <span class="stock-low">Осталось мало: <strong>{{ product.stock }}
+                    шт</strong></span>
+                {% else %}
+                <span class="stock-in">В наличии: <strong>{{ product.stock }} шт</strong></span>
+                {% endif %}
+        </div>
+
+        <div class="product-footer">
+            <div class="price-block">
+                {% if product.old_price %}<div class="old-price">{{ product.old_price }} ₽</div>{% endif %}
+                <div class="current-price">{{ product.price }} ₽</div>
+            </div>
+
+            {% if product.stock == 0 %}
+
+            <span class="btn-cart disabled">
+                <i class="fas fa-shopping-cart"></i>
+            </span>
+
+            {% else %}
+
+            <button class="btn-cart add-to-cart-btn" data-product-id="{{ product.id }}" type="button">
+                <i class="fas fa-shopping-cart"></i>
+            </button>
+
+            {% endif %}
+        </div>
+    </div>
+</div>

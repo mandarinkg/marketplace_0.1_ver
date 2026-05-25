@@ -409,12 +409,13 @@
 
                     <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
 
-                        <div style="font-size: 12px; font-family: 'Inter', sans-serif;">
+                        <div style="font-size: 13px; margin-bottom: 15px; margin-top: 5px; font-family: 'Inter', sans-serif;">
                             {% if product.stock == 0 %}
-                            <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
+                                <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
+                            {% elif product.stock <= 3 %}
+                                <span style="color: #e67e22; font-weight: 500;">Осталось мало: <strong>{{ product.stock }} шт</strong></span>
                             {% else %}
-                            <span style="color: #7f8c8d;">Остаток: <strong style="color: #2c3e50;">{{ product.stock
-                                    }}</strong></span>
+                                <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }} шт</strong></span>
                             {% endif %}
                         </div>
 

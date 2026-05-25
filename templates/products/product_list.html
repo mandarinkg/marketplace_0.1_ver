@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 <style>
-    /* Негизги контейнер (Өлчөмдөрү мурунку стилдей) */
+    /* Негизги контейнер (Скриншоттогудай ачык стиль) */
     .catalog-container {
         max-width: 1200px;
         margin: 40px auto;
@@ -41,14 +42,14 @@
         background-color: #639b24;
     }
 
-    /* Товарлардын торчосу (Мурунку сиз жактырган өлчөм - 240px) */
+    /* Товарлардын торчосу (240px) */
     .product-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 25px;
     }
 
-    /* Товардын карточкасы (Мурунку стилдегидей кооз жана бирдей) */
+    /* Товардын карточкасы */
     .product-card {
         background: #ffffff;
         border-radius: 12px;
@@ -66,12 +67,17 @@
         box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
-    /* Сүрөт блогу - ТАК ОРТОДО жайгашат */
+    /* Калдык жок болсо карточканы бир аз тунук кылуу (визуалдык индикатор) */
+    .product-card.out-of-stock-card {
+        opacity: 0.75;
+    }
+
+    /* Сүрөт блогу */
     .product-img-box {
-        height: 200px; /* Мурунку бийиктик */
+        height: 200px; 
         display: flex;
-        align-items: center;     /* Вертикалдык багытта ортого түздөө */
-        justify-content: center;    /* Горизонталдык багытта ортого түздөө */
+        align-items: center;     
+        justify-content: center;    
         margin-bottom: 15px;
         position: relative;
         width: 100%;
@@ -83,7 +89,7 @@
         object-fit: contain;
     }
 
-    /* Скидка белгиси */
+    /* Динамикалык скидка белгиси */
     .discount-badge {
         position: absolute;
         top: 0;
@@ -119,19 +125,19 @@
         color: #78b933;
     }
 
-    /* Текст жана Баа топтолгон жаңы блок (Аралыкты жакын кылат) */
+    /* Текст жана Баа блогу */
     .product-details-block {
-        margin-top: auto; /* Сүрөттөн кийинки боштукту автоматтык түрдө иреттейт */
+        margin-top: auto; 
     }
 
-    /* Товардын аталышы (Жашыл шилтеме, кесилбейт) */
+    /* Товардын аталышы */
     .product-link {
         text-decoration: none;
         color: #78b933;
         font-size: 15px;
         font-weight: 600;
         line-height: 1.4;
-        margin: 0 0 8px 0; /* Баа менен болгон аралыкты 8px гана кылдык */
+        margin: 0 0 8px 0; 
         display: block;
     }
 
@@ -166,6 +172,14 @@
         color: #1a1a1a;
     }
 
+    /* Калдык жок болгондогу жазуунун стили */
+    .out-of-stock-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: #95a5a6;
+        margin-top: 5px;
+    }
+
     /* Жашыл Себет баскычы */
     .btn-cart {
         background-color: #78b933;
@@ -186,17 +200,23 @@
         background-color: #639b24;
     }
 
+    /* Калдык 0 болгондогу БОЗ себет баскычы */
+    .btn-cart.disabled {
+        background-color: #b2bec3;
+        cursor: not-allowed;
+        pointer-events: none; /* Басылбай турган кылат */
+    }
+
     .empty-catalog {
         text-align: center;
         padding: 60px;
         background: #f8f9fa;
         border-radius: 12px;
         color: #95a5a6;
+        grid-column: 1 / -1;
     }
 
-    /* ==========================================
-       Мобилдик версия (Бир сапта 2 товар)
-       ========================================== */
+    /* Мобилдик версия */
     @media (max-width: 600px) {
         .catalog-container {
             padding: 0 10px;
@@ -242,6 +262,10 @@
             font-size: 15px;
         }
 
+        .out-of-stock-text {
+            font-size: 13px;
+        }
+
         .btn-cart {
             width: 36px;
             height: 36px;
@@ -263,10 +287,12 @@
 
     <div class="product-grid">
         {% for product in products %}
-            <div class="product-card">
+            <div class="product-card {% if product.stock <= 0 %}out-of-stock-card{% endif %}">
                 
                 <div class="product-img-box">
-                    <span class="discount-badge">-9%</span>
+                    {% if product.discount_percent > 0 and product.stock > 0 %}
+                        <span class="discount-badge">-{{ product.discount_percent }}%</span>
+                    {% endif %}
                     
                     <div class="card-actions-top">
                         <i class="far fa-heart action-icon" title="В избранное"></i>
@@ -274,7 +300,7 @@
                     </div>
 
                     {% if product.slug %}
-                        <a href="{% url 'products:detail' product.slug %}">
+                        <a href="{% url 'products:detail' product.slug %}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
                     {% endif %}
                         
                         {% if product.image %}
@@ -299,13 +325,25 @@
 
                     <div class="product-footer">
                         <div class="price-block">
-                            <div class="old-price">79 990 ₽</div>
-                            <div class="current-price">{{ product.price }} ₽</div>
+                            {% if product.stock > 0 %}
+                                {% if product.discount_percent > 0 and product.old_price %}
+                                    <div class="old-price">{{ product.old_price }} сом</div>
+                                {% endif %}
+                                <div class="current-price">{{ product.price }} сом</div>
+                            {% else %}
+                                <div class="out-of-stock-text">Нет в наличии</div>
+                            {% endif %}
                         </div>
 
-                        <a href="#" class="btn-cart">
-                            <i class="fas fa-shopping-cart"></i>
-                        </a>
+                        {% if product.stock > 0 %}
+                            <a href="#" class="btn-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        {% else %}
+                            <a href="#" class="btn-cart disabled">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
 
@@ -314,7 +352,7 @@
             <div class="empty-catalog">
                 <p style="font-size: 18px;">Товарлар азырынча кошула элек.</p>
                 {% if user.role == 'seller' %}
-                    <a href="{% url 'products:create' %}" style="color: #78b933;">Биринчи товарды кошуңуз</a>
+                    <a href="{% url 'products:create' %}" style="color: #78b933; font-weight: 600;">Биринчи товарды кошуңуз</a>
                 {% endif %}
             </div>
         {% endfor %}

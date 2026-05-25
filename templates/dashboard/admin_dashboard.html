@@ -54,21 +54,10 @@
         border-left: 4px solid #3498db;
     }
     
-    .stat-card.sellers {
-        border-left-color: #e74c3c;
-    }
-    
-    .stat-card.employees {
-        border-left-color: #f39c12;
-    }
-    
-    .stat-card.couriers {
-        border-left-color: #9b59b6;
-    }
-    
-    .stat-card.clients {
-        border-left-color: #27ae60;
-    }
+    .stat-card.sellers { border-left-color: #e74c3c; }
+    .stat-card.employees { border-left-color: #f39c12; }
+    .stat-card.couriers { border-left-color: #9b59b6; }
+    .stat-card.clients { border-left-color: #27ae60; }
     
     .stat-card .number {
         font-size: 2rem;
@@ -113,6 +102,7 @@
     .users-table td {
         padding: 12px 15px;
         border-bottom: 1px solid #ecf0f1;
+        vertical-align: middle;
     }
     
     .users-table tbody tr:hover {
@@ -128,21 +118,10 @@
         color: white;
     }
     
-    .role-badge.seller {
-        background-color: #e74c3c;
-    }
-    
-    .role-badge.employee {
-        background-color: #f39c12;
-    }
-    
-    .role-badge.courier {
-        background-color: #9b59b6;
-    }
-    
-    .role-badge.client {
-        background-color: #27ae60;
-    }
+    .role-badge.seller { background-color: #e74c3c; }
+    .role-badge.employee { background-color: #f39c12; }
+    .role-badge.courier { background-color: #9b59b6; }
+    .role-badge.client { background-color: #27ae60; }
     
     .staff-badge {
         display: inline-block;
@@ -152,6 +131,13 @@
         color: white;
         font-size: 0.75rem;
         font-weight: 600;
+        margin-right: 5px;
+    }
+    
+    .actions-cell {
+        display: flex;
+        gap: 8px;
+        align-items: center;
     }
     
     .action-btn {
@@ -164,19 +150,21 @@
         transition: background-color 0.3s;
         border: none;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
     }
     
-    .action-btn:hover {
-        background-color: #2980b9;
-    }
+    .action-btn:hover { background-color: #2980b9; }
     
-    .action-btn.delete {
-        background-color: #e74c3c;
-    }
+    .action-btn.warning { background-color: #f39c12; }
+    .action-btn.warning:hover { background-color: #d35400; }
     
-    .action-btn.delete:hover {
-        background-color: #c0392b;
-    }
+    .action-btn.success { background-color: #27ae60; }
+    .action-btn.success:hover { background-color: #219a52; }
+    
+    .action-btn.delete { background-color: #e74c3c; }
+    .action-btn.delete:hover { background-color: #c0392b; }
     
     .empty-state {
         text-align: center;
@@ -190,22 +178,42 @@
         color: #bdc3c7;
     }
     
-    @media (max-width: 768px) {
-        .admin-header {
+    @media (max-width: 992px) {
+        .actions-cell {
             flex-direction: column;
-            gap: 15px;
             align-items: flex-start;
-        }
-        
-        .users-table {
-            font-size: 0.85rem;
-        }
-        
-        .users-table th, .users-table td {
-            padding: 8px 10px;
         }
     }
 </style>
+{% endblock %}
+
+{% block sidebar %}
+<aside class="sidebar">
+    {% if user.is_staff %}
+    <div class="menu-section">
+        <div class="section-title">⚙️ Администрирование</div>
+        <ul class="nav-menu">
+            <li><a href="{% url 'dashboard:admin_dashboard' %}"><i class="fas fa-sliders-h"></i> Users Dashboard</a></li>
+            <li class="{% if title == 'Продавцы' %}active{% endif %}"><a href="{% url 'dashboard:admin_sellers_list' %}"><i class="fas fa-store"></i> Sellers</a></li>
+            <li class="{% if title == 'Сотрудники' %}active{% endif %}"><a href="{% url 'dashboard:admin_employees_list' %}"><i class="fas fa-user-tie"></i> Employees</a></li>
+            <li class="{% if title == 'Курьеры' %}active{% endif %}"><a href="{% url 'dashboard:admin_couriers_list' %}"><i class="fas fa-truck"></i> Couriers</a></li>
+            <li><a href="/admin/"><i class="fas fa-database"></i> Django Admin</a></li>
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if user.role == 'seller' or user.is_staff %}
+    <div class="menu-section">
+        <div class="section-title">💼 Продавец</div>
+        <ul class="nav-menu">
+            <li><a href="{% url 'dashboard:seller' %}"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="{% url 'products:list' %}"><i class="fas fa-th-list"></i> Мои товары</a></li>
+            <li><a href="{% url 'products:create' %}"><i class="fas fa-plus-circle"></i> Добавить товар</a></li>
+            <li><a href="{% url 'orders:admin_orders' %}"><i class="fas fa-shopping-cart"></i> Заказы</a></li>
+        </ul>
+    </div>
+    {% endif %}
+</aside>
 {% endblock %}
 
 {% block content %}
@@ -215,7 +223,6 @@
         <a href="{% url 'dashboard:home' %}" class="btn">← Вернуться</a>
     </div>
     
-    <!-- Статистика -->
     <div class="stats-grid">
         <div class="stat-card">
             <i class="fas fa-users" style="font-size: 2rem; color: #3498db;"></i>
@@ -254,7 +261,6 @@
         </div>
     </div>
     
-    <!-- Таблица пользователей -->
     <div class="users-section">
         <h2>Управление пользователями</h2>
         
@@ -294,9 +300,35 @@
                     </td>
                     <td>{{ user.date_joined|date:"d.m.Y" }}</td>
                     <td>
-                        <a href="{% url 'accounts:change_user_role' user.id %}" class="action-btn">
-                            <i class="fas fa-edit"></i> Изменить
-                        </a>
+                        <div class="actions-cell">
+                            <a href="{% url 'dashboard:admin_change_user_role' user.id %}" class="action-btn">
+                                <i class="fas fa-edit"></i> Роль
+                            </a>
+
+                            {% if user != request.user %}
+                                <form action="{% url 'dashboard:admin_toggle_user_status' %}" method="POST" style="margin: 0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    {% if user.is_active %}
+                                        <button type="submit" class="action-btn warning">
+                                            <i class="fas fa-ban"></i> Блок
+                                        </button>
+                                    {% else %}
+                                        <button type="submit" class="action-btn success">
+                                            <i class="fas fa-check"></i> Разблок
+                                        </button>
+                                    {% endif %}
+                                </form>
+
+                                <form action="{% url 'dashboard:admin_delete_user' %}" method="POST" style="margin: 0;" onsubmit="return confirm('Вы уверены, что хотите разжаловать этого пользователя до уровня Клиента?');">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                                    <button type="submit" class="action-btn delete">
+                                        <i class="fas fa-user-minus"></i> Удалить
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
@@ -310,11 +342,4 @@
         {% endif %}
     </div>
 </div>
-
-<script>
-    // Автообновление каждые 30 секунд
-    // setTimeout(() => {
-    //     location.reload();
-    // }, 30000);
-</script>
 {% endblock %}

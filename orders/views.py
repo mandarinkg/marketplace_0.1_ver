@@ -2,14 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
+from django.utils import timezone  # Убакыт менен иштөө үчүн китепкана
+from django.db.models import Sum, F  # Бааларды кошуу жана талааларды көбөйтүү үчүн
+from datetime import timedelta  # Күндөрдү артка эсептөө үчүн
 
 from .models import Order, OrderItem
 from products.models import Product
 
 
-# =========================
-# CLIENT
-# =========================
+
+
+# ==============================================================================
+# CLIENT (КАРДАРЛАР ҮЧҮН ЛОГИКА)
+# ==============================================================================
+
 @login_required
 def create_order_from_product(request, product_id):
     if request.method != 'POST':
@@ -42,11 +48,14 @@ def create_order_from_product(request, product_id):
         client=request.user
     )
 
+    # БИЗНЕС-АНАЛИТИКА: Заказ учурундагы сатып алуу жана сатуу бааларын тарыхка бекитүү
     OrderItem.objects.create(
         order=order,
         product=product,
         product_name=product.title,
-        quantity=quantity
+        quantity=quantity,
+        purchase_price=product.purchase_price,  # Купуя өздүк наркы сакталды
+        sale_price=product.price                # Сайтындагы сатуу баасы сакталды
     )
 
     product.stock -= quantity
@@ -111,52 +120,29 @@ def cancel_order(request, order_id):
 
 @login_required
 def edit_order(request, order_id):
-    order = get_object_or_404(
-        Order,
-        id=order_id,
-        client=request.user
-    )
-
-    if order.status != 'new':
-        return redirect('orders:client_orders')
-
-    item = order.items.first()
-
+    order = get_object_or_404(Order, id=order_id, status='new')
+    
     if request.method == 'POST':
-        new_qty = int(request.POST.get('quantity', 1))
-
-        product = item.product
-
-        if not product:
-            return redirect('orders:client_orders')
-
-        diff = new_qty - item.quantity
-
-        if diff > 0 and diff > product.stock:
-            messages.error(request, 'Недостаточно товара')
-            return redirect('orders:edit_order', order_id=order.id)
-
-        product.stock -= diff
-        product.save()
-
-        item.quantity = new_qty
-        item.save()
-
+        item_ids = request.POST.getlist('item_ids')
+        quantities = request.POST.getlist('quantities')
+        
+        for item_id, qty in zip(item_ids, quantities):
+            item = get_object_or_404(OrderItem, id=item_id, order=order)
+            
+            desired_qty = int(qty)
+            if desired_qty <= item.product.stock and desired_qty > 0:
+                item.quantity = desired_qty
+                item.save()
+                
         return redirect('orders:client_orders')
-
-    return render(
-        request,
-        'orders/client/edit_order.html',
-        {
-            'order': order,
-            'item': item
-        }
-    )
+        
+    return render(request, 'orders/client/edit_order.html', {'order': order})
 
 
-# =========================
-# ADMIN
-# =========================
+# ==============================================================================
+# ADMIN (АДМИНИСТРАТОР ҮЧҮН ЛОГИКА)
+# ==============================================================================
+
 @staff_member_required(login_url='accounts:login')
 def admin_orders(request):
     orders = Order.objects.all().order_by('-created_at')
@@ -168,9 +154,10 @@ def admin_orders(request):
     )
 
 
-# =========================
-# EMPLOYEE
-# =========================
+# ==============================================================================
+# EMPLOYEE (КЫЗМАТКЕРЛЕР ҮЧҮН ЛОГИКА)
+# ==============================================================================
+
 @login_required
 def employee_new_orders(request):
     if request.user.role != 'employee':
@@ -213,9 +200,10 @@ def employee_delivery_orders(request):
     )
 
 
-# =========================
-# COURIER
-# =========================
+# ==============================================================================
+# COURIER (КУРЬЕРЛЕР ҮЧҮН ЛОГИКА)
+# ==============================================================================
+
 @login_required
 def courier_orders(request):
     if request.user.role != 'courier':
@@ -238,54 +226,45 @@ def courier_orders(request):
     )
 
 
-# =========================
-# STATUS UPDATE
-# =========================
+# ==============================================================================
+# STATUS UPDATE (СТАТУСТАРДЫ ӨЗГӨРТҮҮ ЛОГИКАСЫ)
+# ==============================================================================
+
 @login_required
 def update_order_status(request, order_id, new_status):
     order = get_object_or_404(Order, id=order_id)
 
     if request.user.role == 'employee':
-
-        # NEW -> PROCESSING
         if order.status == 'new' and new_status == 'processing':
             order.status = 'processing'
             order.employee = request.user
             order.save()
-
             return redirect('orders:employee_processing_orders')
 
-        # PROCESSING -> DELIVERING
         elif order.status == 'processing' and new_status == 'delivering':
             order.status = 'delivering'
             order.save()
-
             return redirect('orders:employee_delivery_orders')
 
     elif request.user.role == 'courier':
-
-        # DELIVERING -> ON_THE_WAY
         if order.status == 'delivering' and new_status == 'on_the_way':
             order.status = 'on_the_way'
             order.courier = request.user
             order.save()
-
             return redirect('orders:courier_orders')
 
-        # ON_THE_WAY -> DELIVERED
         elif order.status == 'on_the_way' and new_status == 'delivered':
             order.status = 'delivered'
             order.save()
-
             return redirect('orders:courier_orders')
 
     return redirect('dashboard:home')
 
 
+# ==============================================================================
+# CART TO ORDER (КОРЗИНАДАН ЗАКАЗ ТҮЗҮҮ)
+# ==============================================================================
 
-
-
-# =========================
 @login_required
 def create_order_from_cart(request):
     print('1 START')
@@ -331,11 +310,14 @@ def create_order_from_cart(request):
     print('11 ORDER CREATED', order.id)
 
     for item in cart_items:
+        # БИЗНЕС-АНАЛИТИКА: Корзинадан буйрутма алууда да сатып алуу жана сатуу бааларын тарыхка сактоо
         OrderItem.objects.create(
             order=order,
             product=item.product,
             product_name=item.product.title,
-            quantity=item.quantity
+            quantity=item.quantity,
+            purchase_price=item.product.purchase_price,  # Купуя өздүк наркы сакталды
+            sale_price=item.product.price                # Сайтындагы сатуу баасы сакталды
         )
         print('12 ITEM CREATED')
 
@@ -346,3 +328,63 @@ def create_order_from_cart(request):
     print('13 CART CLEARED')
 
     return redirect('orders:client_orders')
+
+
+# ==============================================================================
+# SELLER ANALYTICS (САТУУЧУНУН ЖЕКЕ АНАЛИТИКАСЫ ЖАНА ОТЧЕТУ) - ЖАҢЫ КОШУЛДУ
+# ==============================================================================
+
+@login_required
+def seller_sales_analytics(request):
+    if request.user.role != 'seller':
+        return redirect('dashboard:home')
+
+    period = request.GET.get('period', 'today')
+    now = timezone.now()
+    start_date = now.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    if period == 'yesterday':
+        start_date = start_date - timedelta(days=1)
+        end_date = start_date + timedelta(days=1)
+    elif period == 'week':
+        start_date = start_date - timedelta(days=7)
+        end_date = now
+    elif period == 'month':
+        start_date = start_date - timedelta(days=30)
+        end_date = now
+    else:
+        end_date = now
+
+    sold_items = OrderItem.objects.filter(
+        order__status='delivered',
+        product__seller=request.user
+    ).select_related('order', 'product')
+
+    if period == 'yesterday':
+        sold_items = sold_items.filter(order__created_at__gte=start_date, order__created_at__lt=end_date)
+    else:
+        sold_items = sold_items.filter(order__created_at__gte=start_date, order__created_at__lte=end_date)
+
+    sold_items = sold_items.order_by('-order__created_at')
+
+    # Финансылык эсептөөлөр
+    total_revenue = sold_items.annotate(
+        item_revenue=F('quantity') * F('sale_price')
+    ).aggregate(total=Sum('item_revenue'))['total'] or 0
+
+    total_profit = sold_items.annotate(
+        item_profit=(F('sale_price') - F('purchase_price')) * F('quantity')
+    ).aggregate(total=Sum('item_profit'))['total'] or 0
+
+    for item in sold_items:
+        item.single_profit = item.sale_price - item.purchase_price
+        item.total_profit = item.single_profit * item.quantity
+        item.is_loss = item.single_profit < 0
+
+    return render(request, 'orders/seller/sales_analytics.html', {
+        'sold_items': sold_items,
+        'total_revenue': total_revenue,
+        'total_profit': total_profit,
+        'current_period': period,
+        'title': 'Финансовый отчет'
+    })

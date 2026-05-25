@@ -26,14 +26,18 @@ urlpatterns = [
     
     # 1. СЕБЕТТИ УШУЛ ЖЕРГЕ ЖОГОРУ ЖАКА КОЮҢУЗ
     path('cart/', include('cart.urls', namespace='cart')),
+    path('favorites/', include('favorites.urls')),
 
     path('', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('orders/', include('orders.urls')),
     path('categories/', include('categories.urls')),
+    path('shops/', include('shops.urls')),
+    path('analytics/', include('analytics.urls')),  # Бизнес-аналитика үчүн URLдер
 ]
 
 # DEBUG режиминде медиа файлдарын тейлөө
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

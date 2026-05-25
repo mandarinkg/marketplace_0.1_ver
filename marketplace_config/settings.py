@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',  # Товары приложения
     'categories.apps.CategoriesConfig',  # Категории приложения
     'cart.apps.CartConfig',  # Корзина приложения
-
+    'shops.apps.ShopsConfig',  # Магазины приложения
+    'favorites.apps.FavoritesConfig',  # Избранные товары приложения
+    'analytics.apps.AnalyticsConfig',  # Бизнес-аналитика приложения
 ]
 
 MIDDLEWARE = [
@@ -87,7 +89,7 @@ TEMPLATES = [
                 'categories.context_processors.menu_categories',
                 
                 # Бул контекст процессор ар бир шаблонго 'favorite_count' деген өзгөрмөнү кошот, ал колдонуучунун канча товарды сүйүктүү катары белгилегенин көрсөтөт
-                'products.context_processors.favorite_count',
+                'favorites.context_processors.favorite_count',
 
                 # Биздин жаңы себет эсептегичибиз кошулду:
                 'cart.context_processors.cart_counter',
@@ -148,7 +150,12 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# Статикалык файлдарды чогулта турган папканын жолу
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+STATIC_URL = '/static/'
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -158,3 +165,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+
+"""
+# Django 3.2ден баштап, жаңы долбоорлор үчүн DEFAULT_AUTO_FIELD параметри 
+# 'django.db.models.BigAutoField' болуп өзгөртүлдү. 
+# Бул автоматтык түрдө чоң автоинкременттик талааларды колдонууга мүмкүндүк берет,
+#  бирок эгер сиз мурунку версиялар менен шайкештикти сактап калгыңыз келсе, 
+#  аны 'django.db.models.AutoField' деп өзгөртө аласыз.
+"""
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

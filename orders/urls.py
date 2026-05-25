@@ -81,4 +81,9 @@ urlpatterns = [
         views.create_order_from_cart,
         name='create_from_cart'
     ),
+
+    # ---------------- SELLER ANALYTICS ----------------
+    path('seller/analytics/', 
+    views.seller_sales_analytics, 
+    name='seller_analytics'),
 ]

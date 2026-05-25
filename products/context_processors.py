@@ -1,4 +1,4 @@
-from .models import Favorite
+from favorites.models import Favorite
 
 def favorite_count(request):
     # Эгер колдонуучу катталган болсо жана ролу 'client' болсо, анын тандагандарын эсептейбиз

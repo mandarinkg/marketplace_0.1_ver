@@ -86,7 +86,7 @@
 
         <br><br>
 
-        <a href="{% url 'products:toggle_favorite' product.id %}"
+        <a href="{% url 'favorites:toggle' product.id %}"
            class="btn btn-outline-secondary">
             {% if is_favorite %}
                 Убрать из избранного

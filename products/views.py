@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Product, Favorite
+from .models import Product
 # Өзгөртүлгөн формалар туура импорттолду
 from .forms import ProductCreateForm, ProductUpdateForm
 from django.http import JsonResponse # AJAX жооптору үчүн
@@ -14,6 +14,7 @@ def index_view(request):
     favorite_product_ids = []
     # Колдонуучу кирген болсо, анын тандаган товарларынын IDлерин гана бөлүп алабыз
     if request.user.is_authenticated and request.user.role == 'client':
+        from favorites.models import Favorite
         favorite_product_ids = Favorite.objects.filter(
             user=request.user
         ).values_list('product_id', flat=True)
@@ -32,6 +33,7 @@ def product_detail(request, slug):
     is_favorite = False
 
     if request.user.is_authenticated and request.user.role == 'client':
+        from favorites.models import Favorite
         is_favorite = Favorite.objects.filter(
             user=request.user,
             product=product
@@ -136,41 +138,3 @@ def product_delete(request, slug):
 
 
 
-# Client гана товарларды сүйүктүү катары белгилей алат жана сүйүктүү тизмесин көрө алат
-@login_required(login_url='accounts:login')
-def toggle_favorite(request, product_id):
-    if request.user.role != 'client':
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.GET.get('ajax') == '1':
-            return JsonResponse({'status': 'error', 'message': 'Доступ запрещен'}, status=403)
-        return redirect('dashboard:home')
-
-    product = get_object_or_404(Product, id=product_id)
-    
-    favorite, created = Favorite.objects.get_or_create(
-        user=request.user,
-        product=product
-    )
-
-    if not created:
-        favorite.delete()
-        action = 'removed'
-    else:
-        action = 'added'
-
-    # Текшерүүнү ишенимдүү кылуу (эки вариантты тең текшерет)
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.GET.get('ajax') == '1':
-        return JsonResponse({'status': 'success', 'action': action})
-
-    return redirect(request.META.get('HTTP_REFERER', 'products:home'))
-
-    
-
-# Client: Тандалган товарлардын тизмесин көрүү
-@login_required(login_url='accounts:login')
-def favorite_list(request):
-    favorites = Favorite.objects.filter(
-        user=request.user
-    )
-    return render(request, 'products/favorites.html', {
-        'favorites': favorites
-    })

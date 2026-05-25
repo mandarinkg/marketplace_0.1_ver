@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pages/favorites.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <h2 class="section-title">
+        Избранное (<span id="favorite-page-count">{{ favorites.count }}</span>)
+    </h2>
+
+    <div class="product-grid" id="favorite-grid">
+        {% for favorite in favorites %}
+            {% include 'includes/products_app/products_card.html' with product=favorite.product %}
+        {% empty %}
+            <div class="empty-box">
+                Тандалган товарлар жок
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
+{% endblock %}

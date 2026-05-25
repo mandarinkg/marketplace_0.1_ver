@@ -51,7 +51,6 @@ class Order(models.Model):
         return f'Order #{self.id} - {self.status}'
 
 
-
 class OrderItem(models.Model):
     order = models.ForeignKey(
         Order,
@@ -68,6 +67,10 @@ class OrderItem(models.Model):
 
     product_name = models.CharField(max_length=255)
     quantity = models.PositiveIntegerField(default=1)
+    
+    # БИЗНЕС-АНАЛИТИКА ТАЛААЛАРЫ
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Цена закупки на момент заказа")
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Цена продажи на момент заказа")
 
     def __str__(self):
         return self.product_name
