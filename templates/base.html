@@ -8,13 +8,10 @@
     <title>{% block title %}FINE Дүкөнү{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-
-
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
-    
+
     <style>
-        /* Баракчанын структурасын кооз жана түз кармап туруу үчүн кошумча стилдер */
         .main-layout-container {
             display: flex;
             max-width: 1440px;
@@ -22,41 +19,35 @@
             min-height: calc(100vh - 160px);
             position: relative;
         }
-
         .sidebar {
             width: 280px;
             background-color: #ffffff;
-            border-right: 1px solid #e1e8ed;
+            border-right: 1px solid #edf2f7;
             padding: 25px 0;
             flex-shrink: 0;
         }
-
         .main-content {
             flex: 1;
-            padding: 40px 30px;
-            background-color: #f8f9fa;
+            padding: 32px 28px;
+            background-color: #f7f8fc;
             overflow-x: hidden;
         }
-
         @media (max-width: 992px) {
-            .main-layout-container {
-                flex-direction: column;
-            }
+            .main-layout-container { flex-direction: column; }
             .sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid #e1e8ed;
-                padding: 15px 20px;
+                border-bottom: 1px solid #edf2f7;
+                padding: 15px 16px;
             }
-            .main-content {
-                padding: 20px 15px;
-            }
+            .main-content { padding: 16px; }
         }
     </style>
 </head>
 
 <body>
 
+    <!-- ===== HEADER ===== -->
     <header class="main-header">
         <div class="header-container">
 
@@ -70,22 +61,20 @@
             </form>
 
             <div class="header-actions">
-
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                     <a href="{% url 'dashboard:admin_dashboard' %}" class="action-item">
                         <i class="fas fa-user-shield"></i>
-                        <span>Админ Панель ({{ user.username }})</span>
+                        <span>Админ</span>
                     </a>
                     {% else %}
                     <a href="{% url 'dashboard:home' %}" class="action-item">
                         <i class="far fa-user"></i>
-                        <span>Кабинет ({{ user.username }})</span>
+                        <span>{{ user.username }}</span>
                     </a>
                     {% endif %}
-
-                    <a href="{% url 'accounts:logout' %}" class="action-item" style="color: #d9534f;">
-                        <i class="fas fa-sign-out-alt" style="color: #d9534f;"></i>
+                    <a href="{% url 'accounts:logout' %}" class="action-item" style="color:#e74c3c;">
+                        <i class="fas fa-sign-out-alt" style="color:#e74c3c;"></i>
                         <span>Выйти</span>
                     </a>
                 {% else %}
@@ -106,70 +95,97 @@
                 </div>
 
                 <a href="{% url 'favorites:list' %}" class="action-item">
-                    {% if favorite_count > 0 %}
-                    <span class="badge" id="favorite-badge">{{ favorite_count }}</span>
-                    {% else %}
-                    <span class="badge" id="favorite-badge" style="background-color: #b2bec3;">0</span>
-                    {% endif %}
+                    <span class="badge" id="favorite-badge" style="background:{% if favorite_count > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
+                        {{ favorite_count|default:0 }}
+                    </span>
                     <i class="far fa-heart"></i>
                     <span>Избранное</span>
                 </a>
 
                 <a href="{% url 'cart:detail' %}" class="action-item">
-                    <span class="badge" id="cart-badge" style="background-color: {% if cart_total_quantity > 0 %}#62cb78{% else %}#b2bec3{% endif %};">
+                    <span class="badge" id="cart-badge" style="background:{% if cart_total_quantity > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
                         {{ cart_total_quantity|default:0 }}
                     </span>
                     <i class="fas fa-shopping-cart"></i>
                     <span>Корзина</span>
                 </a>
-
             </div>
         </div>
     </header>
 
+    <!-- ===== NAV ===== -->
     <nav class="nav-bar">
         <div class="nav-container">
             {% for category in menu_categories %}
             <div class="nav-item-dropdown">
                 <a href="{% url 'categories:detail' category.slug %}" class="nav-link">
-                    {{ category.name }} <i class="fas fa-chevron-down" style="font-size: 10px; margin-left: 3px; color: #b2bec3;"></i>
+                    {{ category.name }}
+                    <i class="fas fa-chevron-down" style="font-size:10px; color:#b2bec3;"></i>
                 </a>
-
                 <ul class="dropdown-menu-custom">
                     {% for subcategory in category.children.all %}
-                    <li>
-                        <a href="{% url 'categories:detail' subcategory.slug %}">
-                            {{ subcategory.name }}
-                        </a>
-                    </li>
+                    <li><a href="{% url 'categories:detail' subcategory.slug %}">{{ subcategory.name }}</a></li>
                     {% empty %}
-                    <li><span style="display:block; padding: 10px 20px; font-size: 13px; color: #b2bec3; font-style: italic;">Ички категориялар жок</span></li>
+                    <li><span style="display:block;padding:10px 14px;font-size:12px;color:#b2bec3;font-style:italic;">Ички категориялар жок</span></li>
                     {% endfor %}
                 </ul>
             </div>
             {% empty %}
-            <span class="nav-link" style="color: #95a5a6;">Категориялар түзүлө элек</span>
+            <span class="nav-link" style="color:#95a5a6;">Категориялар түзүлө элек</span>
             {% endfor %}
         </div>
     </nav>
 
+    <!-- ===== MAIN LAYOUT ===== -->
     <div class="main-layout-container">
-        
-        {% block sidebar %}
-
-        {% endblock %}
-
+        {% block sidebar %}{% endblock %}
         <main class="main-content">
             {% block content %}{% endblock %}
         </main>
-        
     </div>
 
-    {% block extra_js %}{% endblock %}
+    <!-- ===== МОБИЛДИК МЕНЮ (снизу) ===== -->
+    <nav class="mobile-bottom-nav">
+        <div class="nav-items">
+            <a href="/" class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <i class="fas fa-home"></i>
+                <span>Башкы</span>
+            </a>
+            <a href="{% url 'products:list' %}" class="nav-item {% if 'products' in request.path %}active{% endif %}">
+                <i class="fas fa-store"></i>
+                <span>Каталог</span>
+            </a>
+            <a href="{% url 'favorites:list' %}" class="nav-item {% if 'favorites' in request.path %}active{% endif %}">
+                {% if favorite_count > 0 %}
+                <span class="nav-badge">{{ favorite_count }}</span>
+                {% endif %}
+                <i class="far fa-heart"></i>
+                <span>Тандалган</span>
+            </a>
+            <a href="{% url 'cart:detail' %}" class="nav-item {% if 'cart' in request.path %}active{% endif %}">
+                {% if cart_total_quantity > 0 %}
+                <span class="nav-badge">{{ cart_total_quantity }}</span>
+                {% endif %}
+                <i class="fas fa-shopping-cart"></i>
+                <span>Корзина</span>
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard:home' %}" class="nav-item {% if 'dashboard' in request.path %}active{% endif %}">
+                <i class="far fa-user"></i>
+                <span>Профил</span>
+            </a>
+            {% else %}
+            <a href="{% url 'accounts:login' %}" class="nav-item">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Кирүү</span>
+            </a>
+            {% endif %}
+        </div>
+    </nav>
 
+    {% block extra_js %}{% endblock %}
     <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
     <script src="{% static 'js/cart_app/cart.js' %}"></script>
 
 </body>
-
 </html>

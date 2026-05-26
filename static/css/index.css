@@ -1,222 +1,365 @@
- /* Башкы беттин макети */
-    .page-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 0 20px;
-        display: flex;
-        gap: 30px;
-    }
+/* static/css/home.css */
+/* Бул файлды static/css/ папкасына кой */
 
-    /* Негизги контент (Товарлар жайгашкан бөлүк) */
-    .main-products-area {
-        flex: 1;
-    }
+:root {
+    --green: #1db954;
+    --green-dark: #17a045;
+    --green-light: #e8faf0;
+    --dark: #0d1117;
+    --gray: #6b7280;
+    --white: #ffffff;
+    --radius: 16px;
+}
 
-    /* Блоктун аталышы */
-    .section-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2d3436;
-        margin-bottom: 25px;
-    }
+/* ===== HERO ===== */
+.hero {
+    background: linear-gradient(135deg, #0d1117 0%, #1a2332 60%, #0f2419 100%);
+    border-radius: 24px;
+    margin: 24px 0 32px;
+    padding: 56px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    overflow: hidden;
+    position: relative;
+    animation: fadeUp 0.5s ease both;
+}
 
-    /* Товарлардын торчосу */
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 25px;
-    }
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(29,185,84,0.25) 0%, transparent 70%);
+    top: -100px; right: -80px;
+    pointer-events: none;
+}
 
-    /* FINE стилиндеги кооз товар карточкасы */
-    .product-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 20px;
-        border: 1px solid #f1f3f5;
-        transition: all 0.3s ease;
-        display: flex;
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(29,185,84,0.12) 0%, transparent 70%);
+    bottom: -60px; left: 200px;
+    pointer-events: none;
+}
+
+.hero-text { position: relative; z-index: 1; }
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(29,185,84,0.15);
+    border: 1px solid rgba(29,185,84,0.3);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    letter-spacing: -1px;
+}
+
+.hero h1 span { color: var(--green); }
+
+.hero p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    margin: 0 0 32px;
+    max-width: 420px;
+    line-height: 1.6;
+}
+
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-primary {
+    background: var(--green);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(29,185,84,0.4);
+    color: #fff;
+    text-decoration: none;
+}
+
+.btn-outline {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-outline:hover {
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+    text-decoration: none;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+}
+
+.hero-stat {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 24px 20px;
+    min-width: 90px;
+}
+
+.hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--green);
+    display: block;
+}
+
+.hero-stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    display: block;
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.section-title-new {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0;
+}
+
+.section-link {
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s;
+}
+
+.section-link:hover {
+    gap: 8px;
+    color: var(--green-dark);
+    text-decoration: none;
+}
+
+/* ===== CATEGORIES ===== */
+.categories-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+    scrollbar-width: none;
+    animation: fadeUp 0.5s ease 0.1s both;
+}
+
+.categories-row::-webkit-scrollbar { display: none; }
+
+.cat-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--white);
+    border: 1.5px solid #e5e7eb;
+    border-radius: 999px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.cat-chip:hover {
+    border-color: var(--green);
+    color: var(--green);
+    box-shadow: 0 4px 16px rgba(29,185,84,0.15);
+    transform: translateY(-1px);
+    text-decoration: none;
+}
+
+.cat-chip .cat-icon { font-size: 18px; }
+
+/* ===== SALE BANNER ===== */
+.sale-banner {
+    background: linear-gradient(135deg, #ff6b35, #f7c948);
+    border-radius: 20px;
+    padding: 32px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    overflow: hidden;
+    position: relative;
+    animation: fadeUp 0.5s ease 0.15s both;
+}
+
+.sale-banner::before {
+    content: '%';
+    position: absolute;
+    right: 160px;
+    top: -20px;
+    font-size: 140px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    color: rgba(255,255,255,0.15);
+    line-height: 1;
+}
+
+.sale-banner-text h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 8px;
+}
+
+.sale-banner-text p {
+    color: rgba(255,255,255,0.85);
+    font-size: 15px;
+    margin: 0;
+}
+
+.btn-white {
+    background: #fff;
+    color: #ff6b35;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    text-decoration: none;
+    color: #ff6b35;
+}
+
+/* ===== PRODUCTS GRID ===== */
+.products-section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease 0.2s both;
+}
+
+.discounted-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--gray);
+}
+
+.empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+
+/* ===== CTA BOTTOM ===== */
+.cta-bottom {
+    background: var(--green-light);
+    border: 2px dashed rgba(29,185,84,0.3);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 16px;
+}
+
+.cta-bottom h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark);
+    margin: 0 0 8px;
+}
+
+.cta-bottom p {
+    color: var(--gray);
+    font-size: 15px;
+    margin: 0 0 24px;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .hero {
         flex-direction: column;
-        position: relative;
-        box-sizing: border-box;
-    }
-
-    .product-card:hover {
-        border-color: #78b933;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Сүрөт блогу */
-    .product-img-box {
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px;
-        position: relative;
-        width: 100%;
-    }
-
-    .product-img-box img {
-        max-height: 100%;
-        max-width: 100%;
-        object-fit: contain;
-    }
-
-    /* Скидка белгиси */
-    .discount-badge {
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: #d9534f;
-        color: white;
-        padding: 3px 8px;
-        font-size: 13px;
-        font-weight: 700;
-        border-radius: 2px;
-        z-index: 2;
-    }
-
-    /* Оң бурчтагы иконкалар */
-    .card-actions-top {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 2;
-    }
-
-    .action-icon {
-        color: #b2bec3;
-        font-size: 18px;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-
-    .action-icon:hover {
-        color: #78b933;
-    }
-
-    /* Текст жана Баа топтолгон блок */
-    .product-details-block {
-        margin-top: auto;
-    }
-
-    /* Товардын аталышы */
-    .product-link {
-        text-decoration: none;
-        color: #78b933;
-        font-size: 15px;
-        font-weight: 600;
-        line-height: 1.4;
-        margin: 0 0 8px 0;
-        display: block;
-    }
-
-    .product-link:hover {
-        text-decoration: underline;
-    }
-
-    /* Баалар жана Себет жайгашкан астыңкы блок */
-    .product-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-
-    .price-block {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Эски баа */
-    .old-price {
-        font-size: 13px;
-        color: #95a5a6;
-        text-decoration: line-through;
-        margin-bottom: 2px;
-    }
-
-    /* Негизги баа */
-    .current-price {
-        font-size: 20px;
-        font-weight: 800;
-        color: #1a1a1a;
-    }
-
-    /* Жашыл Себет баскычы */
-    .btn-cart {
-        background-color: #78b933;
-        color: white;
-        border: none;
-        width: 44px;
-        height: 44px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        text-decoration: none;
-        transition: background-color 0.2s;
-    }
-
-    .btn-cart:hover {
-        background-color: #639b24;
-    }
-
-    .empty-catalog {
+        padding: 36px 24px;
         text-align: center;
-        padding: 60px;
-        background: #f8f9fa;
-        border-radius: 12px;
-        color: #95a5a6;
-        width: 100%;
     }
+    .hero p { max-width: 100%; }
+    .hero-btns { justify-content: center; }
+    .hero-stats { gap: 12px; }
+    .sale-banner { flex-direction: column; gap: 20px; text-align: center; }
+    .sale-banner::before { display: none; }
+    .discounted-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .cta-bottom { padding: 28px 20px; }
+}
 
-    /* Мобилдик версия */
-    @media (max-width: 600px) {
-        .page-container {
-            padding: 0 10px;
-            margin: 20px auto;
-        }
-
-        .section-title {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .product-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .product-card {
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .product-img-box {
-            height: 130px;
-            margin-bottom: 10px;
-        }
-
-        .product-link {
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-
-        .old-price {
-            font-size: 11px;
-        }
-
-        .current-price {
-            font-size: 15px;
-        }
-
-        .btn-cart {
-            width: 36px;
-            height: 36px;
-            font-size: 14px;
-        }
-    }
+@media (max-width: 480px) {
+    .hero { padding: 28px 16px; }
+    .hero h1 { font-size: 28px; }
+    .hero-stat { padding: 16px 12px; min-width: 75px; }
+    .hero-stat-num { font-size: 20px; }
+}

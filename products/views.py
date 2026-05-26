@@ -8,23 +8,27 @@ from django.http import JsonResponse # AJAX жооптору үчүн
 
 
 # Бардык колдонуучулар сайттын башкы баракчасында бардык активдүү товарларды көрө алышат
+# products/views.py ичиндеги index_view функциясын ушул менен алмаштыр
+
 def index_view(request):
-    products = Product.objects.all().order_by('-id') 
-    
+    # Акциядагы товарлар гана башкы бетте
+    discounted_products = Product.objects.filter(
+        discount_percent__gt=0,
+        stock__gt=0,
+    ).order_by('-discount_percent')[:12]
+
     favorite_product_ids = []
-    # Колдонуучу кирген болсо, анын тандаган товарларынын IDлерин гана бөлүп алабыз
     if request.user.is_authenticated and request.user.role == 'client':
         from favorites.models import Favorite
         favorite_product_ids = Favorite.objects.filter(
             user=request.user
         ).values_list('product_id', flat=True)
-    
+
     context = {
-        'products': products,
-        'favorite_product_ids': favorite_product_ids, # Шаблонго тизмени жөнөтөбүз
+        'discounted_products': discounted_products,
+        'favorite_product_ids': list(favorite_product_ids),
     }
     return render(request, 'products/index.html', context)
-
 
 
 # Client жана башкалар товардун деталдарын көрөт, seller өзүнүн товарларынын деталдарын гана көрөт

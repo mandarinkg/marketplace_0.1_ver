@@ -1,28 +1,113 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}FINE — Акциялар жана жеңилдиктер{% endblock %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-<div class="page-container">
-    <div class="main-products-area">
-        <h2 class="section-title">Бардык товарлар</h2>
 
-        <div class="product-grid">
-            {% for product in products %}
-                {% include 'includes/products_app/products_card.html' with product=product %}
-            {% empty %}
-                <div class="empty-catalog">
-                    <p>Товарлар азырынча кошула элек.</p>
-                </div>
-            {% endfor %}
+<!-- HERO БАННЕР -->
+<div class="hero">
+    <div class="hero-text">
+        <div class="hero-badge">🔥 Бүгүнкү акциялар</div>
+        <h1>Мыкты баада<br><span>жеңилдиктер!</span></h1>
+        <p>Шаарга барбай эле заказ бер — биз жеткирип беребиз. Электроника, азык-түлүк жана дагы көп нерсе.</p>
+        <div class="hero-btns">
+            <a href="{% url 'products:list' %}" class="btn-primary">
+                <i class="fas fa-store"></i> Бардык товарлар
+            </a>
+            <a href="{% url 'categories:list' %}" class="btn-outline">
+                <i class="fas fa-th-large"></i> Категориялар
+            </a>
+        </div>
+    </div>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <span class="hero-stat-num">500+</span>
+            <span class="hero-stat-label">Товар</span>
+        </div>
+        <div class="hero-stat">
+            <span class="hero-stat-num">24ч</span>
+            <span class="hero-stat-label">Жеткируу</span>
+        </div>
+        <div class="hero-stat">
+            <span class="hero-stat-num">5★</span>
+            <span class="hero-stat-label">Рейтинг</span>
         </div>
     </div>
 </div>
 
+<!-- КАТЕГОРИЯЛАР -->
+<div class="section-header">
+    <h2 class="section-title-new">Категориялар</h2>
+    <a href="{% url 'categories:list' %}" class="section-link">
+        Баары <i class="fas fa-arrow-right"></i>
+    </a>
+</div>
+<div class="categories-row">
+    {% for category in menu_categories %}
+    <a href="{% url 'categories:detail' category.slug %}" class="cat-chip">
+        <span class="cat-icon">
+            {% if 'электрон' in category.name|lower %}📱
+            {% elif 'азык' in category.name|lower or 'тулук' in category.name|lower %}🛒
+            {% elif 'нан' in category.name|lower %}🍞
+            {% elif 'кийим' in category.name|lower %}👕
+            {% else %}📦{% endif %}
+        </span>
+        {{ category.name }}
+    </a>
+    {% empty %}
+    <span style="color:#999; font-size:14px;">Категориялар жок</span>
+    {% endfor %}
+</div>
+
+<!-- АКЦИЯ БАННЕРИ -->
+<div class="sale-banner">
+    <div class="sale-banner-text">
+        <h3>🔥 Чоң жеңилдиктер!</h3>
+        <p>Тандалган товарларга -10%ден -50%ке чейин. Убакыт чектелүү!</p>
+    </div>
+    <a href="{% url 'products:list' %}" class="btn-white">Акцияларды көрүү →</a>
+</div>
+
+<!-- АКЦИЯДАГЫ ТОВАРЛАР -->
+<div class="products-section">
+    <div class="section-header">
+        <h2 class="section-title-new">🏷️ Акциядагы товарлар</h2>
+        <a href="{% url 'products:list' %}" class="section-link">
+            Баары <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+
+    <div class="discounted-grid">
+        {% for product in discounted_products %}
+            {% include 'includes/products_app/products_card.html' with product=product %}
+        {% empty %}
+            <div class="empty-state" style="grid-column: 1/-1;">
+                <div class="empty-state-icon">🏷️</div>
+                <p>Азырынча акциялар жок</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- КАТАЛОГГО ӨТҮҮ -->
+<div class="cta-bottom">
+    <h3>Дагы товарларды издеп жатасызбы?</h3>
+    <p>Каталогдо 500+ товар бар — электроника, азык-түлүк жана дагы көп нерсе</p>
+    <a href="{% url 'products:list' %}" class="btn-primary" style="display:inline-flex;">
+        <i class="fas fa-store"></i> Бардык товарларды көрүү
+    </a>
+</div>
+
+{% endblock %}
+
 {% block extra_js %}
     <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
-{% endblock %}
+    <script src="{% static 'js/cart_app/cart.js' %}"></script>
 {% endblock %}
