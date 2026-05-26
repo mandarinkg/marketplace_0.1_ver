@@ -33,11 +33,22 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
 
+    # categories/models.py ичиндеги __str__ методун ушул менен алмаштыр
+
     def __str__(self):
         lang = get_language()
-        if lang == 'ky' and self.name_ky:
-            return self.name_ky
-        elif lang == 'ru' and self.name_ru:
-            return self.name_ru
-        # fallback — что есть то и вернёт
-        return self.name_ky or self.name_ru or self.name or '---'
+        
+        if lang == 'ky':
+            name = self.name_ky or self.name_ru or self.name or '---'
+        else:
+            name = self.name_ru or self.name_ky or self.name or '---'
+        
+        # Эгер подкатегория болсо — "Продукты > Эт азыктары" форматта көрсөт
+        if self.parent:
+            if lang == 'ky':
+                parent_name = self.parent.name_ky or self.parent.name_ru or self.parent.name or '---'
+            else:
+                parent_name = self.parent.name_ru or self.parent.name_ky or self.parent.name or '---'
+            return f"{parent_name} > {name}"
+        
+        return name

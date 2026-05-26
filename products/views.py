@@ -81,54 +81,52 @@ def product_list(request):
     })
 
 
-# Seller гана товарларды кошо алат
+# products/views.py ичиндеги product_create жана product_edit функцияларын ушул менен алмаштыр
+
 @login_required(login_url='accounts:login')
 def product_create(request):
-    # Ролу seller болбогон колдонуучуларды киргизбейбиз
     if request.user.role != 'seller':
         return redirect('dashboard:home')
 
+    from shops.models import Shop
+    if not Shop.objects.filter(owner=request.user).exists():
+        return redirect('shops:create')
+
     if request.method == 'POST':
-        form = ProductCreateForm(request.POST, request.FILES)
+        form = ProductCreateForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             product = form.save(commit=False)
-            product.seller = request.user  # Сатуучуну автоматтык түрдө каттайбыз
+            product.seller = request.user
+            product.discount_percent = product.discount_percent or 0  # ← ВОТ ЭТО
             product.save()
             return redirect('products:detail', slug=product.slug)
     else:
-        form = ProductCreateForm()
+        form = ProductCreateForm(user=request.user)
 
     return render(request, 'products/product_form.html', {
         'form': form,
-        'title': 'Добавить товар'
+        'title': 'Товар кошуу'
     })
 
 
-# Seller өзүнүн товарларын гана түзөтө алат (Ийкемдүү скидка эсептөөсү менен)
 @login_required(login_url='accounts:login')
 def product_edit(request, slug):
-    # Коопсуздук: Колдонуучу сатуучу болушу керек
     if request.user.role != 'seller':
         return redirect('dashboard:home')
-        
-    # Товарды базадан издейбиз, ал тек гана ушул сураныч жиберген сатуучуга таандык болушу шарт
-    product = get_object_or_404(
-        Product,
-        slug=slug,
-        seller=request.user
-    )
+
+    product = get_object_or_404(Product, slug=slug, seller=request.user)
 
     if request.method == 'POST':
-        form = ProductUpdateForm(request.POST, request.FILES, instance=product)
+        form = ProductUpdateForm(request.POST, request.FILES, instance=product, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('products:detail', slug=product.slug)
     else:
-        form = ProductUpdateForm(instance=product)
+        form = ProductUpdateForm(instance=product, user=request.user)
 
     return render(request, 'products/product_form.html', {
         'form': form,
-        'title': 'Редактировать товар'
+        'title': 'Товарды түзөтүү'
     })
 
 

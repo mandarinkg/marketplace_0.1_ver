@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Менин магазиндерим — FINE{% endblock %}
+
+{% block content %}
+<style>
+.shops-container { max-width: 800px; margin: 32px auto; padding: 0 16px; }
+.shops-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.shops-title { font-size: 22px; font-weight: 800; color: #1a1a2e; margin: 0; }
+.btn-new {
+    background: #2ecc71; color: #fff; padding: 11px 20px;
+    border-radius: 10px; font-weight: 600; font-size: 14px;
+    text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: background 0.2s;
+}
+.btn-new:hover { background: #27ae60; color: #fff; }
+.shop-card {
+    background: #fff; border-radius: 16px; border: 1.5px solid #edf2f7;
+    padding: 20px; margin-bottom: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+.shop-info { flex: 1; }
+.shop-name { font-size: 16px; font-weight: 700; color: #1a1a2e; margin: 0 0 4px; }
+.shop-detail { font-size: 13px; color: #636e72; }
+.shop-actions { display: flex; gap: 8px; }
+.btn-edit {
+    background: #eafaf1; color: #27ae60; border: 1px solid #d4f5e2;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px;
+    font-weight: 600; text-decoration: none; transition: all 0.2s;
+}
+.btn-edit:hover { background: #d4f5e2; }
+.btn-del {
+    background: #fff5f5; color: #e74c3c; border: 1px solid #fed7d7;
+    padding: 8px 14px; border-radius: 8px; font-size: 13px;
+    font-weight: 600; text-decoration: none; transition: all 0.2s;
+}
+.btn-del:hover { background: #ffe0e0; }
+.empty-box {
+    text-align: center; padding: 60px 20px;
+    background: #fff; border-radius: 16px; border: 1.5px dashed #edf2f7; color: #95a5a6;
+}
+</style>
+
+<div class="shops-container">
+    <div class="shops-header">
+        <h1 class="shops-title">🏪 Менин магазиндерим</h1>
+        <a href="{% url 'shops:create' %}" class="btn-new">
+            <i class="fas fa-plus"></i> Жаңы магазин
+        </a>
+    </div>
+
+    {% for shop in shops %}
+    <div class="shop-card">
+        <div class="shop-info">
+            <div class="shop-name">{{ shop.name }}</div>
+            {% if shop.address %}<div class="shop-detail"><i class="fas fa-map-marker-alt"></i> {{ shop.address }}</div>{% endif %}
+            {% if shop.phone %}<div class="shop-detail"><i class="fas fa-phone"></i> {{ shop.phone }}</div>{% endif %}
+        </div>
+        <div class="shop-actions">
+            <a href="{% url 'shops:edit' shop.id %}" class="btn-edit"><i class="fas fa-edit"></i> Түзөтүү</a>
+            <a href="{% url 'shops:delete' shop.id %}" class="btn-del"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-box">
+        <i class="fas fa-store" style="font-size:40px; margin-bottom:12px; display:block; color:#dfe6e9;"></i>
+        <p style="margin:0 0 16px;">Азырынча магазин жок</p>
+        <a href="{% url 'shops:create' %}" class="btn-new" style="display:inline-flex;">
+            <i class="fas fa-plus"></i> Биринчи магазинди түзүү
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

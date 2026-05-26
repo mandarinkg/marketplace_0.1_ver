@@ -1,132 +1,386 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }} — FINE{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --green: #2ecc71;
+    --green-dark: #27ae60;
+    --green-light: #eafaf1;
+    --dark: #1a1a2e;
+    --gray: #636e72;
+    --border: #e1e8ed;
+    --white: #fff;
+    --bg: #f7f8fc;
+}
+
+.form-page-container {
+    max-width: 680px;
+    margin: 32px auto;
+    padding: 0 16px 60px;
+}
+
+.form-card {
+    background: var(--white);
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    padding: 32px;
+}
+
+.form-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0 0 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--bg);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section {
+    margin-bottom: 28px;
+}
+
+.form-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gray);
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--bg);
+}
+
+.form-group { margin-bottom: 18px; }
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background: var(--bg);
+    box-sizing: border-box;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--green);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(46,204,113,0.12);
+}
+
+.form-group input[type="file"] {
+    padding: 8px;
+    border-style: dashed;
+    background: var(--bg);
+    cursor: pointer;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* ПОДСКАЗКА ПО КАТЕГОРИИ */
+.desc-hint {
+    display: none;
+    background: var(--green-light);
+    border: 1px solid rgba(46,204,113,0.3);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #27ae60;
+    font-weight: 500;
+}
+
+.desc-hint.show { display: flex; align-items: flex-start; gap: 8px; }
+.desc-hint i { margin-top: 1px; flex-shrink: 0; }
+
+.hint-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-light);
+    border: 1px solid rgba(46,204,113,0.3);
+    color: var(--green-dark);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+}
+
+.hint-btn:hover { background: #d4f5e2; }
+
+/* ОШИБКИ */
+.field-error { color: #e74c3c; font-size: 12px; margin-top: 5px; font-weight: 500; }
+.field-help { color: var(--gray); font-size: 12px; margin-top: 4px; }
+
+/* КНОПКИ */
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid var(--bg);
+}
+
+.btn-save {
+    background: var(--green);
+    color: white;
+    border: none;
+    padding: 13px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-save:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+.btn-back {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 13px 20px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    transition: all 0.2s;
+}
+
+.btn-back:hover { border-color: var(--gray); color: var(--dark); }
+
+@media (max-width: 600px) {
+    .form-card { padding: 20px 16px; }
+    .form-row { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<style>
-    .form-page-container {
-        max-width: 600px;
-        margin: 40px auto;
-        padding: 30px;
-        background: #ffffff;
-        border-radius: 16px;
-        border: 1px solid #e1e8ed;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        font-family: 'Inter', sans-serif;
-    }
-
-    .form-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2c3e50;
-        margin-bottom: 25px;
-        border-bottom: 2px solid #f1f3f5;
-        padding-bottom: 10px;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .form-group label {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        color: #555555;
-        margin-bottom: 8px;
-    }
-
-    /* Django берген бардык киргизүү талааларын кооздоо */
-    .form-group input, 
-    .form-group select, 
-    .form-group textarea {
-        width: 100%;
-        padding: 12px 14px;
-        border: 1px solid #cccccc;
-        border-radius: 8px;
-        font-size: 15px;
-        color: #333333;
-        background-color: #ffffff;
-        box-sizing: border-box;
-        transition: border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .form-group input:focus, 
-    .form-group select:focus, 
-    .form-group textarea:focus {
-        border-color: #78b933;
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(120, 185, 51, 0.15);
-    }
-
-    .form-actions {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-top: 30px;
-    }
-
-    .btn-save {
-        background-color: #78b933;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .btn-save:hover {
-        background-color: #639b24;
-    }
-
-    .btn-back {
-        color: #7f8c8d;
-        text-decoration: none;
-        font-size: 15px;
-        font-weight: 500;
-        transition: color 0.2s;
-    }
-
-    .btn-back:hover {
-        color: #2c3e50;
-        text-decoration: underline;
-    }
-
-    /* Сүрөт жүктөөчү талаанын стили */
-    .form-group input[type="file"] {
-        padding: 8px;
-        border: 1px dashed #cccccc;
-        background: #fafafa;
-        cursor: pointer;
-    }
-</style>
-
 <div class="form-page-container">
-    <h1 class="form-title">{{ title }}</h1>
+    <div class="form-card">
+        <h1 class="form-title">
+            <i class="fas fa-plus-circle" style="color:var(--green);"></i>
+            {{ title }}
+        </h1>
 
-    <form method="post" enctype="multipart/form-data" novalidate>
-        {% csrf_token %}
+        <form method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
 
-        {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: #7f8c8d; display: block; margin-top: 4px;">{{ field.help_text }}</small>
-                {% endif %}
-                {% if field.errors %}
-                    <div style="color: #d9534f; font-size: 13px; margin-top: 5px; font-weight: 500;">
-                        {{ field.errors|striptags }}
-                    </div>
-                {% endif %}
+            <!-- МАГАЗИН -->
+            <div class="form-section">
+                <div class="form-section-title">🏪 Магазин</div>
+                <div class="form-group">
+                    <label>{{ form.shop.label }}</label>
+                    {{ form.shop }}
+                    {% if form.shop.errors %}<div class="field-error">{{ form.shop.errors|striptags }}</div>{% endif %}
+                </div>
             </div>
-        {% endfor %}
 
-        <div class="form-actions">
-            <button type="submit" class="btn-save">Сохранить</button>
-            <a href="javascript:history.back()" class="btn-back">Назад</a>
-        </div>
-    </form>
+            <!-- ТОВАР МААЛЫМАТЫ -->
+            <div class="form-section">
+                <div class="form-section-title">📦 Товар жөнүндө</div>
+
+                <div class="form-group">
+                    <label>{{ form.category.label }}</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}<div class="field-error">{{ form.category.errors|striptags }}</div>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.title.label }}</label>
+                    {{ form.title }}
+                    {% if form.title.errors %}<div class="field-error">{{ form.title.errors|striptags }}</div>{% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.image.label }}</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}<div class="field-error">{{ form.image.errors|striptags }}</div>{% endif %}
+                </div>
+
+                <!-- ОПИСАНИЕ С ПОДСКАЗКОЙ -->
+                <div class="form-group">
+                    <label>{{ form.description.label }}</label>
+
+                    <!-- Подсказка по категории -->
+                    <div class="desc-hint" id="descHint">
+                        <i class="fas fa-lightbulb"></i>
+                        <span id="descHintText"></span>
+                    </div>
+
+                    <button type="button" class="hint-btn" id="useHintBtn" style="display:none;" onclick="applyHint()">
+                        <i class="fas fa-magic"></i> Шаблонду колдонуу
+                    </button>
+
+                    {{ form.description }}
+                    {% if form.description.errors %}<div class="field-error">{{ form.description.errors|striptags }}</div>{% endif %}
+                </div>
+            </div>
+
+            <!-- БААЛАР -->
+            <div class="form-section">
+                <div class="form-section-title">💰 Баа жана запас</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>{{ form.purchase_price.label }}</label>
+                        {{ form.purchase_price }}
+                        {% if form.purchase_price.errors %}<div class="field-error">{{ form.purchase_price.errors|striptags }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.price.label }}</label>
+                        {{ form.price }}
+                        {% if form.price.errors %}<div class="field-error">{{ form.price.errors|striptags }}</div>{% endif %}
+                    </div>
+                </div>
+
+                {% if form.discount_percent %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>{{ form.discount_percent.label }}</label>
+                        {{ form.discount_percent }}
+                        {% if form.discount_percent.errors %}<div class="field-error">{{ form.discount_percent.errors|striptags }}</div>{% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label>{{ form.old_price.label }}</label>
+                        {{ form.old_price }}
+                        <div class="field-help">Система автоматтык эсептейт</div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label>{{ form.stock.label }}</label>
+                    {{ form.stock }}
+                    {% if form.stock.errors %}<div class="field-error">{{ form.stock.errors|striptags }}</div>{% endif %}
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-save">
+                    <i class="fas fa-save"></i> Сохранить
+                </button>
+                <a href="javascript:history.back()" class="btn-back">Назад</a>
+            </div>
+        </form>
+    </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Категория боюнча сүрөттөмө шаблондору
+const DESCRIPTION_TEMPLATES = {
+    // ЭЛЕКТРОНИКА
+    'телефон': `Бренд: \nМодель: \nПамять: \nОперативная память: \nЭкран: \nКамера: \nЦвет: \nСостояние: Новый`,
+    'ноутбук': `Бренд: \nМодель: \nПроцессор: \nОперативная память: \nНакопитель: \nЭкран: \nОС: \nЦвет: `,
+    'аксессуар': `Тип: \nСовместимость: \nЦвет: \nМатериал: \nСостояние: Новый`,
+
+    // ПРОДУКТЫ
+    'овощ': `Вид: \nВес/Объём: \nПроисхождение: \nСорт: \nСвежесть: Свежий`,
+    'фрукт': `Вид: \nВес/Объём: \nПроисхождение: \nСорт: \nСвежесть: Свежий`,
+    'хлеб': `Вид: \nВес: \nСостав: \nСрок годности: \nПроизводитель: `,
+    'молочн': `Вид: \nОбъём/Вес: \nЖирность: \nСрок годности: \nПроизводитель: `,
+    'мясн': `Вид мяса: \nЧасть туши: \nВес: \nСвежесть: Свежий\nПроисхождение: `,
+
+    // ОДЕЖДА
+    'мужск': `Вид одежды: \nРазмер: \nЦвет: \nМатериал: \nБренд: \nСостояние: Новый`,
+    'женск': `Вид одежды: \nРазмер: \nЦвет: \nМатериал: \nБренд: \nСостояние: Новый`,
+    'детск': `Вид одежды: \nВозраст/Размер: \nЦвет: \nМатериал: \nБренд: \nСостояние: Новый`,
+
+    // ДОМ
+    'кухн': `Вид товара: \nМатериал: \nРазмер/Объём: \nЦвет: \nБренд: \nСостояние: Новый`,
+    'мебел': `Вид мебели: \nМатериал: \nРазмер (Д×Ш×В): \nЦвет: \nСостояние: Новый`,
+    'освещ': `Тип: \nМощность: \nЦоколь: \nЦвет света: \nБренд: `,
+
+    // СЕЛЬСКОЕ ХОЗЯЙСТВО
+    'семен': `Культура: \nВес: \nПроизводитель: \nСрок годности: \nСорт: `,
+    'инструмент': `Вид инструмента: \nМатериал: \nДлина: \nСостояние: Новый`,
+    'корм': `Вид животного: \nСостав: \nВес: \nПроизводитель: \nСрок годности: `,
+
+    // ШКОЛА
+    'книг': `Название: \nАвтор: \nИздательство: \nГод издания: \nСостояние: Новый`,
+    'рюкзак': `Объём: \nЦвет: \nМатериал: \nВозраст: \nБренд: \nСостояние: Новый`,
+    'тетрад': `Вид: \nКоличество листов: \nЛиния/Клетка: \nКоличество в упаковке: `,
+
+    // DEFAULT
+    'default': `Описание: \nОсобенности: \nСостояние: Новый\nПроизводитель: `
+};
+
+let currentTemplate = '';
+
+function getCategoryTemplate(categoryText) {
+    if (!categoryText) return '';
+    const text = categoryText.toLowerCase();
+
+    for (const [key, template] of Object.entries(DESCRIPTION_TEMPLATES)) {
+        if (key !== 'default' && text.includes(key)) {
+            return template;
+        }
+    }
+    return DESCRIPTION_TEMPLATES['default'];
+}
+
+// Категория өзгөргөндө
+document.getElementById('id_category').addEventListener('change', function () {
+    const selectedText = this.options[this.selectedIndex]?.text || '';
+    const template = getCategoryTemplate(selectedText);
+    const hint = document.getElementById('descHint');
+    const hintText = document.getElementById('descHintText');
+    const hintBtn = document.getElementById('useHintBtn');
+
+    if (template && this.value) {
+        currentTemplate = template;
+        hintText.textContent = 'Бул категория үчүн шаблон бар — автоматтык толтуруу үчүн басыңыз';
+        hint.classList.add('show');
+        hintBtn.style.display = 'inline-flex';
+    } else {
+        hint.classList.remove('show');
+        hintBtn.style.display = 'none';
+        currentTemplate = '';
+    }
+});
+
+function applyHint() {
+    const desc = document.getElementById('id_description');
+    if (desc && currentTemplate) {
+        desc.value = currentTemplate;
+        desc.focus();
+        // Анимация
+        desc.style.borderColor = '#2ecc71';
+        setTimeout(() => desc.style.borderColor = '', 1000);
+    }
+}
+</script>
 {% endblock %}

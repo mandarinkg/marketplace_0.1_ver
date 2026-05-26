@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Магазинди өчүрүү — FINE{% endblock %}
+
+{% block content %}
+<style>
+.confirm-container {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 0 16px;
+}
+.confirm-card {
+    background: #fff;
+    border-radius: 20px;
+    border: 1.5px solid #fed7d7;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    padding: 36px 32px;
+    text-align: center;
+}
+.confirm-icon {
+    width: 72px; height: 72px;
+    background: #fff5f5;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 32px;
+}
+.confirm-title {
+    font-size: 20px; font-weight: 800; color: #1a1a2e; margin: 0 0 10px;
+}
+.confirm-text {
+    font-size: 14px; color: #636e72; margin: 0 0 28px; line-height: 1.6;
+}
+.confirm-shop-name {
+    font-weight: 700; color: #e74c3c;
+}
+.confirm-actions {
+    display: flex; gap: 12px; justify-content: center;
+}
+.btn-confirm-delete {
+    background: #e74c3c; color: #fff; border: none;
+    padding: 13px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+    display: flex; align-items: center; gap: 8px;
+}
+.btn-confirm-delete:hover { background: #c0392b; }
+.btn-cancel {
+    background: #f7f8fc; color: #636e72;
+    border: 1.5px solid #edf2f7;
+    padding: 13px 24px; border-radius: 10px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none; transition: all 0.2s;
+}
+.btn-cancel:hover { border-color: #636e72; color: #1a1a2e; }
+</style>
+
+<div class="confirm-container">
+    <div class="confirm-card">
+        <div class="confirm-icon">🗑️</div>
+        <h1 class="confirm-title">Магазинди өчүрүү</h1>
+        <p class="confirm-text">
+            <span class="confirm-shop-name">"{{ shop.name }}"</span> магазинин өчүрүүнү каалайсызбы?<br>
+            Бул магазинге байланышкан бардык товарлар да өчүрүлөт!
+        </p>
+        <div class="confirm-actions">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-confirm-delete">
+                    <i class="fas fa-trash"></i> Ооба, өчүрүү
+                </button>
+            </form>
+            <a href="{% url 'shops:list' %}" class="btn-cancel">Жок, артка</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
