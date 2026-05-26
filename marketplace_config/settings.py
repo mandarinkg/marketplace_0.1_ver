@@ -41,6 +41,7 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 INSTALLED_APPS = [
     # admin panel theme
     'jazzmin',
+    'modeltranslation',
 
 
     'django.contrib.admin',
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -175,3 +177,14 @@ STATICFILES_DIRS = [
 #  аны 'django.db.models.AutoField' деп өзгөртө аласыз.
 """
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# 2. Языки
+LANGUAGES = [
+    ('ky', 'Кыргызча'),
+    ('ru', 'Русский'),
+]
+
+# 3. Папка локалей
+LOCALE_PATHS = [BASE_DIR / 'locale']

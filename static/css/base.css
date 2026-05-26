@@ -1,6 +1,5 @@
 /* =====================================================
    FINE MARKETPLACE — base.css
-   Логиканы өзгөртпөй, дизайнды жаңырттык
    ===================================================== */
 
 :root {
@@ -17,20 +16,74 @@
     --shadow-md: 0 8px 30px rgba(0,0,0,0.10);
 }
 
+/* ===== DARK MODE ===== */
+body.dark-mode,
+html.dark-mode body {
+    --bg: #0d1117;
+    --white: #161b22;
+    --text: #e6edf3;
+    --gray: #8b949e;
+    --border: #30363d;
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.3);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.4);
+    --green-light: rgba(46,204,113,0.1);
+}
+
+body.dark-mode .main-header { background: #161b22; }
+body.dark-mode .nav-bar { background: #161b22; }
+body.dark-mode .dropdown-menu-custom { background: #161b22; }
+body.dark-mode .mobile-bottom-nav { background: #161b22; }
+body.dark-mode .search-input { background: #0d1117; color: #e6edf3; border-color: #30363d; }
+body.dark-mode .search-input:focus { background: #161b22; }
+body.dark-mode .logo { color: var(--green); border-color: var(--green); }
+body.dark-mode .action-item i { color: #e6edf3; }
+
+/* THEME TOGGLE BUTTON */
+.theme-toggle {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.theme-toggle:hover {
+    background: var(--green-light);
+    border-color: var(--green);
+    color: var(--green-dark);
+}
+
+.theme-toggle i { font-size: 16px; color: var(--text); margin-bottom: 1px; }
+
+body.dark-mode .theme-toggle i { color: #f7c948; }
+body.dark-mode .theme-toggle { border-color: #30363d; }
+
+/* desktop-only — мобилде жашыруу */
+@media (max-width: 768px) {
+    .desktop-only { display: none !important; }
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg);
     color: var(--text);
-    padding-bottom: 70px; /* мобилдик меню үчүн */
+    padding-bottom: 70px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 a { text-decoration: none; color: inherit; }
 
-/* =====================================================
-   HEADER
-   ===================================================== */
 .main-header {
     background: var(--white);
     border-bottom: 1px solid var(--border);
@@ -39,6 +92,7 @@ a { text-decoration: none; color: inherit; }
     top: 0;
     z-index: 200;
     box-shadow: var(--shadow-sm);
+    transition: background 0.3s;
 }
 
 .header-container {
@@ -51,7 +105,6 @@ a { text-decoration: none; color: inherit; }
     height: 64px;
 }
 
-/* ЛОГОТИП */
 .logo {
     font-size: 22px;
     font-weight: 800;
@@ -64,18 +117,9 @@ a { text-decoration: none; color: inherit; }
     transition: all 0.2s;
 }
 
-.logo:hover {
-    background: var(--green-dark);
-    color: white;
-}
+.logo:hover { background: var(--green-dark); color: white; }
 
-/* ПОИСК */
-.search-form {
-    flex: 1;
-    max-width: 520px;
-    display: flex;
-    position: relative;
-}
+.search-form { flex: 1; max-width: 520px; display: flex; position: relative; }
 
 .search-input {
     width: 100%;
@@ -101,8 +145,7 @@ a { text-decoration: none; color: inherit; }
     right: 4px;
     top: 50%;
     transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
+    width: 36px; height: 36px;
     background: var(--green);
     border: none;
     border-radius: 9px;
@@ -117,13 +160,7 @@ a { text-decoration: none; color: inherit; }
 
 .search-btn:hover { background: var(--green-dark); }
 
-/* HEADER ACTIONS */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-left: auto;
-}
+.header-actions { display: flex; align-items: center; gap: 4px; margin-left: auto; }
 
 .action-item {
     display: flex;
@@ -141,25 +178,13 @@ a { text-decoration: none; color: inherit; }
     white-space: nowrap;
 }
 
-.action-item i {
-    font-size: 18px;
-    margin-bottom: 3px;
-    color: var(--text);
-    transition: color 0.2s;
-}
-
-.action-item:hover {
-    background: var(--green-light);
-    color: var(--green-dark);
-}
-
+.action-item i { font-size: 18px; margin-bottom: 3px; color: var(--text); transition: color 0.2s; }
+.action-item:hover { background: var(--green-light); color: var(--green-dark); }
 .action-item:hover i { color: var(--green-dark); }
 
-/* BADGE */
 .badge {
     position: absolute;
-    top: 2px;
-    right: 4px;
+    top: 2px; right: 4px;
     background: var(--green);
     color: white;
     font-size: 10px;
@@ -171,13 +196,7 @@ a { text-decoration: none; color: inherit; }
     line-height: 16px;
 }
 
-/* =====================================================
-   NAV BAR (категориялар)
-   ===================================================== */
-.nav-bar {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-}
+.nav-bar { background: var(--white); border-bottom: 1px solid var(--border); transition: background 0.3s; }
 
 .nav-container {
     max-width: 1280px;
@@ -201,10 +220,7 @@ a { text-decoration: none; color: inherit; }
     border-bottom: 2px solid transparent;
 }
 
-.nav-link:hover {
-    color: var(--green-dark);
-    border-bottom-color: var(--green);
-}
+.nav-link:hover { color: var(--green-dark); border-bottom-color: var(--green); }
 
 .dropdown-menu-custom {
     display: none;
@@ -230,16 +246,9 @@ a { text-decoration: none; color: inherit; }
     transition: all 0.15s;
 }
 
-.dropdown-menu-custom li a:hover {
-    background: var(--green-light);
-    color: var(--green-dark);
-}
-
+.dropdown-menu-custom li a:hover { background: var(--green-light); color: var(--green-dark); }
 .nav-item-dropdown:hover .dropdown-menu-custom { display: block; }
 
-/* =====================================================
-   LAYOUT
-   ===================================================== */
 .main-layout-container {
     display: flex;
     max-width: 1440px;
@@ -248,42 +257,22 @@ a { text-decoration: none; color: inherit; }
     position: relative;
 }
 
-.sidebar {
-    width: 280px;
-    background-color: var(--white);
-    border-right: 1px solid var(--border);
-    padding: 25px 0;
-    flex-shrink: 0;
-}
+.sidebar { width: 280px; background-color: var(--white); border-right: 1px solid var(--border); padding: 25px 0; flex-shrink: 0; }
+.main-content { flex: 1; padding: 32px 28px; background-color: var(--bg); overflow-x: hidden; }
 
-.main-content {
-    flex: 1;
-    padding: 32px 28px;
-    background-color: var(--bg);
-    overflow-x: hidden;
-}
-
-/* =====================================================
-   МОБИЛДИК МЕНЮ (снизу)
-   ===================================================== */
 .mobile-bottom-nav {
     display: none;
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     background: var(--white);
     border-top: 1px solid var(--border);
     z-index: 500;
     box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
-    padding: 0;
     height: 64px;
+    transition: background 0.3s;
 }
 
-.mobile-bottom-nav .nav-items {
-    display: flex;
-    height: 100%;
-}
+.mobile-bottom-nav .nav-items { display: flex; height: 100%; }
 
 .mobile-bottom-nav .nav-item {
     flex: 1;
@@ -301,20 +290,10 @@ a { text-decoration: none; color: inherit; }
     padding: 8px 4px;
 }
 
-.mobile-bottom-nav .nav-item i {
-    font-size: 20px;
-    transition: all 0.2s;
-}
-
+.mobile-bottom-nav .nav-item i { font-size: 20px; transition: all 0.2s; }
 .mobile-bottom-nav .nav-item.active,
-.mobile-bottom-nav .nav-item:hover {
-    color: var(--green-dark);
-}
-
-.mobile-bottom-nav .nav-item.active i {
-    color: var(--green-dark);
-    transform: translateY(-2px);
-}
+.mobile-bottom-nav .nav-item:hover { color: var(--green-dark); }
+.mobile-bottom-nav .nav-item.active i { color: var(--green-dark); transform: translateY(-2px); }
 
 .mobile-bottom-nav .nav-badge {
     position: absolute;
@@ -331,54 +310,77 @@ a { text-decoration: none; color: inherit; }
     line-height: 14px;
 }
 
-/* =====================================================
-   RESPONSIVE
-   ===================================================== */
 @media (max-width: 768px) {
     body { padding-bottom: 70px; }
-
-    .header-container {
-        padding: 0 16px;
-        height: 56px;
-        gap: 12px;
-    }
-
-    /* Поиск толук кен */
+    .header-container { padding: 0 16px; height: 56px; gap: 12px; }
     .search-form { max-width: 100%; }
-
-    /* Хедердеги иконкаларды жашыруу — алар мобил менюда */
-    .header-actions .action-item { display: none; }
-
-    /* Логин/Выйти гана калсын */
-    .header-actions .action-item:first-child { display: flex; }
-
-    .nav-container {
-        overflow-x: auto;
-        white-space: nowrap;
-        scrollbar-width: none;
-        padding: 0 16px;
-    }
-
+    .nav-container { overflow-x: auto; white-space: nowrap; scrollbar-width: none; padding: 0 16px; }
     .nav-container::-webkit-scrollbar { display: none; }
-
     .nav-item-dropdown:hover .dropdown-menu-custom { display: none; }
-
     .main-layout-container { flex-direction: column; }
-
-    .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border);
-        padding: 15px 16px;
-    }
-
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 15px 16px; }
     .main-content { padding: 16px; }
-
-    /* Мобил меню көрүнөт */
     .mobile-bottom-nav { display: block; }
 }
 
 @media (max-width: 480px) {
     .logo { font-size: 18px; padding: 3px 8px; }
     .search-input { font-size: 13px; }
+}
+
+
+/* ===== DARK MODE — текст везде ===== */
+html.dark-mode body,
+html.dark-mode .client-dashboard,
+html.dark-mode .category-page-container,
+html.dark-mode .catalog-container,
+html.dark-mode .section-title-new,
+html.dark-mode .hero p,
+html.dark-mode .stat-label,
+html.dark-mode .order-date,
+html.dark-mode .action-btn-sub {
+    color: #e6edf3;
+}
+
+html.dark-mode .stat-card,
+html.dark-mode .order-card,
+html.dark-mode .action-btn,
+html.dark-mode .product-card,
+html.dark-mode .cta-bottom {
+    background: #161b22;
+    border-color: #30363d;
+    color: #e6edf3;
+}
+
+html.dark-mode .stat-value,
+html.dark-mode .order-num,
+html.dark-mode .action-btn-text,
+html.dark-mode .profile-name,
+html.dark-mode .category-title,
+html.dark-mode .catalog-title,
+html.dark-mode .product-link,
+html.dark-mode .current-price {
+    color: #e6edf3 !important;
+}
+
+html.dark-mode .old-price,
+html.dark-mode .stock-in,
+html.dark-mode .order-date,
+html.dark-mode .action-btn-sub,
+html.dark-mode .stat-label,
+html.dark-mode .welcome-text {
+    color: #8b949e !important;
+}
+
+html.dark-mode .cat-chip {
+    background: #161b22;
+    border-color: #30363d;
+    color: #e6edf3;
+}
+
+html.dark-mode .sale-banner-text p { color: rgba(255,255,255,0.85); }
+
+html.dark-mode .cta-bottom h3,
+html.dark-mode .cta-bottom p {
+    color: #e6edf3 !important;
 }

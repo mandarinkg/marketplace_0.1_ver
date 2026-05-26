@@ -4,9 +4,9 @@
 {% block title %}FINE — Акциялар жана жеңилдиктер{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -54,10 +54,14 @@
     <a href="{% url 'categories:detail' category.slug %}" class="cat-chip">
         <span class="cat-icon">
             {% if 'электрон' in category.name|lower %}📱
-            {% elif 'азык' in category.name|lower or 'тулук' in category.name|lower %}🛒
-            {% elif 'нан' in category.name|lower %}🍞
-            {% elif 'кийим' in category.name|lower %}👕
-            {% else %}📦{% endif %}
+            {% elif 'продукт' in category.name|lower or 'азык' in category.name|lower %}🛒
+            {% elif 'одежд' in category.name|lower or 'кийим' in category.name|lower %}👕
+            {% elif 'дом' in category.name|lower or 'үй' in category.name|lower %}🏠
+            {% elif 'аптек' in category.name|lower or 'дары' in category.name|lower %}💊
+            {% elif 'сельск' in category.name|lower or 'айыл' in category.name|lower %}🌱
+            {% elif 'школ' in category.name|lower or 'мектеп' in category.name|lower %}🎒
+            {% elif 'чистот' in category.name|lower or 'тазалык' in category.name|lower %}🧹
+            {% else %}🏪{% endif %}
         </span>
         {{ category.name }}
     </a>
@@ -86,12 +90,12 @@
 
     <div class="discounted-grid">
         {% for product in discounted_products %}
-            {% include 'includes/products_app/products_card.html' with product=product %}
+        {% include 'includes/products_app/products_card.html' with product=product %}
         {% empty %}
-            <div class="empty-state" style="grid-column: 1/-1;">
-                <div class="empty-state-icon">🏷️</div>
-                <p>Азырынча акциялар жок</p>
-            </div>
+        <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="empty-state-icon">🏷️</div>
+            <p>Азырынча акциялар жок</p>
+        </div>
         {% endfor %}
     </div>
 </div>
@@ -108,6 +112,6 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
-    <script src="{% static 'js/cart_app/cart.js' %}"></script>
+<script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
+<script src="{% static 'js/includes/products_app/cart.js' %}"></script>
 {% endblock %}

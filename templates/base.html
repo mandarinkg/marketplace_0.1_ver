@@ -11,6 +11,13 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
 
+     <script>
+        // Сразу применяем тему чтобы не мигало
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+
     <style>
         .main-layout-container {
             display: flex;
@@ -21,15 +28,15 @@
         }
         .sidebar {
             width: 280px;
-            background-color: #ffffff;
-            border-right: 1px solid #edf2f7;
+            background-color: var(--white);
+            border-right: 1px solid var(--border);
             padding: 25px 0;
             flex-shrink: 0;
         }
         .main-content {
             flex: 1;
             padding: 32px 28px;
-            background-color: #f7f8fc;
+            background-color: var(--bg);
             overflow-x: hidden;
         }
         @media (max-width: 992px) {
@@ -37,7 +44,7 @@
             .sidebar {
                 width: 100%;
                 border-right: none;
-                border-bottom: 1px solid #edf2f7;
+                border-bottom: 1px solid var(--border);
                 padding: 15px 16px;
             }
             .main-content { padding: 16px; }
@@ -61,40 +68,47 @@
             </form>
 
             <div class="header-actions">
+
+                <!-- ДЕНЬ/НОЧЬ ПЕРЕКЛЮЧАТЕЛЬ -->
+                <button class="theme-toggle action-item" id="themeToggle" title="Күн/Түн">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                    <span id="themeLabel">Түн</span>
+                </button>
+
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
-                    <a href="{% url 'dashboard:admin_dashboard' %}" class="action-item">
+                    <a href="{% url 'dashboard:admin_dashboard' %}" class="action-item desktop-only">
                         <i class="fas fa-user-shield"></i>
                         <span>Админ</span>
                     </a>
                     {% else %}
-                    <a href="{% url 'dashboard:home' %}" class="action-item">
+                    <a href="{% url 'dashboard:home' %}" class="action-item desktop-only">
                         <i class="far fa-user"></i>
                         <span>{{ user.username }}</span>
                     </a>
                     {% endif %}
-                    <a href="{% url 'accounts:logout' %}" class="action-item" style="color:#e74c3c;">
+                    <a href="{% url 'accounts:logout' %}" class="action-item desktop-only" style="color:#e74c3c;">
                         <i class="fas fa-sign-out-alt" style="color:#e74c3c;"></i>
                         <span>Выйти</span>
                     </a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="action-item">
+                    <a href="{% url 'accounts:login' %}" class="action-item desktop-only">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>Войти</span>
                     </a>
-                    <a href="{% url 'accounts:register' %}" class="action-item">
+                    <a href="{% url 'accounts:register' %}" class="action-item desktop-only">
                         <i class="fas fa-user-plus"></i>
                         <span>Регистрация</span>
                     </a>
                 {% endif %}
 
-                <div class="action-item">
+                <div class="action-item desktop-only">
                     <span class="badge">1</span>
                     <i class="fas fa-bars-staggered"></i>
                     <span>Сравнение</span>
                 </div>
 
-                <a href="{% url 'favorites:list' %}" class="action-item">
+                <a href="{% url 'favorites:list' %}" class="action-item desktop-only">
                     <span class="badge" id="favorite-badge" style="background:{% if favorite_count > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
                         {{ favorite_count|default:0 }}
                     </span>
@@ -102,13 +116,14 @@
                     <span>Избранное</span>
                 </a>
 
-                <a href="{% url 'cart:detail' %}" class="action-item">
+                <a href="{% url 'cart:detail' %}" class="action-item desktop-only">
                     <span class="badge" id="cart-badge" style="background:{% if cart_total_quantity > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
                         {{ cart_total_quantity|default:0 }}
                     </span>
                     <i class="fas fa-shopping-cart"></i>
                     <span>Корзина</span>
                 </a>
+
             </div>
         </div>
     </header>
@@ -116,6 +131,11 @@
     <!-- ===== NAV ===== -->
     <nav class="nav-bar">
         <div class="nav-container">
+            <div class="nav-item-dropdown">
+                <a href="{% url 'products:list' %}" class="nav-link" style="font-weight:700; color:#2ecc71;">
+                    <i class="fas fa-store" style="font-size:13px;"></i> Бардык товарлар
+                </a>
+            </div>
             {% for category in menu_categories %}
             <div class="nav-item-dropdown">
                 <a href="{% url 'categories:detail' category.slug %}" class="nav-link">
@@ -185,7 +205,8 @@
 
     {% block extra_js %}{% endblock %}
     <script src="{% static 'js/includes/products_app/favorites.js' %}"></script>
-    <script src="{% static 'js/cart_app/cart.js' %}"></script>
+    <script src="{% static 'js/includes/products_app/cart.js' %}"></script>
+    <script src="{% static 'js/theme.js' %}"></script>
 
 </body>
 </html>

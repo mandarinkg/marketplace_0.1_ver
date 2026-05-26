@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils.text import slugify
 import uuid
+from django.utils.translation import get_language
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255, unique=True, blank=True, default='')
     slug = models.SlugField(unique=True, blank=True)
     
     # Ички подкатегориялар үчүн жаңы талаа
@@ -30,8 +32,12 @@ class Category(models.Model):
                 self.slug = base_slug
         super().save(*args, **kwargs)
 
+
     def __str__(self):
-        # Башкаруу панелинде ички категория экени даана көрүнүп турушу үчүн
-        if self.parent:
-            return f"{self.parent.name} -> {self.name}"
-        return self.name
+        lang = get_language()
+        if lang == 'ky' and self.name_ky:
+            return self.name_ky
+        elif lang == 'ru' and self.name_ru:
+            return self.name_ru
+        # fallback — что есть то и вернёт
+        return self.name_ky or self.name_ru or self.name or '---'

@@ -1,317 +1,34 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
+{% endblock %}
 
 {% block content %}
+
 <style>
-    .category-page-container {
-        max-width: 1200px;
-        margin: 30px auto;
-        padding: 0 20px;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .breadcrumbs {
-        font-size: 14px;
-        color: #7f8c8d;
-        margin-bottom: 15px;
-    }
-
-    .breadcrumbs a {
-        color: #78b933;
-        text-decoration: none;
-    }
-
-    .breadcrumbs a:hover {
-        text-decoration: underline;
-    }
-
-    .category-title {
-        font-size: 28px;
-        font-weight: 700;
-        color: #2d3436;
-        margin-bottom: 25px;
-    }
-
-    /* Подкатегориялардын баскычтар блогу */
-    .subcategories-filter-wrapper {
-        margin-bottom: 35px;
-    }
-
-    .filter-title {
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #7f8c8d;
-        letter-spacing: 0.5px;
-        margin-bottom: 12px;
-    }
-
-    .subcategories-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .subcategory-btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background: #ffffff;
-        border: 1px solid #e1e8ed;
-        border-radius: 20px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #555555;
-        text-decoration: none;
-        transition: all 0.2s ease;
-    }
-
-    .subcategory-btn:hover {
-        border-color: #78b933;
-        color: #78b933;
-    }
-
-    .subcategory-btn.active {
-        background-color: #78b933;
-        border-color: #78b933;
-        color: #ffffff;
-    }
-
-    /* Товарлардын торчосу */
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 25px;
-    }
-
-    /* FINE стилиндеги товар карточкасы */
-    .product-card {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 20px;
-        border: 1px solid #e1e8ed;
-        transition: all 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        box-sizing: border-box;
-    }
-
-    .product-card:hover {
-        border-color: #78b933;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    }
-
-    /* Скидканын кызыл белгиси */
-    .discount-badge {
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        background-color: #d9534f;
-        color: white;
-        padding: 4px 8px;
-        font-size: 13px;
-        font-weight: 700;
-        border-radius: 4px;
-        z-index: 3;
-    }
-
-    /* Оң бурчтагы Избранное жана Сравнение иконкалары */
-    .card-actions-top {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        z-index: 3;
-    }
-
-    .action-icon {
-        color: #b2bec3;
-        font-size: 20px;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-
-    .action-icon:hover {
-        color: #78b933;
-    }
-
-    /* Сүрөт блогу */
-    .product-img-box {
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        position: relative;
-        width: 100%;
-    }
-
-    .product-img-box img {
-        max-height: 100%;
-        max-width: 100%;
-        object-fit: contain;
-    }
-
-    /* Текст блогу */
-    .product-details-block {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
-
-    .product-link {
-        color: #2c3e50;
-        font-size: 16px;
-        font-weight: 600;
-        text-decoration: none;
-        margin: 0 0 4px 0;
-        display: block;
-        line-height: 1.4;
-        transition: color 0.2s;
-    }
-
-    .product-link:hover {
-        color: #78b933;
-        text-decoration: underline;
-    }
-
-    /* Остаток үчүн кошумча стилдер */
-    .stock-indicator {
-        font-size: 13px;
-        margin-bottom: 15px;
-    }
-
-    /* Баа жана Себет жайгашкан астыңкы блок */
-    .product-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        margin-top: auto;
-    }
-
-    .price-block {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .old-price {
-        font-size: 14px;
-        text-decoration: line-through;
-        color: #7f8c8d;
-        margin-bottom: 2px;
-        font-weight: 500;
-    }
-
-    .current-price {
-        font-size: 22px;
-        font-weight: 800;
-        color: #1a1a1a;
-        line-height: 1.1;
-    }
-
-    /* Жашыл Себет баскычы */
-    .btn-cart {
-        background-color: #78b933;
-        color: white;
-        border: none;
-        width: 46px;
-        height: 46px;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        cursor: pointer;
-        transition: background-color 0.2s;
-    }
-
-    .btn-cart:hover {
-        background-color: #639b24;
-    }
-
-    /* Остаток 0 болгондогу Себет баскычынын стили */
-    .btn-cart:disabled {
-        background-color: #b2bec3;
-        color: #ffffff;
-        cursor: not-allowed;
-    }
-
-    .empty-category {
-        text-align: center;
-        padding: 60px;
-        background: #ffffff;
-        border: 1px solid #f1f3f5;
-        border-radius: 12px;
-        color: #7f8c8d;
-    }
-
-    @media (max-width: 600px) {
-        .product-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .product-card {
-            padding: 12px;
-            border-radius: 12px;
-        }
-
-        .product-img-box {
-            height: 140px;
-            margin-bottom: 10px;
-        }
-
-        .discount-badge {
-            top: 10px;
-            left: 10px;
-            font-size: 11px;
-            padding: 20px 6px;
-        }
-
-        .card-actions-top {
-            top: 10px;
-            right: 10px;
-            gap: 10px;
-        }
-
-        .action-icon {
-            font-size: 18px;
-        }
-
-        .product-link {
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .stock-indicator {
-            font-size: 11px;
-            margin-bottom: 10px;
-        }
-
-        .old-price {
-            font-size: 12px;
-        }
-
-        .current-price {
-            font-size: 16px;
-        }
-
-        .btn-cart {
-            width: 38px;
-            height: 38px;
-            font-size: 14px;
-            border-radius: 6px;
-        }
-
-        .subcategory-btn {
-            padding: 8px 14px;
-            font-size: 13px;
-        }
-    }
+.category-page-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+.breadcrumbs { font-size: 14px; color: #7f8c8d; margin-bottom: 15px; }
+.breadcrumbs a { color: #2ecc71; text-decoration: none; }
+.breadcrumbs a:hover { text-decoration: underline; }
+.category-title { font-size: 28px; font-weight: 800; color: #1a1a2e; margin-bottom: 25px; }
+.subcategories-filter-wrapper { margin-bottom: 35px; }
+.filter-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: #7f8c8d; margin-bottom: 12px; letter-spacing: 0.5px; }
+.subcategories-list { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 10px; list-style: none; padding: 0 0 8px 0; margin: 0; scrollbar-width: none; }
+.subcategories-list::-webkit-scrollbar { display: none; }
+.subcategory-btn { display: inline-block; padding: 10px 20px; background: #fff; border: 1.5px solid #edf2f7; border-radius: 20px; font-size: 14px; font-weight: 500; color: #555; text-decoration: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
+.subcategory-btn:hover { border-color: #2ecc71; color: #27ae60; }
+.subcategory-btn.active { background: #2ecc71; border-color: #2ecc71; color: #fff; }
+.empty-category { text-align: center; padding: 60px; background: #fff; border: 1px solid #edf2f7; border-radius: 16px; color: #7f8c8d; grid-column: 1/-1; }
+@media (max-width: 600px) {
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .subcategory-btn { padding: 8px 14px; font-size: 13px; }
+}
 </style>
 
 <div class="category-page-container">
@@ -319,7 +36,7 @@
     <div class="breadcrumbs">
         <a href="/">Башкы бет</a> —
         {% if category.parent %}
-        <a href="{% url 'categories:detail' category.parent.slug %}">{{ category.parent.name }}</a> —
+            <a href="{% url 'categories:detail' category.parent.slug %}">{{ category.parent.name }}</a> —
         {% endif %}
         <span>{{ category.name }}</span>
     </div>
@@ -331,22 +48,12 @@
         <div class="filter-title">Категориялар</div>
         <ul class="subcategories-list">
             {% if category.parent is None %}
-            <li>
-                <a href="{% url 'categories:detail' category.slug %}" class="subcategory-btn active">Баардыгы</a>
-            </li>
+                <li><a href="{% url 'categories:detail' category.slug %}" class="subcategory-btn active">Баардыгы</a></li>
             {% else %}
-            <li>
-                <a href="{% url 'categories:detail' category.parent.slug %}" class="subcategory-btn">Баардыгы</a>
-            </li>
+                <li><a href="{% url 'categories:detail' category.parent.slug %}" class="subcategory-btn">Баардыгы</a></li>
             {% endif %}
-
             {% for sub in subcategories %}
-            <li>
-                <a href="{% url 'categories:detail' sub.slug %}"
-                    class="subcategory-btn {% if category.id == sub.id %}active{% endif %}">
-                    {{ sub.name }}
-                </a>
-            </li>
+                <li><a href="{% url 'categories:detail' sub.slug %}" class="subcategory-btn {% if category.id == sub.id %}active{% endif %}">{{ sub.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
@@ -354,95 +61,15 @@
 
     <div class="product-grid">
         {% for product in products %}
-        <div class="product-card">
-
-            {% if product.discount_percent > 0 %}
-            <div class="discount-badge">-{{ product.discount_percent }}%</div>
-            {% endif %}
-
-            <div class="card-actions-top">
-                <i class="far fa-heart action-icon" title="В избранное"></i>
-                <i class="fas fa-bars-staggered action-icon" title="Сравнить"></i>
-            </div>
-
-            <div class="product-img-box">
-                {% if product.slug %}
-                <a href="{% url 'products:detail' product.slug %}">
-                    {% endif %}
-                    {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.title }}">
-                    {% else %}
-                    <img src="https://via.placeholder.com/200x200.png?text=No+Image" alt="No Image">
-                    {% endif %}
-                    {% if product.slug %}
-                </a>
-                {% endif %}
-            </div>
-
-            <div class="product-details-block">
-                {% if product.slug %}
-                <a href="{% url 'products:detail' product.slug %}" class="product-link">
-                    {{ product.title }}
-                </a>
-                {% else %}
-                <h3 class="product-link" style="color: #2c3e50; margin: 0 0 4px 0;">{{ product.title }}</h3>
-                {% endif %}
-
-                <div class="stock-indicator">
-                    {% if product.stock == 0 %}
-                    <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
-                    {% elif product.stock <= 3 %} <span style="color: #e67e22; font-weight: 500;">Осталось мало:
-                        <strong>{{ product.stock }} шт</strong></span>
-                        {% else %}
-                        <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }}
-                                шт</strong></span>
-                        {% endif %}
-                </div>
-
-                <div class="product-footer">
-                    <div class="price-block">
-                        {% if product.old_price %}
-                        <span class="old-price">{{ product.old_price }} ₽</span>
-                        {% endif %}
-                        <div class="current-price">{{ product.price }} ₽</div>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-
-                        <div style="font-size: 13px; margin-bottom: 15px; margin-top: 5px; font-family: 'Inter', sans-serif;">
-                            {% if product.stock == 0 %}
-                                <span style="color: #e74c3c; font-weight: 600;">Нет в наличии</span>
-                            {% elif product.stock <= 3 %}
-                                <span style="color: #e67e22; font-weight: 500;">Осталось мало: <strong>{{ product.stock }} шт</strong></span>
-                            {% else %}
-                                <span style="color: #7f8c8d;">В наличии: <strong style="color: #2c3e50;">{{ product.stock }} шт</strong></span>
-                            {% endif %}
-                        </div>
-
-                        {% if product.stock == 0 %}
-                        <button class="btn-cart" disabled
-                            style="background-color: #b2bec3 !important; color: #ffffff !important; border: none; width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: not-allowed !important;"
-                            title="Товар закончился">
-                            <i class="fas fa-shopping-cart"></i>
-                        </button>
-                        {% else %}
-                        <button class="btn-cart"
-                            style="background-color: #78b933; color: white; border: none; width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: background-color 0.2s;">
-                            <i class="fas fa-shopping-cart"></i>
-                        </button>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% include 'includes/products_app/products_card.html' with product=product %}
         {% empty %}
-        <div class="empty-category" style="width: 100%; grid-column: 1 / -1;">
-            <i class="fas fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #b2bec3;"></i>
-            <p style="font-size: 16px; margin: 0;">Бул бөлүмдө азырынча товарлар жок.</p>
-        </div>
+            <div class="empty-category">
+                <i class="fas fa-box-open" style="font-size:48px; margin-bottom:15px; color:#b2bec3; display:block;"></i>
+                <p style="font-size:16px; margin:0;">Бул бөлүмдө азырынча товарлар жок</p>
+            </div>
         {% endfor %}
     </div>
 
 </div>
+
 {% endblock %}

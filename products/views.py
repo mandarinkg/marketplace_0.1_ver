@@ -9,6 +9,7 @@ from django.http import JsonResponse # AJAX жооптору үчүн
 
 # Бардык колдонуучулар сайттын башкы баракчасында бардык активдүү товарларды көрө алышат
 # products/views.py ичиндеги index_view функциясын ушул менен алмаштыр
+# products/views.py ичиндеги index_view функциясын ушул менен алмаштыр
 
 def index_view(request):
     # Акциядагы товарлар гана башкы бетте
@@ -29,7 +30,7 @@ def index_view(request):
         'favorite_product_ids': list(favorite_product_ids),
     }
     return render(request, 'products/index.html', context)
-
+    
 
 # Client жана башкалар товардун деталдарын көрөт, seller өзүнүн товарларынын деталдарын гана көрөт
 def product_detail(request, slug):
@@ -50,31 +51,33 @@ def product_detail(request, slug):
 
 
 # Seller өзүнүн товарларын гана көрөт, client жана башкалар бардык товарларды көрөт
+# product_list функциясын ушул менен алмаштыр
+
 @login_required(login_url='accounts:login')
 def product_list(request):
     category_id = request.GET.get('category')
 
-    # seller өзүнүн товарларын гана көрөт
     if request.user.role == 'seller':
-        products = Product.objects.filter(
-            seller=request.user
-        )
-    # client жана башкалар бардык товарларды көрөт
+        products = Product.objects.filter(seller=request.user)
     else:
         products = Product.objects.all()
 
-    # category filter
     if category_id:
         products = products.filter(category_id=category_id)
 
-    products = products.exclude(
-        slug=''
-    ).exclude(
-        slug__isnull=True
-    )
+    products = products.exclude(slug='').exclude(slug__isnull=True)
+
+    # ← ЭНЕ ЖЕТИШПЕГЕН ЖЕРИ
+    favorite_product_ids = []
+    if request.user.is_authenticated and request.user.role == 'client':
+        from favorites.models import Favorite
+        favorite_product_ids = list(
+            Favorite.objects.filter(user=request.user).values_list('product_id', flat=True)
+        )
 
     return render(request, 'products/product_list.html', {
-        'products': products
+        'products': products,
+        'favorite_product_ids': favorite_product_ids,  # ← ЭНЕ ЖЕТИШПЕГЕН ЖЕРИ
     })
 
 
