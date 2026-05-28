@@ -1,0 +1,3019 @@
+[
+{
+  "model": "sessions.session",
+  "pk": "vo1a4zf5m3nakfazj0mhvikrdfbcczzc",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGln-fyjpcwZrvV5wANlSnFSIu0OkFNC-mXkvlmBba9oGLWku7MwcO_1uGfBBbQflDu3WOfa2LnPmu8IPOvjUCz0vh_t3UGHUby3BR4kuyKhjiQauLhuPAEYBWlMUelTkFIEsmYJG0sIaG4VEG0IUlr0_5uE3pw:1wN3Pg:xxhvJ8IArVknMgA1i52PfjgcvC_JPkm-DTcYpHsIbZ8",
+    "expire_date": "2026-05-27T06:49:48.510Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "z9nngkk67ohge2ck1m15u4j6t0ksbvkz",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hAGYaAu3fcMZKYMUjVtUtqV8e7apAvd_vfef6lE21rT1mRJY1YX5dXpd2MaHjLtIN9pus16mKd1GVnvij5o0_2c5Xk93L-DSq1-a_TeowMsEAnBkGQfwmCADHL03J1B0HYZHERLUmwBZ4FLMOy4wyjq_QG5lzcN:1wSWnj:Es6-KvTKosfAGz3QWJlkn2Z5s24Yf9rXie-a251ZaoA",
+    "expire_date": "2026-06-11T09:13:15.780Z"
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$QpHDs2eZBZYMKwA93SYQCt$Ua00HMC4TboXEtFkAFs9cEsgK5TT8u/Yp87aa7kd6YM=",
+    "last_login": "2026-05-26T10:25:10.493Z",
+    "is_superuser": false,
+    "username": "seller1@gmail.com",
+    "first_name": "seller1",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-12T17:48:18.889Z",
+    "email": "seller1@gmail.com",
+    "role": "seller",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$lKG8dyNUfODIgZpKoT5cs9$YVCBzsI2bpznLHIXUrTtogkjepLUmh2ypQGa1pMSx10=",
+    "last_login": "2026-05-26T12:15:08.905Z",
+    "is_superuser": false,
+    "username": "employee1@gmail.com",
+    "first_name": "employee1",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-12T17:48:45.039Z",
+    "email": "employee1@gmail.com",
+    "role": "employee",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$Qr3Acl5MeMhLxqApgiW5wN$9F/jZv1/s62YUEJYHKM+Rd8CBxItwDIJt8zt7iY6ZcA=",
+    "last_login": "2026-05-23T14:51:25.947Z",
+    "is_superuser": false,
+    "username": "courier1@gmail.com",
+    "first_name": "courier1",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-12T17:49:05.288Z",
+    "email": "courier1@gmail.com",
+    "role": "courier",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$U0VIYpyZtYH1pPug3F2Lh7$vulKhAlQj0zP1Gn3lQzgg+BANHX/qitOmuTwpkeV3No=",
+    "last_login": "2026-05-28T09:13:15.778Z",
+    "is_superuser": true,
+    "username": "admin@gmail.com",
+    "first_name": "admin",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-12T17:52:41Z",
+    "email": "admin@gmail.com",
+    "role": "seller",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$FdEDOGv1wI9L4Tqgmzl9UP$dr7NVX49qaOO3fnJ6vmXf5EwG4GFCv9F93oRrDFfTk8=",
+    "last_login": "2026-05-28T09:10:32.303Z",
+    "is_superuser": false,
+    "username": "client1@gmail.com",
+    "first_name": "client1",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-13T07:03:46.962Z",
+    "email": "client1@gmail.com",
+    "role": "client",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "accounts.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$gtZLzVuLOkWFdesPSWQVv1$6RxTBrKbhy9gbA78tzJWtwT1wd4RLb3LuRw5ymZTYPY=",
+    "last_login": "2026-05-20T08:18:50.264Z",
+    "is_superuser": false,
+    "username": "employee3@gmail.com",
+    "first_name": "employee3",
+    "last_name": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-05-20T08:05:14.321Z",
+    "email": "employee3@gmail.com",
+    "role": "employee",
+    "phone_number": null,
+    "address": null,
+    "groups": [],
+    "user_permissions": [],
+    "shops": []
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 18,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T05:53:31.020Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 19,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T05:54:04.703Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 20,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T10:35:22.289Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 21,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T10:35:33.120Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 22,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T10:43:49.006Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 23,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-14T10:46:07.275Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 24,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T05:07:57.623Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 25,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T05:13:45.845Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 27,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T05:44:03.233Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 28,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T06:11:10.920Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 29,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T06:12:54.870Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 30,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T06:15:29.094Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 31,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T13:35:13.572Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 32,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T13:41:49.395Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 33,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T13:53:00.340Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 34,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T13:56:10.321Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 35,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-18T14:02:46.619Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 36,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-19T02:28:28.415Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 37,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-19T13:32:47.376Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 38,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee3@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-19T18:26:53.346Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 39,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-19T18:49:33.672Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 40,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-19T18:50:24.542Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 41,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-19T18:57:09.577Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 42,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-19T19:02:13.642Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 43,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-20T06:31:53.965Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 46,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-20T07:54:57.660Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 47,
+  "fields": {
+    "client": [
+      "employee1@gmail.com"
+    ],
+    "employee": [
+      "employee3@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-20T08:03:05.581Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 48,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-20T12:01:53.044Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 49,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-21T00:33:01.862Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 50,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": [
+      "employee1@gmail.com"
+    ],
+    "courier": [
+      "courier1@gmail.com"
+    ],
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "delivered",
+    "created_at": "2026-05-23T14:50:26.784Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 51,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-25T13:31:00.265Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 52,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-25T18:13:37.826Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 53,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-25T18:58:55.703Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 54,
+  "fields": {
+    "client": [
+      "admin@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-26T11:42:25.518Z"
+  }
+},
+{
+  "model": "orders.order",
+  "pk": 55,
+  "fields": {
+    "client": [
+      "client1@gmail.com"
+    ],
+    "employee": null,
+    "courier": null,
+    "full_name": "",
+    "phone": "",
+    "address": "",
+    "comment": null,
+    "status": "new",
+    "created_at": "2026-05-28T09:10:46.960Z"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 1,
+  "fields": {
+    "order": 18,
+    "product": null,
+    "product_name": "ноут2",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 2,
+  "fields": {
+    "order": 19,
+    "product": null,
+    "product_name": "iPhone 15 Pro Max",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 3,
+  "fields": {
+    "order": 20,
+    "product": null,
+    "product_name": "ноут2",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 4,
+  "fields": {
+    "order": 21,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 5,
+  "fields": {
+    "order": 22,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 6,
+  "fields": {
+    "order": 23,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 7,
+  "fields": {
+    "order": 24,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 8,
+  "fields": {
+    "order": 25,
+    "product": null,
+    "product_name": "iPhone 15 Pro Max",
+    "quantity": 6,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 10,
+  "fields": {
+    "order": 27,
+    "product": null,
+    "product_name": "Помидор",
+    "quantity": 8,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 11,
+  "fields": {
+    "order": 28,
+    "product": null,
+    "product_name": "ноут",
+    "quantity": 2,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 12,
+  "fields": {
+    "order": 29,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 13,
+  "fields": {
+    "order": 30,
+    "product": null,
+    "product_name": "redmi 10s",
+    "quantity": 1,
+    "purchase_price": "0.00",
+    "sale_price": "0.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 50,
+  "fields": {
+    "order": 54,
+    "product": 17,
+    "product_name": "яблоко",
+    "quantity": 1,
+    "purchase_price": "50.00",
+    "sale_price": "65.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 51,
+  "fields": {
+    "order": 55,
+    "product": 17,
+    "product_name": "яблоко",
+    "quantity": 3,
+    "purchase_price": "50.00",
+    "sale_price": "65.00"
+  }
+},
+{
+  "model": "orders.orderitem",
+  "pk": 52,
+  "fields": {
+    "order": 55,
+    "product": 18,
+    "product_name": "Болко",
+    "quantity": 2,
+    "purchase_price": "17.00",
+    "sale_price": "23.00"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 17,
+  "fields": {
+    "seller": [
+      "admin@gmail.com"
+    ],
+    "shop": 1,
+    "category": 21,
+    "title": "яблоко",
+    "title_ky": null,
+    "title_ru": "яблоко",
+    "slug": "product-657b85f9",
+    "image": "",
+    "description": "Вид: круглый\r\nВес/Объём:  гр\r\nПроисхождение: \r\nСорт:  бархат\r\nСвежесть: Свежий",
+    "description_ky": null,
+    "description_ru": "Вид: круглый\r\nВес/Объём:  гр\r\nПроисхождение: \r\nСорт:  бархат\r\nСвежесть: Свежий",
+    "purchase_price": "50.00",
+    "price": "65.00",
+    "old_price": null,
+    "discount_percent": 0,
+    "stock": 96,
+    "created_at": "2026-05-26T11:41:33.392Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 18,
+  "fields": {
+    "seller": [
+      "admin@gmail.com"
+    ],
+    "shop": 1,
+    "category": 17,
+    "title": "Болко",
+    "title_ky": null,
+    "title_ru": "Болко",
+    "slug": "product-37589eb6",
+    "image": "products/болко_нан.jpeg",
+    "description": "Вид: -\r\nВес: 20 гр\r\nСостав: ун, дрож\r\nСрок годности: 1 месяц\r\nПроизводитель: Пончики",
+    "description_ky": null,
+    "description_ru": "Вид: -\r\nВес: 20 гр\r\nСостав: ун, дрож\r\nСрок годности: 1 месяц\r\nПроизводитель: Пончики",
+    "purchase_price": "17.00",
+    "price": "23.00",
+    "old_price": null,
+    "discount_percent": 0,
+    "stock": 98,
+    "created_at": "2026-05-26T11:44:43.203Z"
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 11,
+  "fields": {
+    "name": "Продукты",
+    "name_ky": "Азык-түлүк",
+    "name_ru": "Продукты",
+    "slug": "ee2a66ed",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 12,
+  "fields": {
+    "name": "Электроника",
+    "name_ky": "Электроника",
+    "name_ru": "Электроника",
+    "slug": "dbfecaab",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 13,
+  "fields": {
+    "name": "Товары для дома",
+    "name_ky": "Үй буюмдары",
+    "name_ru": "Товары для дома",
+    "slug": "c640edd9",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 14,
+  "fields": {
+    "name": "Одежда",
+    "name_ky": "Кийим-кечек",
+    "name_ru": "Одежда",
+    "slug": "8db1fecb",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 15,
+  "fields": {
+    "name": "Сельское хозяйство",
+    "name_ky": "Айыл чарба",
+    "name_ru": "Сельское хозяйство",
+    "slug": "89a2559a",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 16,
+  "fields": {
+    "name": "Школа & Канцтовары",
+    "name_ky": "Мектеп & Канцтовар",
+    "name_ru": "Школа & Канцтовары",
+    "slug": "249611b6",
+    "parent": null
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 17,
+  "fields": {
+    "name": "Хлеб",
+    "name_ky": "Нан",
+    "name_ru": "Хлеб",
+    "slug": "4a295031",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 18,
+  "fields": {
+    "name": "Молочные продукты",
+    "name_ky": "Сүт азыктары",
+    "name_ru": "Молочные продукты",
+    "slug": "87cf2be4",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 19,
+  "fields": {
+    "name": "Мясные продукты",
+    "name_ky": "Эт азыктары",
+    "name_ru": "Мясные продукты",
+    "slug": "ad40cb4a",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 20,
+  "fields": {
+    "name": "Овощи",
+    "name_ky": "Жашылчалар",
+    "name_ru": "Овощи",
+    "slug": "b91d3efd",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 21,
+  "fields": {
+    "name": "Фрукты",
+    "name_ky": "Мөмөлөр",
+    "name_ru": "Фрукты",
+    "slug": "145b4bbb",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 22,
+  "fields": {
+    "name": "Телефоны",
+    "name_ky": "Телефондор",
+    "name_ru": "Телефоны",
+    "slug": "09c19e3a",
+    "parent": 12
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 23,
+  "fields": {
+    "name": "Ноутбуки",
+    "name_ky": "Ноутбуктар",
+    "name_ru": "Ноутбуки",
+    "slug": "8e1326da",
+    "parent": 12
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 24,
+  "fields": {
+    "name": "Аксессуары",
+    "name_ky": "Аксессуарлар",
+    "name_ru": "Аксессуары",
+    "slug": "5dd0582b",
+    "parent": 12
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 25,
+  "fields": {
+    "name": "Кухня",
+    "name_ky": "Ашкана",
+    "name_ru": "Кухня",
+    "slug": "c85408de",
+    "parent": 13
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 26,
+  "fields": {
+    "name": "Мебель",
+    "name_ky": "Мебель",
+    "name_ru": "Мебель",
+    "slug": "7cf88eb2",
+    "parent": 13
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 27,
+  "fields": {
+    "name": "Освещение",
+    "name_ky": "Жарык",
+    "name_ru": "Освещение",
+    "slug": "b89a4186",
+    "parent": 13
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 28,
+  "fields": {
+    "name": "Мужская одежда",
+    "name_ky": "Эркектер",
+    "name_ru": "Мужская одежда",
+    "slug": "4a88c7e4",
+    "parent": 14
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 29,
+  "fields": {
+    "name": "Женская одежда",
+    "name_ky": "Аялдар",
+    "name_ru": "Женская одежда",
+    "slug": "fbec3334",
+    "parent": 14
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 30,
+  "fields": {
+    "name": "Детская одежда",
+    "name_ky": "Балдар",
+    "name_ru": "Детская одежда",
+    "slug": "0fd2ee4b",
+    "parent": 14
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 31,
+  "fields": {
+    "name": "Тетради & Ручки",
+    "name_ky": "Дептер & Калем",
+    "name_ru": "Тетради & Ручки",
+    "slug": "72a0fe1f",
+    "parent": 16
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 32,
+  "fields": {
+    "name": "Рюкзаки",
+    "name_ky": "Рюкзактар",
+    "name_ru": "Рюкзаки",
+    "slug": "9dd5463d",
+    "parent": 16
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 33,
+  "fields": {
+    "name": "Книги",
+    "name_ky": "Китептер",
+    "name_ru": "Книги",
+    "slug": "a46afbc2",
+    "parent": 16
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 34,
+  "fields": {
+    "name": "Другое Продукты",
+    "name_ky": "Башка Азыктар",
+    "name_ru": "Другое Продукты",
+    "slug": "7fa9c839",
+    "parent": 11
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 35,
+  "fields": {
+    "name": "Другие электроники",
+    "name_ky": "Башка электроника",
+    "name_ru": "Другие электроники",
+    "slug": "9dda984b",
+    "parent": 12
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 36,
+  "fields": {
+    "name": "Другие товары для дома",
+    "name_ky": "Башка уй буюмдары",
+    "name_ru": "Другие товары для дома",
+    "slug": "e82b5787",
+    "parent": 13
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 37,
+  "fields": {
+    "name": "Другие одежды",
+    "name_ky": "Башка кийимдер",
+    "name_ru": "Другие одежды",
+    "slug": "cfa594c1",
+    "parent": 14
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 38,
+  "fields": {
+    "name": "Другие сельско хозяйственные",
+    "name_ky": "Башка айыл чарба",
+    "name_ru": "Другие сельско хозяйственные",
+    "slug": "fd3f0550",
+    "parent": 15
+  }
+},
+{
+  "model": "categories.category",
+  "pk": 39,
+  "fields": {
+    "name": "Другие канцтовары",
+    "name_ky": "Башка канцтовары",
+    "name_ru": "Другие канцтовары",
+    "slug": "6d77b94b",
+    "parent": 16
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 1,
+  "fields": {
+    "user": [
+      "client1@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-19T11:49:02.357Z",
+    "updated_at": "2026-05-19T11:49:02.357Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 2,
+  "fields": {
+    "user": null,
+    "session_key": "sdbmipuleege5p2mxu5n4qlsuw268ehl",
+    "created_at": "2026-05-19T13:32:56.744Z",
+    "updated_at": "2026-05-19T13:32:56.744Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "employee1@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-19T13:33:10.057Z",
+    "updated_at": "2026-05-19T13:33:10.057Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 4,
+  "fields": {
+    "user": null,
+    "session_key": "ot1v1dkrvxwzqyz2rdte0j69gw4wri0h",
+    "created_at": "2026-05-19T13:33:25.290Z",
+    "updated_at": "2026-05-19T13:33:25.290Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "courier1@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-19T13:33:33.856Z",
+    "updated_at": "2026-05-19T13:33:33.856Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 6,
+  "fields": {
+    "user": null,
+    "session_key": "s3uvs9fscoi8itjrvi95c1g9dae456bo",
+    "created_at": "2026-05-19T13:33:55.157Z",
+    "updated_at": "2026-05-19T13:33:55.157Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 7,
+  "fields": {
+    "user": null,
+    "session_key": "w9bczjgwvfdy3xz4q7i8yje3gz7xh2jy",
+    "created_at": "2026-05-20T07:47:59.109Z",
+    "updated_at": "2026-05-20T07:47:59.109Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 8,
+  "fields": {
+    "user": null,
+    "session_key": "kbggib96ylhjk2x61cmokcqodwd9ixb2",
+    "created_at": "2026-05-20T07:50:48.547Z",
+    "updated_at": "2026-05-20T07:50:48.547Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 9,
+  "fields": {
+    "user": null,
+    "session_key": "8si2xnj88usp5qhsdsr45t5u5nwqa7pl",
+    "created_at": "2026-05-20T07:51:14.941Z",
+    "updated_at": "2026-05-20T07:51:14.941Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 10,
+  "fields": {
+    "user": null,
+    "session_key": "d38iis66nmn34ffkh9jniwb7asohkehe",
+    "created_at": "2026-05-20T07:55:49.044Z",
+    "updated_at": "2026-05-20T07:55:49.044Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 11,
+  "fields": {
+    "user": null,
+    "session_key": "3qwg33pcl26wcvwzfiim9c51nw7c4q6p",
+    "created_at": "2026-05-20T08:04:32.329Z",
+    "updated_at": "2026-05-20T08:04:32.329Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 12,
+  "fields": {
+    "user": [
+      "employee3@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-20T08:05:14.675Z",
+    "updated_at": "2026-05-20T08:05:14.675Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 13,
+  "fields": {
+    "user": null,
+    "session_key": "720n21ai0j5kkmu3d2eqfsktkqf3q8j0",
+    "created_at": "2026-05-20T08:05:17.659Z",
+    "updated_at": "2026-05-20T08:05:17.659Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 14,
+  "fields": {
+    "user": [
+      "admin@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-20T08:05:23.715Z",
+    "updated_at": "2026-05-20T08:05:23.715Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 15,
+  "fields": {
+    "user": null,
+    "session_key": "du6nt23epgp2p3m5z6jnsioirhd8m5n9",
+    "created_at": "2026-05-20T08:18:38.122Z",
+    "updated_at": "2026-05-20T08:18:38.122Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 16,
+  "fields": {
+    "user": null,
+    "session_key": "ay92bbh11k5h0whxhh91i4xwe67tnn3t",
+    "created_at": "2026-05-20T08:24:10.890Z",
+    "updated_at": "2026-05-20T08:24:10.890Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 17,
+  "fields": {
+    "user": null,
+    "session_key": "j4u21uycs4z94t636dtuztssiowk0a5y",
+    "created_at": "2026-05-20T08:27:38.965Z",
+    "updated_at": "2026-05-20T08:27:38.965Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 18,
+  "fields": {
+    "user": null,
+    "session_key": "ygbqbuqds786tfh3bmn2ab5uu4jj5twj",
+    "created_at": "2026-05-20T10:23:05.524Z",
+    "updated_at": "2026-05-20T10:23:05.524Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 19,
+  "fields": {
+    "user": null,
+    "session_key": "hphqhsprk3eqpn1y9coyb0477h0w95sn",
+    "created_at": "2026-05-20T10:23:20.568Z",
+    "updated_at": "2026-05-20T10:23:20.568Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 20,
+  "fields": {
+    "user": null,
+    "session_key": "23whzfvwndg0zsdb7nhst6mi1w0koukg",
+    "created_at": "2026-05-20T12:01:32.943Z",
+    "updated_at": "2026-05-20T12:01:32.943Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 21,
+  "fields": {
+    "user": null,
+    "session_key": "zk60bufv613nx2ty5rj06tnwvii8ezzx",
+    "created_at": "2026-05-20T12:02:00.470Z",
+    "updated_at": "2026-05-20T12:02:00.470Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 22,
+  "fields": {
+    "user": null,
+    "session_key": "5gltnd978jsv2o8zizmirpitesx3d6th",
+    "created_at": "2026-05-20T12:02:24.202Z",
+    "updated_at": "2026-05-20T12:02:24.202Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 23,
+  "fields": {
+    "user": null,
+    "session_key": "d9m87ikf6jflxph87jfoac5cmbusihh1",
+    "created_at": "2026-05-20T12:02:53.087Z",
+    "updated_at": "2026-05-20T12:02:53.087Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 24,
+  "fields": {
+    "user": null,
+    "session_key": "dplygrgz6146qw1hf1c68s15vcydudvs",
+    "created_at": "2026-05-20T13:56:51.088Z",
+    "updated_at": "2026-05-20T13:56:51.088Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 25,
+  "fields": {
+    "user": null,
+    "session_key": "g043qjuqfwj5kxdbdwr1jqq8wasfogrj",
+    "created_at": "2026-05-21T00:30:56.339Z",
+    "updated_at": "2026-05-21T00:30:56.339Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 26,
+  "fields": {
+    "user": [
+      "seller1@gmail.com"
+    ],
+    "session_key": null,
+    "created_at": "2026-05-21T00:31:12.724Z",
+    "updated_at": "2026-05-21T00:31:12.724Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 27,
+  "fields": {
+    "user": null,
+    "session_key": "w33sp9auw3vrct8i651bh2ql43xvlf8x",
+    "created_at": "2026-05-21T00:31:54.645Z",
+    "updated_at": "2026-05-21T00:31:54.645Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 28,
+  "fields": {
+    "user": null,
+    "session_key": "x8znfjlmzfjhyys14tfjbfr6rbtklt3i",
+    "created_at": "2026-05-21T00:32:33.131Z",
+    "updated_at": "2026-05-21T00:32:33.131Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 29,
+  "fields": {
+    "user": null,
+    "session_key": "3xit43r3x10w1cjtg5hmzvkzco1b39o0",
+    "created_at": "2026-05-21T00:33:05.392Z",
+    "updated_at": "2026-05-21T00:33:05.392Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 30,
+  "fields": {
+    "user": null,
+    "session_key": "vqj07ktl1dx6rh0j3k0z86kfrffmqef8",
+    "created_at": "2026-05-21T00:33:50.972Z",
+    "updated_at": "2026-05-21T00:33:50.972Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 31,
+  "fields": {
+    "user": null,
+    "session_key": "164ntyyb3ur7hz1myucaehwe9vcmuvf2",
+    "created_at": "2026-05-21T00:34:06.578Z",
+    "updated_at": "2026-05-21T00:34:06.578Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 32,
+  "fields": {
+    "user": null,
+    "session_key": "hjckvh4kmc5bphq6bnnbolg9iwaukqp8",
+    "created_at": "2026-05-21T00:35:05.953Z",
+    "updated_at": "2026-05-21T00:35:05.953Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 33,
+  "fields": {
+    "user": null,
+    "session_key": "9vf76buz3remc2zr6szlwrm74puy7nkg",
+    "created_at": "2026-05-21T09:48:17.308Z",
+    "updated_at": "2026-05-21T09:48:17.308Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 34,
+  "fields": {
+    "user": null,
+    "session_key": "zijyno2skvpsm3i4zleb4j651zkkom5i",
+    "created_at": "2026-05-21T09:48:48.886Z",
+    "updated_at": "2026-05-21T09:48:48.886Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 35,
+  "fields": {
+    "user": null,
+    "session_key": "7qaa9prdj8hzd7n1mmm00rckl2wmv99d",
+    "created_at": "2026-05-21T10:55:00.285Z",
+    "updated_at": "2026-05-21T10:55:00.285Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 36,
+  "fields": {
+    "user": null,
+    "session_key": "z8s8rcxxoe5aenrsu0h1mc5tflp9n6rb",
+    "created_at": "2026-05-21T11:06:34.792Z",
+    "updated_at": "2026-05-21T11:06:34.792Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 37,
+  "fields": {
+    "user": null,
+    "session_key": "hx4efz1wrih6e9al9ekq0giuwqp29a8j",
+    "created_at": "2026-05-21T11:15:49.887Z",
+    "updated_at": "2026-05-21T11:15:49.887Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 38,
+  "fields": {
+    "user": null,
+    "session_key": "dn744v723hbit18dod4fhr13837nw3yc",
+    "created_at": "2026-05-21T11:16:34.970Z",
+    "updated_at": "2026-05-21T11:16:34.970Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 39,
+  "fields": {
+    "user": null,
+    "session_key": "0qay62uq4utho055r01n1itumtpbhysc",
+    "created_at": "2026-05-21T11:17:34.467Z",
+    "updated_at": "2026-05-21T11:17:34.467Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 40,
+  "fields": {
+    "user": null,
+    "session_key": "u3306tusoeefngi5wr7034wk8p8rusq6",
+    "created_at": "2026-05-21T11:18:02.835Z",
+    "updated_at": "2026-05-21T11:18:02.835Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 41,
+  "fields": {
+    "user": null,
+    "session_key": "9u2uglorsy47g9o9cfw93x7embj59p0d",
+    "created_at": "2026-05-21T13:31:51.334Z",
+    "updated_at": "2026-05-21T13:31:51.334Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 42,
+  "fields": {
+    "user": null,
+    "session_key": "qq2qtgc7lh2oousn7d6j5vasjho58etq",
+    "created_at": "2026-05-23T14:50:29.577Z",
+    "updated_at": "2026-05-23T14:50:29.577Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 43,
+  "fields": {
+    "user": null,
+    "session_key": "o5rj9lw10enpogndy8r0yah79kb1ky0a",
+    "created_at": "2026-05-23T14:51:09.073Z",
+    "updated_at": "2026-05-23T14:51:09.073Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 44,
+  "fields": {
+    "user": null,
+    "session_key": "womzckp961afsmreno2c3n6ejpueihjj",
+    "created_at": "2026-05-23T14:51:48.860Z",
+    "updated_at": "2026-05-23T14:51:48.860Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 45,
+  "fields": {
+    "user": null,
+    "session_key": "ktqzttx3whis30z7edypmlg6emtg7jy9",
+    "created_at": "2026-05-23T14:53:18.007Z",
+    "updated_at": "2026-05-23T14:53:18.007Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 46,
+  "fields": {
+    "user": null,
+    "session_key": "cdzze5b1als0ybnllcz9nfawf5vsgr3k",
+    "created_at": "2026-05-23T14:54:07.792Z",
+    "updated_at": "2026-05-23T14:54:07.792Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 47,
+  "fields": {
+    "user": null,
+    "session_key": "2dcngu05jmwf0gftr3snhwrdhzszeji5",
+    "created_at": "2026-05-25T10:10:36.462Z",
+    "updated_at": "2026-05-25T10:10:36.462Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 48,
+  "fields": {
+    "user": null,
+    "session_key": "mjh7sadwrleum6x9obvwzmfo9m7p49sp",
+    "created_at": "2026-05-25T18:13:15.885Z",
+    "updated_at": "2026-05-25T18:13:15.885Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 49,
+  "fields": {
+    "user": null,
+    "session_key": "zepc4pxwibzadnd1md7a92ioi03a0jvb",
+    "created_at": "2026-05-26T05:22:36.339Z",
+    "updated_at": "2026-05-26T05:22:36.339Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 50,
+  "fields": {
+    "user": null,
+    "session_key": "gp1rsldoxbkkwfhzjfoxndshn76dpxa9",
+    "created_at": "2026-05-26T08:49:02.377Z",
+    "updated_at": "2026-05-26T08:49:02.377Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 51,
+  "fields": {
+    "user": null,
+    "session_key": "dkrzafx3ic2nqpek14ceegp4d4mhwoc7",
+    "created_at": "2026-05-26T10:25:00.230Z",
+    "updated_at": "2026-05-26T10:25:00.230Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 52,
+  "fields": {
+    "user": null,
+    "session_key": "6c3bdsp3i317kww20qvikdg7agd22d9b",
+    "created_at": "2026-05-26T12:14:55.941Z",
+    "updated_at": "2026-05-26T12:14:55.941Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 53,
+  "fields": {
+    "user": null,
+    "session_key": "l0i24s72h7nx22fdrtj2nmw120nsofmj",
+    "created_at": "2026-05-28T09:10:23.791Z",
+    "updated_at": "2026-05-28T09:10:23.791Z"
+  }
+},
+{
+  "model": "cart.cart",
+  "pk": 54,
+  "fields": {
+    "user": null,
+    "session_key": "ahr4zxcf5khntk3ym50b86ibcv92kb6p",
+    "created_at": "2026-05-28T09:13:00.255Z",
+    "updated_at": "2026-05-28T09:13:00.255Z"
+  }
+},
+{
+  "model": "cart.cartitem",
+  "pk": 41,
+  "fields": {
+    "cart": 3,
+    "product": 18,
+    "quantity": 1,
+    "created_at": "2026-05-28T09:10:14.302Z"
+  }
+},
+{
+  "model": "shops.shop",
+  "pk": 1,
+  "fields": {
+    "owner": [
+      "admin@gmail.com"
+    ],
+    "name": "Ихлас",
+    "address": "Ош мажурум тал",
+    "phone": "+996551752552",
+    "created_at": "2026-05-26T11:25:34.416Z"
+  }
+},
+{
+  "model": "favorites.favorite",
+  "pk": 54,
+  "fields": {
+    "user": [
+      "client1@gmail.com"
+    ],
+    "product": 18,
+    "created_at": "2026-05-28T09:10:39.414Z"
+  }
+},
+{
+  "model": "favorites.favorite",
+  "pk": 55,
+  "fields": {
+    "user": [
+      "client1@gmail.com"
+    ],
+    "product": 17,
+    "created_at": "2026-05-28T09:10:40.195Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-05-12T17:56:05.768Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "accounts",
+      "user"
+    ],
+    "object_id": "5",
+    "object_repr": "admin (Продавец)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Username\", \"First name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-05-12T17:56:23.829Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "accounts",
+      "user"
+    ],
+    "object_id": "5",
+    "object_repr": "admin (Продавец)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Email\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-05-12T18:24:17.590Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "1",
+    "object_repr": "Электроники",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2026-05-12T18:24:26.567Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "2",
+    "object_repr": "Азык-түлүк",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2026-05-12T18:37:52.733Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "1",
+    "object_repr": "Холодильник",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-05-12T18:38:22.878Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "2",
+    "object_repr": "Холодильник",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-05-12T18:46:12.240Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "4",
+    "object_repr": "ноутбук",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2026-05-12T18:46:12.240Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "3",
+    "object_repr": "ноутбук",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2026-05-12T18:46:12.240Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "2",
+    "object_repr": "Холодильник",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2026-05-13T03:51:58.892Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "5",
+    "object_repr": "ноут",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2026-05-13T03:52:40.160Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "products",
+      "product"
+    ],
+    "object_id": "6",
+    "object_repr": "iPhone 15 Pro Max",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2026-05-13T06:49:36.371Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "accounts",
+      "user"
+    ],
+    "object_id": "6",
+    "object_repr": "Test Seller 2 (Продавец)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Role\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2026-05-19T03:41:02.816Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "3",
+    "object_repr": "Электроники -> Аксессуары",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2026-05-19T06:30:22.686Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "4",
+    "object_repr": "Азык-түлүк -> Суусундуктар",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2026-05-19T06:30:51.834Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Суусундуктар -> Жер-жемиштер",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2026-05-19T06:31:10.865Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "6",
+    "object_repr": "Азык-түлүк -> Момо-жемиштер",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2026-05-19T06:33:54.469Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "5",
+    "object_repr": "Азык-түлүк -> Жер-жемиштер",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2026-05-25T17:33:08.271Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "7",
+    "object_repr": "Нан",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2026-05-25T17:33:36.238Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "8",
+    "object_repr": "Нан -> Патыр",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2026-05-26T05:16:36.780Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "9",
+    "object_repr": "бока",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2026-05-26T05:19:05.152Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "10",
+    "object_repr": "карандаш",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2026-05-26T08:19:08.164Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "11",
+    "object_repr": "Продукты",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2026-05-26T08:22:57.013Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "12",
+    "object_repr": "Электроника",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2026-05-26T08:23:55.342Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "13",
+    "object_repr": "Товары для дома",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2026-05-26T08:24:17.437Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "14",
+    "object_repr": "Одежда",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2026-05-26T08:24:51.307Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "15",
+    "object_repr": "Сельское хозяйство",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2026-05-26T08:25:20.691Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "16",
+    "object_repr": "Школа & Канцтовары",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2026-05-26T08:26:07.359Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "17",
+    "object_repr": "Хлеб",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2026-05-26T08:26:49.657Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "18",
+    "object_repr": "Молочные продукты",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2026-05-26T08:27:18.392Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "19",
+    "object_repr": "Мясные продукты",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2026-05-26T08:27:36.208Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "20",
+    "object_repr": "Овощи",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2026-05-26T08:27:59.644Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "21",
+    "object_repr": "Фрукты",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2026-05-26T08:29:07.842Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "22",
+    "object_repr": "Телефоны",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2026-05-26T08:29:28.087Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "23",
+    "object_repr": "Ноутбуки",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2026-05-26T08:29:50.677Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "24",
+    "object_repr": "Аксессуары",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2026-05-26T08:29:57.429Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "23",
+    "object_repr": "Ноутбуки",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2026-05-26T08:30:18.908Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "25",
+    "object_repr": "Кухня",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2026-05-26T08:30:34.137Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "26",
+    "object_repr": "Мебель",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2026-05-26T08:30:43.512Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "26",
+    "object_repr": "Мебель",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2026-05-26T08:31:08.820Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "27",
+    "object_repr": "Освещение",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2026-05-26T08:31:14.263Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "27",
+    "object_repr": "Освещение",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2026-05-26T08:31:39.071Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "28",
+    "object_repr": "Мужская одежда",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2026-05-26T08:31:45.295Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "28",
+    "object_repr": "Мужская одежда",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2026-05-26T08:32:01.422Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "29",
+    "object_repr": "Женская одежда",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2026-05-26T08:32:07.011Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "29",
+    "object_repr": "Женская одежда",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2026-05-26T08:32:30.492Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "30",
+    "object_repr": "Детская одежда",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2026-05-26T08:33:42.959Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "31",
+    "object_repr": "Тетради & Ручки",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2026-05-26T08:34:00.094Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "32",
+    "object_repr": "Рюкзаки",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2026-05-26T08:34:16.634Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "33",
+    "object_repr": "Книги",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2026-05-26T08:36:14.301Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "34",
+    "object_repr": "Другое",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2026-05-26T08:37:13.082Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "34",
+    "object_repr": "Другое Продукты",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name [ky]\", \"Name [ru]\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2026-05-26T08:37:40.829Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "35",
+    "object_repr": "Другие электроники",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2026-05-26T08:38:11.305Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "36",
+    "object_repr": "Другие товары для дома",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2026-05-26T08:39:07.369Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "37",
+    "object_repr": "Другие одежды",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2026-05-26T08:39:51.117Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "38",
+    "object_repr": "Другие сельско хозяйственные",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2026-05-26T08:40:12.143Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "39",
+    "object_repr": "Другие концтовары",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2026-05-26T08:40:22.331Z",
+    "user": [
+      "admin@gmail.com"
+    ],
+    "content_type": [
+      "categories",
+      "category"
+    ],
+    "object_id": "39",
+    "object_repr": "Другие канцтовары",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name [ky]\", \"Name [ru]\", \"\\u0420\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u044c\\u0441\\u043a\\u0430\\u044f \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u044f\"]}}]"
+  }
+}
+]
