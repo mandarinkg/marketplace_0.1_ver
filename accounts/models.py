@@ -6,7 +6,7 @@ from shops.models import Shop
 class User(AbstractUser):
     """Custom User model with roles"""
     
-    ROLES = [
+    ROLE_CHOICES = [
         ('seller', 'Продавец'),
         ('employee', 'Сотрудник'),
         ('courier', 'Курьер'),
@@ -16,7 +16,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     role = models.CharField(
         max_length=20, 
-        choices=ROLES, 
+        choices=ROLE_CHOICES, 
         default='client'
     )
 

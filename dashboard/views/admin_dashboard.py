@@ -11,6 +11,7 @@ from ..mixins import SuperuserRequiredMixin
 
 User = get_user_model()
 
+
 # ==============================================================================
 # ADMIN DASHBOARD (АДМИНИСТРАТОРДУН ПАНЕЛИ)
 # ==============================================================================
@@ -68,13 +69,34 @@ class AdminCouriersListView(LoginRequiredMixin, SuperuserRequiredMixin, ListView
     def get_queryset(self):
         return User.objects.filter(role='courier')
 
-class AdminChangeUserRoleView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
-    """ Колдонуучунун ролун өзгөртүү """
+# Колдонуучунун ролун өзгөртүү, блоктоо/разблокировка жана кызматтан четтетүү (клиентке айлантуу) үчүн төмөнкү класстарды кошуу:
+class AdminChangeUserRoleView(
+    LoginRequiredMixin,
+    SuperuserRequiredMixin,
+    UpdateView
+):
     model = User
-    fields = ['role', 'is_staff', 'is_superuser']
+
+    fields = [
+        'role',
+        'is_staff',
+        'is_superuser'
+    ]
+
     template_name = 'accounts/change_user_role.html'
-    success_url = reverse_lazy('dashboard:admin_dashboard')
+
+    success_url = reverse_lazy(
+        'dashboard:admin_dashboard'
+    )
+
     pk_url_kwarg = 'user_id'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['roles'] = User.ROLE_CHOICES
+
+        return context
 
 class AdminToggleUserStatusView(LoginRequiredMixin, SuperuserRequiredMixin, View):
     """ Колдонуучуну блоктоо/разблокировка кылуу """
