@@ -1,19 +1,31 @@
-# Python убактылуу файлдары жана кэштери
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Виртуалдык чөйрө (Environment)
+# Virtual env
 venv/
-ENV/
 env/
+ENV/
 
-# Купуя маалыматтар (Постгрес базасынын сыр сөздөрү ушул файлда сакталат)
+# Environment variables
 .env
 
-# Түзүлгөн медиа файлдар (Товарлардын сүрөттөрү)
+# Database
+db.sqlite3
+
+# Media
 media/
 
-# Операциялык системанын файлдары
+# MacOS
 .DS_Store
+
+# Windows
 Thumbs.db
+
+# Static collected
+staticfiles/
+
+# IDE
+.vscode/
+.idea/
