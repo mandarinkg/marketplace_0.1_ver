@@ -1,7 +1,46 @@
 /* =====================================================
    FINE MARKETPLACE — base.css
    ===================================================== */
+.main-layout-container {
+            display: flex;
+            max-width: 1440px;
+            margin: 0 auto;
+            min-height: calc(100vh - 160px);
+            position: relative;
+        }
 
+        .sidebar {
+            width: 280px;
+            background-color: var(--white);
+            border-right: 1px solid var(--border);
+            padding: 25px 0;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 32px 28px;
+            background-color: var(--bg);
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 992px) {
+            .main-layout-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 15px 16px;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+        }
+        
 :root {
     --green: #2ecc71;
     --green-dark: #27ae60;

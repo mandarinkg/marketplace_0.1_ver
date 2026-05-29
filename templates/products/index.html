@@ -42,36 +42,17 @@
     </div>
 </div>
 
-<!-- КАТЕГОРИЯЛАР -->
+<!-- КАТЕГОРИЯЛАР — include аркылуу -->
 <div class="section-header">
     <h2 class="section-title-new">Категориялар</h2>
     <a href="{% url 'categories:list' %}" class="section-link">
         Баары <i class="fas fa-arrow-right"></i>
     </a>
 </div>
-<div class="categories-row">
-    {% for category in menu_categories %}
-    <a href="{% url 'categories:detail' category.slug %}" class="cat-chip">
-        <span class="cat-icon">
-            {% if 'электрон' in category.name|lower %}📱
-            {% elif 'продукт' in category.name|lower or 'азык' in category.name|lower %}🛒
-            {% elif 'одежд' in category.name|lower or 'кийим' in category.name|lower %}👕
-            {% elif 'дом' in category.name|lower or 'үй' in category.name|lower %}🏠
-            {% elif 'аптек' in category.name|lower or 'дары' in category.name|lower %}💊
-            {% elif 'сельск' in category.name|lower or 'айыл' in category.name|lower %}🌱
-            {% elif 'школ' in category.name|lower or 'мектеп' in category.name|lower %}🎒
-            {% elif 'чистот' in category.name|lower or 'тазалык' in category.name|lower %}🧹
-            {% else %}🏪{% endif %}
-        </span>
-        {{ category.name }}
-    </a>
-    {% empty %}
-    <span style="color:#999; font-size:14px;">Категориялар жок</span>
-    {% endfor %}
-</div>
+{% include 'includes/categories_app/categories_slider.html' with menu_categories=menu_categories %}
 
 <!-- АКЦИЯ БАННЕРИ -->
-<div class="sale-banner">
+<div class="sale-banner" style="margin-top: 32px;">
     <div class="sale-banner-text">
         <h3>🔥 Чоң жеңилдиктер!</h3>
         <p>Тандалган товарларга -10%ден -50%ке чейин. Убакыт чектелүү!</p>
@@ -90,12 +71,12 @@
 
     <div class="discounted-grid">
         {% for product in discounted_products %}
-        {% include 'includes/products_app/products_card.html' with product=product %}
+            {% include 'includes/products_app/products_card.html' with product=product %}
         {% empty %}
-        <div class="empty-state" style="grid-column: 1/-1;">
-            <div class="empty-state-icon">🏷️</div>
-            <p>Азырынча акциялар жок</p>
-        </div>
+            <div class="empty-state" style="grid-column:1/-1; text-align:center; padding:40px; color:#95a5a6;">
+                <div style="font-size:48px; margin-bottom:12px;">🏷️</div>
+                <p>Азырынча акциялар жок</p>
+            </div>
         {% endfor %}
     </div>
 </div>

@@ -1,0 +1,82 @@
+{# templates/includes/categories_app/categories_grid.html #}
+
+{% load static %}
+<link rel="stylesheet"
+      href="{% static 'css/includes/categories_app/category_grid.css' %}">
+
+<!-- DESKTOP -->
+<div class="cats-grid">
+    {% for category in categories %}
+    <div class="cats-grid__row">
+
+        <!-- РОДИТЕЛЬ -->
+        <a href="{% url 'categories:detail' category.slug %}" class="cats-grid__parent">
+            {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.translated_name }}" class="cats-grid__parent-img">
+            {% else %}
+                <div class="cats-grid__parent-placeholder">{{ category.icon }}</div>
+            {% endif %}
+            <div class="cats-grid__parent-label">{{ category.translated_name }}</div>
+        </a>
+
+        <!-- ДОЧЕРНИЕ -->
+        <div class="cats-grid__children">
+            {% for sub in category.children.all %}
+            <a href="{% url 'categories:detail' sub.slug %}"
+               class="cats-grid__child {% if not sub.image %}no-image{% endif %}">
+                {% if sub.image %}
+                    <img src="{{ sub.image.url }}" alt="{{ sub.translated_name }}" class="cats-grid__child-img">
+                {% else %}
+                    <div class="cats-grid__child-placeholder">{{ sub.icon }}</div>
+                {% endif %}
+                <div class="cats-grid__child-label">{{ sub.translated_name }}</div>
+            </a>
+            {% empty %}
+            <div style="display:flex; align-items:center; color:#b2bec3; font-size:13px; padding:8px;">
+                Подкатегории жок
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% empty %}
+        {% include 'includes/categories_app/category_empty.html' %}
+    {% endfor %}
+</div>
+
+<!-- MOBILE -->
+<div class="cats-mobile-grid">
+    {% for category in categories %}
+    <div class="cats-mobile-row">
+
+        {# РОДИТЕЛЬ — первая колонка #}
+        <a href="{% url 'categories:detail' category.slug %}" class="cats-mobile-card cats-mobile-card--parent">
+            <div class="cats-mobile-card__image-wrapper">
+                {% if category.image %}
+                    <img src="{{ category.image.url }}" alt="{{ category.translated_name }}" class="cats-mobile-card__image">
+                {% else %}
+                    <div class="cats-mobile-card__placeholder">{{ category.icon }}</div>
+                {% endif %}
+            </div>
+            <div class="cats-mobile-card__name">{{ category.translated_name }}</div>
+        </a>
+
+        {# ДОЧЕРНИЕ — горизонтальный скролл #}
+        <div class="cats-mobile-children">
+            {% for sub in category.children.all %}
+            <a href="{% url 'categories:detail' sub.slug %}" class="cats-mobile-card">
+                <div class="cats-mobile-card__image-wrapper">
+                    {% if sub.image %}
+                        <img src="{{ sub.image.url }}" alt="{{ sub.translated_name }}" class="cats-mobile-card__image">
+                    {% else %}
+                        <div class="cats-mobile-card__placeholder">{{ sub.icon }}</div>
+                    {% endif %}
+                </div>
+                <div class="cats-mobile-card__name">{{ sub.translated_name }}</div>
+            </a>
+            {% endfor %}
+        </div>
+
+    </div>
+    {% endfor %}
+</div>

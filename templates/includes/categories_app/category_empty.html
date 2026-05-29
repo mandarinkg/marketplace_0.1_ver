@@ -1,0 +1,39 @@
+{# templates/includes/categories_app/category_empty.html #}
+
+{% load static %}
+
+<link rel="stylesheet"
+      href="{% static 'css/includes/categories_app/category_empty.css' %}">
+
+<div class="cat-empty">
+
+    <div class="cat-empty__icon">
+        📦
+    </div>
+
+    <p class="cat-empty__text">
+
+        {% if empty_message %}
+
+            {{ empty_message }}
+
+        {% else %}
+
+            Категории пока отсутствуют
+
+        {% endif %}
+
+    </p>
+
+    <a href="/"
+       class="cat-empty__btn">
+
+        <i class="fas fa-home"></i>
+
+        <span>
+            На главную
+        </span>
+
+    </a>
+
+</div>

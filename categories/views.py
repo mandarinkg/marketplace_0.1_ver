@@ -1,52 +1,93 @@
+# categories/views.py
+
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from django.utils import timezone
+from datetime import timedelta
+
 from .models import Category
-from django.db import models 
-
-from products.models import Product  # Сиздин товар моделиңизди чакырабыз
+from products.models import Product
 
 
-# Башкы категориялардын тизмеси
 def category_list(request):
-    """
-    Тек гана башкы категорияларды тизмелейт (Электроника, Одежда ж.б.).
-    Ички подкатегориялар шаблондун ичинде динамикалык түрдө чыгат.
-    """
-    # parent__isnull=True - бул ички эмес, эң башкы негизги категорияларды гана чыпкалайт
-    main_categories = Category.objects.filter(parent__isnull=True)
-    
+
+    categories = Category.objects.filter(
+        parent__isnull=True
+    ).prefetch_related('children')
+
+    days_15_ago = timezone.now() - timedelta(days=15)
+
+    recent_products = Product.objects.filter(
+        created_at__gte=days_15_ago,
+        stock__gt=0
+    ).order_by('-created_at')[:12]
+
     context = {
-        'categories': main_categories
+        'categories': categories,
+        'recent_products': recent_products,
     }
-    return render(request, 'categories/category_list.html', context)
+
+    return render(
+        request,
+        'categories/category_list.html',
+        context
+    )
 
 
-
-# Категориянын же подкатегориянын ичине киргендеги баракча
 def category_detail(request, slug):
-    """
-    Тандалган категориянын товарларын жана анын ички подкатегорияларын көрсөтөт.
-    """
-    category = get_object_or_404(Category, slug=slug)
-    
-    # 1. Тандалган категориянын ички подкатегорияларын табабыз
+
+    category = get_object_or_404(
+        Category.objects.prefetch_related('children'),
+        slug=slug
+    )
+
     subcategories = category.children.all()
-    
-    # 2. Товарларды чыпкалоо логикасы
+
+    # Главная категория
     if category.parent is None:
-        # Эгер башкы категория болсо: өзүнүн жана бардык подкатегорияларынын товарларын көрсөтүү
+
         products = Product.objects.filter(
-            models.Q(category=category) | models.Q(category__in=subcategories)
-        ).distinct().order_by('-created_at')
+            Q(category=category) |
+            Q(category__in=subcategories)
+        ).distinct()
+
+    # Подкатегория
     else:
-        # Эгер подкатегория болсо: өзүнүн товарларын гана көрсөтүү
-        products = category.products.all().order_by('-created_at')
-        
-        # Эгер бул подкатегория болсо, анда бир тууган подкатегорияларын менюда көрсөтүү үчүн
+
+        products = Product.objects.filter(
+            category=category
+        )
+
         subcategories = category.parent.children.all()
+
+    products = products.order_by('-created_at')
+
+    favorite_product_ids = []
+
+    if request.user.is_authenticated:
+
+        if request.user.role == 'client':
+
+            from favorites.models import Favorite
+
+            favorite_product_ids = list(
+                Favorite.objects.filter(
+                    user=request.user
+                ).values_list(
+                    'product_id',
+                    flat=True
+                )
+            )
 
     context = {
         'category': category,
-        'subcategories': subcategories,  # Шаблондо баскычтарды чыгаруу үчүн
-        'products': products
+        'subcategories': subcategories,
+        'products': products,
+        'favorite_product_ids': favorite_product_ids,
     }
-    return render(request, 'categories/category_detail.html', context)
+
+    return render(
+        request,
+        'categories/category_detail.html',
+        context
+    )

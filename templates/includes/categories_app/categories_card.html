@@ -1,0 +1,35 @@
+{# templates/includes/categories_app/category_card.html #}
+
+<a href="{% url 'categories:detail' category.slug %}" class="cat-card">
+
+    <div class="cat-card__image-wrapper">
+
+        {% if category.image %}
+            <img
+                src="{{ category.image.url }}"
+                alt="{{ category.translated_name }}"
+                class="cat-card__image"
+            >
+        {% else %}
+            <div class="cat-card__placeholder">
+                {{ category.icon }}
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="cat-card__content">
+
+        <div class="cat-card__name">
+            {{ category.translated_name }}
+        </div>
+
+        {% if show_count %}
+            <div class="cat-card__count">
+                {{ category.products.count }} товар
+            </div>
+        {% endif %}
+
+    </div>
+
+</a>

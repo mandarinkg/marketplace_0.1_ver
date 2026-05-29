@@ -1,0 +1,66 @@
+/* =========================================
+   category_breadcrumb.css
+   ========================================= */
+
+.cat-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 20px;
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* =========================================
+   LINKS
+   ========================================= */
+
+.cat-breadcrumb__link {
+    color: #27ae60;
+    text-decoration: none;
+
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.cat-breadcrumb__link:hover {
+    color: #219150;
+    opacity: 0.9;
+}
+
+/* =========================================
+   SEPARATOR
+   ========================================= */
+
+.cat-breadcrumb__sep {
+    color: #c0c7cf;
+    user-select: none;
+}
+
+/* =========================================
+   CURRENT PAGE
+   ========================================= */
+
+.cat-breadcrumb__current {
+    color: #1f2937;
+    font-weight: 700;
+}
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .cat-breadcrumb {
+        gap: 5px;
+        font-size: 12px;
+    }
+
+}

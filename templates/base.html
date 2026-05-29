@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block extra_css %}{% endblock %}
 
-     <script>
+    <script>
         // Сразу применяем тему чтобы не мигало
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark-mode');
@@ -19,36 +19,7 @@
     </script>
 
     <style>
-        .main-layout-container {
-            display: flex;
-            max-width: 1440px;
-            margin: 0 auto;
-            min-height: calc(100vh - 160px);
-            position: relative;
-        }
-        .sidebar {
-            width: 280px;
-            background-color: var(--white);
-            border-right: 1px solid var(--border);
-            padding: 25px 0;
-            flex-shrink: 0;
-        }
-        .main-content {
-            flex: 1;
-            padding: 32px 28px;
-            background-color: var(--bg);
-            overflow-x: hidden;
-        }
-        @media (max-width: 992px) {
-            .main-layout-container { flex-direction: column; }
-            .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                padding: 15px 16px;
-            }
-            .main-content { padding: 16px; }
-        }
+        
     </style>
 </head>
 
@@ -76,30 +47,30 @@
                 </button>
 
                 {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
-                    <a href="{% url 'dashboard:admin_dashboard' %}" class="action-item desktop-only">
-                        <i class="fas fa-user-shield"></i>
-                        <span>Админ</span>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'dashboard:home' %}" class="action-item desktop-only">
-                        <i class="far fa-user"></i>
-                        <span>{{ user.username }}</span>
-                    </a>
-                    {% endif %}
-                    <a href="{% url 'accounts:logout' %}" class="action-item desktop-only" style="color:#e74c3c;">
-                        <i class="fas fa-sign-out-alt" style="color:#e74c3c;"></i>
-                        <span>Выйти</span>
-                    </a>
+                {% if user.is_superuser %}
+                <a href="{% url 'dashboard:admin_dashboard' %}" class="action-item desktop-only">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Админ</span>
+                </a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="action-item desktop-only">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Войти</span>
-                    </a>
-                    <a href="{% url 'accounts:register' %}" class="action-item desktop-only">
-                        <i class="fas fa-user-plus"></i>
-                        <span>Регистрация</span>
-                    </a>
+                <a href="{% url 'dashboard:home' %}" class="action-item desktop-only">
+                    <i class="far fa-user"></i>
+                    <span>{{ user.username }}</span>
+                </a>
+                {% endif %}
+                <a href="{% url 'accounts:logout' %}" class="action-item desktop-only" style="color:#e74c3c;">
+                    <i class="fas fa-sign-out-alt" style="color:#e74c3c;"></i>
+                    <span>Выйти</span>
+                </a>
+                {% else %}
+                <a href="{% url 'accounts:login' %}" class="action-item desktop-only">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Войти</span>
+                </a>
+                <a href="{% url 'accounts:register' %}" class="action-item desktop-only">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Регистрация</span>
+                </a>
                 {% endif %}
 
                 <div class="action-item desktop-only">
@@ -109,7 +80,8 @@
                 </div>
 
                 <a href="{% url 'favorites:list' %}" class="action-item desktop-only">
-                    <span class="badge" id="favorite-badge" style="background:{% if favorite_count > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
+                    <span class="badge" id="favorite-badge"
+                        style="background:{% if favorite_count > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
                         {{ favorite_count|default:0 }}
                     </span>
                     <i class="far fa-heart"></i>
@@ -117,7 +89,8 @@
                 </a>
 
                 <a href="{% url 'cart:detail' %}" class="action-item desktop-only">
-                    <span class="badge" id="cart-badge" style="background:{% if cart_total_quantity > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
+                    <span class="badge" id="cart-badge"
+                        style="background:{% if cart_total_quantity > 0 %}#2ecc71{% else %}#b2bec3{% endif %};">
                         {{ cart_total_quantity|default:0 }}
                     </span>
                     <i class="fas fa-shopping-cart"></i>
@@ -146,7 +119,9 @@
                     {% for subcategory in category.children.all %}
                     <li><a href="{% url 'categories:detail' subcategory.slug %}">{{ subcategory.name }}</a></li>
                     {% empty %}
-                    <li><span style="display:block;padding:10px 14px;font-size:12px;color:#b2bec3;font-style:italic;">Ички категориялар жок</span></li>
+                    <li><span
+                            style="display:block;padding:10px 14px;font-size:12px;color:#b2bec3;font-style:italic;">Ички
+                            категориялар жок</span></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -171,7 +146,8 @@
                 <i class="fas fa-home"></i>
                 <span>Башкы</span>
             </a>
-            <a href="{% url 'products:list' %}" class="nav-item {% if 'products' in request.path %}active{% endif %}">
+            <a href="{% url 'categories:list' %}"
+                class="nav-item {% if 'categories' in request.path %}active{% endif %}">
                 <i class="fas fa-store"></i>
                 <span>Каталог</span>
             </a>
@@ -209,4 +185,5 @@
     <script src="{% static 'js/theme.js' %}"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,49 @@
+
+{# templates/includes/categories_app/categories_slider.html #}
+
+{% load static %}
+
+<link rel="stylesheet"
+      href="{% static 'css/includes/categories_app/categories_slider.css' %}">
+      
+
+<div class="cats-slider">
+
+    {% for category in menu_categories %}
+
+        <a href="{% url 'categories:detail' category.slug %}"
+           class="cats-slider__chip">
+
+            <span class="cats-slider__icon">
+
+                {% if category.image %}
+
+                    <img
+                        src="{{ category.image.url }}"
+                        alt="{{ category.translated_name }}"
+                        class="cats-slider__image"
+                    >
+
+                {% else %}
+
+                    {{ category.icon }}
+
+                {% endif %}
+
+            </span>
+
+            <span class="cats-slider__name">
+                {{ category.translated_name }}
+            </span>
+
+        </a>
+
+    {% empty %}
+
+        <div class="cats-slider__empty">
+            Категории пока отсутствуют
+        </div>
+
+    {% endfor %}
+
+</div>

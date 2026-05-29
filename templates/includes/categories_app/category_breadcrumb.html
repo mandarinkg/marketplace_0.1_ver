@@ -1,0 +1,44 @@
+{# templates/includes/categories_app/category_breadcrumb.html #}
+
+{% load static %}
+
+<link rel="stylesheet"
+      href="{% static 'css/includes/categories_app/category_breadcrumb.css' %}">
+
+<nav class="cat-breadcrumb">
+
+    <a href="/" class="cat-breadcrumb__link">
+        Главная
+    </a>
+
+    <span class="cat-breadcrumb__sep">›</span>
+
+    <a href="{% url 'categories:list' %}"
+       class="cat-breadcrumb__link">
+
+        Категории
+
+    </a>
+
+    {% if category.parent %}
+
+        <span class="cat-breadcrumb__sep">›</span>
+
+        <a href="{% url 'categories:detail' category.parent.slug %}"
+           class="cat-breadcrumb__link">
+
+            {{ category.parent.translated_name }}
+
+        </a>
+
+    {% endif %}
+
+    <span class="cat-breadcrumb__sep">›</span>
+
+    <span class="cat-breadcrumb__current">
+
+        {{ category.translated_name }}
+
+    </span>
+
+</nav>

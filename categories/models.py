@@ -1,54 +1,91 @@
 from django.db import models
 from django.utils.text import slugify
-import uuid
 from django.utils.translation import get_language
+import uuid
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255, unique=True, blank=True, default='')
-    slug = models.SlugField(unique=True, blank=True)
-    
-    # Ички подкатегориялар үчүн жаңы талаа
+
+    ICON_CHOICES = [
+        ('📱', 'Электроника'),
+        ('🛒', 'Продукты'),
+        ('👕', 'Одежда'),
+        ('🏠', 'Дом'),
+        ('💊', 'Аптека'),
+        ('🌱', 'Сельское хозяйство'),
+        ('🎒', 'Школа'),
+        ('🧹', 'Чистота'),
+        ('📦', 'Другое'),
+    ]
+
+    name = models.CharField(
+        max_length=255,
+        unique=True
+    )
+
+    slug = models.SlugField(
+        unique=True,
+        blank=True
+    )
+
+    icon = models.CharField(
+        max_length=10,
+        choices=ICON_CHOICES,
+        default='📦'
+    )
+
+    image = models.ImageField(
+        upload_to='categories/',
+        blank=True,
+        null=True
+    )
+
     parent = models.ForeignKey(
-        'self', 
-        on_delete=models.CASCADE, 
-        null=True, 
-        blank=True, 
-        related_name='children',
-        verbose_name='Родительская категория'
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='children'
     )
 
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+        ordering = ['name']
 
     def save(self, *args, **kwargs):
+
         if not self.slug:
-            # Эгерде name кириллицада болсо, slugify бош кайтарышы мүмкүн, коопсуздук үчүн уникалдуу маани беребиз
+
             base_slug = slugify(self.name)
+
             if not base_slug:
-                self.slug = slugify(str(uuid.uuid4())[:8])
-            else:
-                self.slug = base_slug
+                base_slug = str(uuid.uuid4())[:8]
+
+            slug = base_slug
+            counter = 1
+
+            while Category.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f'{base_slug}-{counter}'
+                counter += 1
+
+            self.slug = slug
+
         super().save(*args, **kwargs)
 
+    @property
+    def translated_name(self):
 
-    # categories/models.py ичиндеги __str__ методун ушул менен алмаштыр
+        lang = get_language()
+
+        if lang == 'ky':
+            return getattr(self, 'name_ky', self.name)
+
+        return getattr(self, 'name_ru', self.name)
 
     def __str__(self):
-        lang = get_language()
-        
-        if lang == 'ky':
-            name = self.name_ky or self.name_ru or self.name or '---'
-        else:
-            name = self.name_ru or self.name_ky or self.name or '---'
-        
-        # Эгер подкатегория болсо — "Продукты > Эт азыктары" форматта көрсөт
+
         if self.parent:
-            if lang == 'ky':
-                parent_name = self.parent.name_ky or self.parent.name_ru or self.parent.name or '---'
-            else:
-                parent_name = self.parent.name_ru or self.parent.name_ky or self.parent.name or '---'
-            return f"{parent_name} > {name}"
-        
-        return name
+            return f'{self.parent.translated_name} → {self.translated_name}'
+
+        return self.translated_name

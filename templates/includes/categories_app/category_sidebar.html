@@ -1,0 +1,74 @@
+{# templates/includes/categories_app/category_sidebar.html #}
+
+{% load static %}
+
+<link rel="stylesheet"
+      href="{% static 'css/includes/categories_app/category_sidebar.css' %}">
+
+<div class="cat-sidebar">
+
+    <div class="cat-sidebar__title">
+        Категориялар
+    </div>
+
+    <ul class="cat-sidebar__list">
+
+        {% for cat in categories %}
+
+            <li class="cat-sidebar__item">
+
+                <a href="{% url 'categories:detail' cat.slug %}"
+                   class="cat-sidebar__link {% if cat.slug == active_slug %}active{% endif %}">
+
+                    {% if cat.image %}
+
+                        <img
+                            src="{{ cat.image.url }}"
+                            alt="{{ cat.translated_name }}"
+                            class="cat-sidebar__image"
+                        >
+
+                    {% else %}
+
+                        <span class="cat-sidebar__icon">
+                            {{ cat.icon }}
+                        </span>
+
+                    {% endif %}
+
+                    <span class="cat-sidebar__name">
+                        {{ cat.translated_name }}
+                    </span>
+
+                </a>
+
+                {% if cat.children.exists %}
+
+                    <ul class="cat-sidebar__sub-list">
+
+                        {% for sub in cat.children.all %}
+
+                            <li>
+
+                                <a href="{% url 'categories:detail' sub.slug %}"
+                                   class="cat-sidebar__sub-link {% if sub.slug == active_slug %}active{% endif %}">
+
+                                    {{ sub.translated_name }}
+
+                                </a>
+
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                {% endif %}
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</div>

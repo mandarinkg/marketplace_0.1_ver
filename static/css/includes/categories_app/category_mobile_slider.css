@@ -1,0 +1,119 @@
+/* =========================================
+   category_mobile_slider.css
+   ========================================= */
+
+.cat-mobile-slider {
+    display: none;
+}
+
+/* =========================================
+   LIST
+   ========================================= */
+
+.cat-mobile-slider__list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    overflow-x: auto;
+
+    margin: 0;
+    padding: 0 0 8px;
+
+    list-style: none;
+
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cat-mobile-slider__list::-webkit-scrollbar {
+    display: none;
+}
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.cat-mobile-slider__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 8px 16px;
+
+    background: #ffffff;
+
+    border: 1.5px solid #edf2f7;
+    border-radius: 999px;
+
+    color: #2d3436;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.cat-mobile-slider__btn:hover {
+    border-color: #2ecc71;
+    color: #27ae60;
+
+    transform: translateY(-1px);
+}
+
+/* =========================================
+   ACTIVE
+   ========================================= */
+
+.cat-mobile-slider__btn.active {
+    background: #2ecc71;
+    border-color: #2ecc71;
+
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+/* =========================================
+   MOBILE ONLY
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    .cat-mobile-slider {
+        display: block;
+        margin-bottom: 18px;
+    }
+
+}
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 480px) {
+
+    .cat-mobile-slider__btn {
+        min-height: 36px;
+
+        padding: 7px 14px;
+
+        font-size: 12px;
+    }
+
+}

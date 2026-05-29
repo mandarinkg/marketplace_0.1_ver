@@ -1,75 +1,58 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ category.name }} — FINE{% endblock %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/includes/products_app/products_card.css' %}">
 {% endblock %}
 
 {% block content %}
+<div style="max-width:1200px; margin:24px auto; padding:0 16px;">
 
-<style>
-.category-page-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-}
-.breadcrumbs { font-size: 14px; color: #7f8c8d; margin-bottom: 15px; }
-.breadcrumbs a { color: #2ecc71; text-decoration: none; }
-.breadcrumbs a:hover { text-decoration: underline; }
-.category-title { font-size: 28px; font-weight: 800; color: #1a1a2e; margin-bottom: 25px; }
-.subcategories-filter-wrapper { margin-bottom: 35px; }
-.filter-title { font-size: 13px; font-weight: 700; text-transform: uppercase; color: #7f8c8d; margin-bottom: 12px; letter-spacing: 0.5px; }
-.subcategories-list { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 10px; list-style: none; padding: 0 0 8px 0; margin: 0; scrollbar-width: none; }
-.subcategories-list::-webkit-scrollbar { display: none; }
-.subcategory-btn { display: inline-block; padding: 10px 20px; background: #fff; border: 1.5px solid #edf2f7; border-radius: 20px; font-size: 14px; font-weight: 500; color: #555; text-decoration: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; }
-.subcategory-btn:hover { border-color: #2ecc71; color: #27ae60; }
-.subcategory-btn.active { background: #2ecc71; border-color: #2ecc71; color: #fff; }
-.empty-category { text-align: center; padding: 60px; background: #fff; border: 1px solid #edf2f7; border-radius: 16px; color: #7f8c8d; grid-column: 1/-1; }
-@media (max-width: 600px) {
-    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .subcategory-btn { padding: 8px 14px; font-size: 13px; }
-}
-</style>
+    {# BREADCRUMB #}
+    {% include 'includes/categories_app/category_breadcrumb.html' with category=category %}
 
-<div class="category-page-container">
+    <h1 style="font-size:26px; font-weight:800; color:#1a1a2e; margin-bottom:20px;">
+        {{ category.name }}
+    </h1>
 
-    <div class="breadcrumbs">
-        <a href="/">Башкы бет</a> —
-        {% if category.parent %}
-            <a href="{% url 'categories:detail' category.parent.slug %}">{{ category.parent.name }}</a> —
-        {% endif %}
-        <span>{{ category.name }}</span>
-    </div>
-
-    <h1 class="category-title">{{ category.name }}</h1>
-
+    {# МОБИЛ СЛАЙДЕР — мобилде гана көрүнөт #}
     {% if subcategories %}
-    <div class="subcategories-filter-wrapper">
-        <div class="filter-title">Категориялар</div>
-        <ul class="subcategories-list">
-            {% if category.parent is None %}
-                <li><a href="{% url 'categories:detail' category.slug %}" class="subcategory-btn active">Баардыгы</a></li>
-            {% else %}
-                <li><a href="{% url 'categories:detail' category.parent.slug %}" class="subcategory-btn">Баардыгы</a></li>
-            {% endif %}
-            {% for sub in subcategories %}
-                <li><a href="{% url 'categories:detail' sub.slug %}" class="subcategory-btn {% if category.id == sub.id %}active{% endif %}">{{ sub.name }}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+        {% include 'includes/categories_app/category_mobile_slider.html' with subcategories=subcategories category=category %}
     {% endif %}
 
-    <div class="product-grid">
-        {% for product in products %}
-            {% include 'includes/products_app/products_card.html' with product=product %}
-        {% empty %}
-            <div class="empty-category">
-                <i class="fas fa-box-open" style="font-size:48px; margin-bottom:15px; color:#b2bec3; display:block;"></i>
-                <p style="font-size:16px; margin:0;">Бул бөлүмдө азырынча товарлар жок</p>
-            </div>
-        {% endfor %}
-    </div>
+    {# ДЕСКТОП LAYOUT: sidebar + products #}
+    <div class="cat-detail-layout">
 
+        {# SIDEBAR — десктопто гана көрүнөт #}
+        {% include 'includes/categories_app/category_sidebar.html' with categories=menu_categories active_slug=category.slug %}
+
+        {# PRODUCTS #}
+        <div class="cat-detail-content">
+            <div class="product-grid">
+                {% for product in products %}
+                    {% include 'includes/products_app/products_card.html' with product=product %}
+                {% empty %}
+                    {% include 'includes/categories_app/category_empty.html' with empty_message="Бул бөлүмдө азырынча товарлар жок" %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 </div>
 
+<style>
+.cat-detail-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.cat-detail-content { flex: 1; min-width: 0; }
+
+@media (max-width: 768px) {
+    .cat-detail-layout { flex-direction: column; }
+}
+</style>
 {% endblock %}

@@ -28,13 +28,12 @@ urlpatterns = [
     path('cart/', include('cart.urls', namespace='cart')),
     path('shops/', include('shops.urls')),
     path('favorites/', include('favorites.urls')),
-
-    path('', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('orders/', include('orders.urls')),
     path('categories/', include('categories.urls')),
     path('analytics/', include('analytics.urls')),  # Бизнес-аналитика үчүн URLдер
+    path('', include('products.urls')), 
 ]
 
 # DEBUG режиминде медиа файлдарын тейлөө
